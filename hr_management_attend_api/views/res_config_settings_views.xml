@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_attendance_api" model="ir.ui.view">
+        <field name="name">res.config.settings.form.attendance.api</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app
+                    data-string="Attendance API"
+                    string="Attendance API"
+                    name="hr_management_attend_api"
+                    groups="hr_management_attend_api.group_attendance_api_admin,base.group_system"
+                >
+                    <block title="Authentication and Capacity" name="attendance_api_authentication">
+                        <setting string="Token lifetimes" help="Tokens are stored as SHA-256 digests and can be revoked at any time.">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="attendance_api_admin_token_hours" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_admin_token_hours" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_employee_token_hours" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_employee_token_hours" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Maximum page size" help="Limits the number of records returned by list endpoints.">
+                            <field name="attendance_api_max_page_size"/>
+                        </setting>
+                    </block>
+                    <block title="Browser Access" name="attendance_api_browser_access">
+                        <setting string="Allowed origins" help="Leave empty to disable cross-origin browser calls. Use comma-separated exact HTTPS origins.">
+                            <field name="attendance_api_allowed_origins" placeholder="https://attendance.example.com"/>
+                        </setting>
+                    </block>
+                    <block
+                        title="External HR Attendance Pull"
+                        name="attendance_api_external_source"
+                        groups="base.group_system"
+                    >
+                        <setting
+                            string="External API connection"
+                            help="System administrators only. Credentials are stored in restricted Odoo system parameters."
+                        >
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_base_url" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_base_url" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_company_id" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_company_id" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_timezone" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_timezone" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_admin_email" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_admin_email" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_admin_password" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_admin_password" password="True" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_admin_token" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_admin_token" password="True" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_timeout_seconds" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_timeout_seconds" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_retry_attempts" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_retry_attempts" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_page_size" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_page_size" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <field name="attendance_api_source_verify_ssl"/>
+                                </div>
+                                <div class="row mt16">
+                                    <button
+                                        name="action_test_attendance_api_source"
+                                        type="object"
+                                        string="Test Connection"
+                                        class="btn btn-secondary"
+                                        icon="fa-plug"
+                                    />
+                                    <button
+                                        name="action_clear_attendance_api_source_token"
+                                        type="object"
+                                        string="Clear Saved Token"
+                                        class="btn btn-link"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+                        <setting
+                            string="Branch and employee mapping"
+                            help="Employees are matched globally using API Employee Number only. Missing branch mappings do not block attendance imports. Creation is disabled by default."
+                        >
+                            <div class="content-group">
+                                <field name="attendance_api_source_sync_branches"/>
+                                <field name="attendance_api_source_sync_employees"/>
+                                <field name="attendance_api_source_create_missing_branches"/>
+                                <field name="attendance_api_source_create_missing_employees"/>
+                                <field name="attendance_api_source_update_reference_data"/>
+                            </div>
+                        </setting>
+                        <setting
+                            string="Scheduled pull"
+                            help="The scheduler runs continuously at the configured interval and rechecks recent days. Saving these settings repairs and reactivates the scheduled action when enabled."
+                        >
+                            <div class="content-group">
+                                <field name="attendance_api_source_enabled"/>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_lookback_days" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_lookback_days" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_interval_minutes" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_interval_minutes" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_last_attempt_at" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_last_attempt_at" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_last_success_at" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_last_success_at" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_consecutive_failures" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_consecutive_failures" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_source_last_sync_at" class="col-lg-5 o_light_label"/>
+                                    <field name="attendance_api_source_last_sync_at" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting
+                            string="Manual attendance pull"
+                            help="Pull a controlled date range immediately and open the resulting synchronization log."
+                        >
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="attendance_api_sync_date_from" class="col-lg-3 o_light_label"/>
+                                    <field name="attendance_api_sync_date_from" class="oe_inline"/>
+                                    <label for="attendance_api_sync_date_to" class="col-lg-3 o_light_label"/>
+                                    <field name="attendance_api_sync_date_to" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_sync_branch_id" class="col-lg-3 o_light_label"/>
+                                    <field name="attendance_api_sync_branch_id" class="oe_inline"/>
+                                    <label for="attendance_api_sync_employee_id" class="col-lg-3 o_light_label"/>
+                                    <field name="attendance_api_sync_employee_id" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <label for="attendance_api_sync_shift" class="col-lg-3 o_light_label"/>
+                                    <field name="attendance_api_sync_shift" class="oe_inline"/>
+                                </div>
+                                <div class="row mt16">
+                                    <button
+                                        name="action_pull_attendance_now"
+                                        type="object"
+                                        string="Pull Attendance Now"
+                                        class="btn btn-primary"
+                                        icon="fa-download"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

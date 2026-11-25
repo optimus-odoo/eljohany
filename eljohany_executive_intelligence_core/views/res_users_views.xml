@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_users_form_executive_intelligence" model="ir.ui.view">
+        <field name="name">res.users.form.executive.intelligence</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Executive Intelligence" groups="base.group_system">
+                    <group>
+                        <group string="Access Source">
+                            <field name="ei_enabled"/>
+                            <field name="ei_access_profile_id" options="{'no_create_edit': True}"/>
+                            <field name="ei_custom_access"/>
+                            <field name="ei_auto_configured"/>
+                        </group>
+                        <group string="Effective Scope">
+                            <field name="ei_company_ids" widget="many2many_tags" invisible="not ei_custom_access" domain="[('id', 'in', company_ids)]"/>
+                            <field name="ei_dashboard_ids" widget="many2many_tags" invisible="not ei_custom_access"/>
+                        </group>
+                    </group>
+                    <group string="Custom Sensitivity and Actions" invisible="not ei_custom_access">
+                        <group>
+                            <field name="ei_financial_access"/>
+                            <field name="ei_hr_access"/>
+                            <field name="ei_can_drilldown"/>
+                            <field name="ei_can_export"/>
+                        </group>
+                        <group>
+                            <field name="ei_can_forecast"/>
+                            <field name="ei_can_manage_alerts"/>
+                            <field name="ei_can_manage_kpis"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-warning" role="alert" invisible="not ei_enabled or ei_access_profile_id or ei_custom_access">
+                        Access is enabled but no profile or custom scope is configured. The user will see no dashboards.
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

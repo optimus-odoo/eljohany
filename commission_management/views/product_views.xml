@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_template_form_shared_companies" model="ir.ui.view">
+        <field name="name">product.template.form.shared.companies</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']//field[@name='company_id']" position="after">
+                <field name="shared_company_ids" widget="many2many_tags" groups="base.group_multi_company"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_template_tree_shared_companies" model="ir.ui.view">
+        <field name="name">product.template.tree.shared.companies</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="shared_company_ids" widget="many2many_tags" groups="base.group_multi_company" optional="hide"/>
+            </field>
+        </field>
+    </record>
+</odoo>

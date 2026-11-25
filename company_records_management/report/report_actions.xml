@@ -1,0 +1,8 @@
+<odoo>
+<record id="action_records_pdf" model="ir.actions.report">
+ <field name="name">تقرير إدارة السجلات</field><field name="model">crm.company.record</field>
+ <field name="report_type">qweb-pdf</field><field name="report_name">company_records_management.records_report</field>
+ <field name="report_file">company_records_management.records_report</field>
+ <field name="binding_model_id" ref="model_crm_company_record"/><field name="binding_type">report</field>
+</record>
+</odoo>

@@ -1,0 +1,74 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * pos_shift_summary_report
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: pos_shift_summary_report
+msgid "POS Shift Summary Report"
+msgstr "تقرير المناوبة لنقطة البيع"
+
+#. module: pos_shift_summary_report
+msgid "Company"
+msgstr "الشركة"
+
+#. module: pos_shift_summary_report
+msgid "Points of Sale"
+msgstr "نقاط البيع"
+
+#. module: pos_shift_summary_report
+msgid "Date and Time From"
+msgstr "من تاريخ ووقت"
+
+#. module: pos_shift_summary_report
+msgid "Date and Time To"
+msgstr "إلى تاريخ ووقت"
+
+#. module: pos_shift_summary_report
+msgid "Print Shift Report"
+msgstr "طباعة تقرير المناوبة"
+
+#. module: pos_shift_summary_report
+msgid "Closed By"
+msgstr "أغلق بواسطة"
+
+#. module: pos_shift_summary_report
+msgid "Close"
+msgstr "إغلاق"
+
+#. module: pos_shift_summary_report
+msgid "Sales and payments use the exact selected time range. Final counted cash and difference are shown only when the selected period reaches the end of a closed shift."
+msgstr "تستخدم المبيعات والمدفوعات نطاق الوقت المحدد بدقة. يظهر النقد الفعلي والفرق فقط عندما تصل الفترة المختارة إلى نهاية مناوبة مغلقة."
+
+#. module: pos_shift_summary_report
+msgid "POS Sessions"
+msgstr "جلسات نقطة البيع"
+
+#. module: pos_shift_summary_report
+msgid "All selected POS Sessions must belong to the selected company and Points of Sale."
+msgstr "يجب أن تتبع جميع جلسات نقطة البيع المحددة الشركة ونقاط البيع المختارة."
+
+#. module: pos_shift_summary_report
+msgid "Shift Report"
+msgstr "تقرير المناوبة"
+
+#. module: pos_shift_summary_report
+msgid "Download the shift report without closing or changing the POS session"
+msgstr "تحميل تقرير المناوبة دون إغلاق جلسة نقطة البيع أو تغييرها"
+
+#. module: pos_shift_summary_report
+msgid "Shift report download failed"
+msgstr "تعذر تحميل تقرير المناوبة"
+
+#. module: pos_shift_summary_report
+msgid "The shift report could not be downloaded. The POS session was not changed."
+msgstr "تعذر تحميل تقرير المناوبة. لم يتم تغيير جلسة نقطة البيع."
+
+#. module: pos_shift_summary_report
+msgid "The POS session has no opening date."
+msgstr "لا يوجد تاريخ فتح لجلسة نقطة البيع."

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_customer_credit_dashboard" model="ir.actions.client">
+        <field name="name">لوحة تحكم ائتمان العملاء</field>
+        <field name="tag">customer_credit_dashboard</field>
+    </record>
+</odoo>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_my_sales_invoices" model="ir.actions.act_window">
+        <field name="name">فواتير المبيعات</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,kanban,form,activity</field>
+        <field name="view_id" ref="account.view_out_invoice_tree"/>
+        <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+        <field name="domain">[('move_type', '=', 'out_invoice'), ('invoice_user_id', '=', uid)]</field>
+        <field name="context">{
+            'default_move_type': 'out_invoice',
+            'default_invoice_user_id': uid,
+            'move_type': 'out_invoice',
+            'journal_type': 'sale'
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">إنشاء فاتورة مبيعات</p>
+            <p>تعرض هذه القائمة فواتير المبيعات المرتبطة بالمستخدم الحالي فقط.</p>
+        </field>
+    </record>
+
+    <record id="action_my_sales_refunds" model="ir.actions.act_window">
+        <field name="name">فواتير مرتجع</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,kanban,form,activity</field>
+        <field name="view_id" ref="account.view_out_credit_note_tree"/>
+        <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+        <field name="domain">[('move_type', '=', 'out_refund'), ('invoice_user_id', '=', uid)]</field>
+        <field name="context">{
+            'default_move_type': 'out_refund',
+            'default_invoice_user_id': uid,
+            'move_type': 'out_refund',
+            'journal_type': 'sale',
+            'display_account_trust': True
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">إنشاء فاتورة مرتجع</p>
+            <p>يمكن إنشاء المرتجع من فاتورة المبيعات الأصلية أو مباشرة من هذه القائمة.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_my_sales_invoices"
+              name="فواتير المبيعات"
+              parent="sale.sale_menu_root"
+              action="action_my_sales_invoices"
+              groups="sales_team.group_sale_salesman"
+              sequence="21"/>
+
+    <menuitem id="menu_my_sales_refunds"
+              name="فواتير مرتجع"
+              parent="sale.sale_menu_root"
+              action="action_my_sales_refunds"
+              groups="sales_team.group_sale_salesman"
+              sequence="22"/>
+</odoo>

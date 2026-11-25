@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="inherit_sale_order_line_form" model="ir.ui.view">
+		<field name="name">sale.order.form</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='order_line']//tree//field[@name='name']"
+				position="after">
+				<field name="stock_location_id"
+					domain="[('usage', '=', 'internal'), ('company_id', '=', company_id)]"
+					attrs="{'readonly': [('product_updatable', '=', False)]}" context="{'from_so_line_warehouse': parent.warehouse_id}"
+					options="{'no_open': 1, 'no_create': 1}" />
+			</xpath>
+			<xpath expr="//field[@name='order_line']//form//field[@name='tax_id']"
+				position="after">
+				<field name="stock_location_id"
+					domain="[('usage', '=', 'internal'), ('company_id', '=', company_id)]"
+					attrs="{'readonly': [('product_updatable', '=', False)]}" context="{'from_so_line_warehouse': parent.warehouse_id}"
+					options="{'no_open': 1, 'no_create': 1}" />
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

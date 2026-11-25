@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_dual_account_control" model="ir.ui.view">
+        <field name="name">res.config.settings.form.dual.account.control</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <app name="account" position="inside">
+                <setting id="partner_dual_account_control_setting"
+                         string="Customer and Vendor Account Separation"
+                         company_dependent="1"
+                         help="Enable this only after running the partner account audit and correcting all reported issues.">
+                    <field name="partner_dual_account_control_enabled"/>
+                </setting>
+            </app>
+        </field>
+    </record>
+</odoo>

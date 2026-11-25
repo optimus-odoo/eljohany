@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_contract_overtime_view">
+            <field name="name">hr.contract.overtime.form.inherit.view</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="overtime" string="Overtime">
+                        <group string="Overtime">
+                        <field name="can_request_overtime"/>
+                        <label for="over_day" invisible="can_request_overtime != 'yes'"/>
+                        <div class="o_row" name="day_wage" invisible="can_request_overtime != 'yes'">
+                            <field name="over_day"/>
+                            <span>/day</span>
+                        </div>
+                        <label for="over_hour" invisible="can_request_overtime != 'yes'"/>
+                        <div class="o_row" name="hour_wage" invisible="can_request_overtime != 'yes'">
+                            <field name="over_hour"/>
+                            <span>/hour</span>
+                        </div>
+                    </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

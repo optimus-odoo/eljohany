@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="visit_type_view_form" model="ir.ui.view">
+        <field name="name">visit.type.form</field>
+        <field name="model">visit.type</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <field name="name" />
+                <field name="points"/>
+            </form>
+        </field>
+    </record>
+    <record id="visit_type_view_tree" model="ir.ui.view">
+        <field name="name">visit.type.tree</field>
+        <field name="model">visit.type</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" required="1" />
+                <field name="points" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="visit_type_action" model="ir.actions.act_window">
+        <field name="name">Visit Type</field>
+        <field name="res_model">visit.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

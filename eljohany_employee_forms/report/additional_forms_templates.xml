@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="additional_form_header">
+        <style>
+            .ef-page {
+                direction: rtl;
+                color: #26384a;
+                font-family: "DejaVu Sans", Tahoma, Arial, sans-serif;
+                font-size: 12px;
+                line-height: 1.65;
+            }
+            .ef-header {
+                border-bottom: 3px solid #17365d;
+                break-inside: avoid;
+                margin-bottom: 18px;
+                page-break-inside: avoid;
+                padding-bottom: 10px;
+            }
+            .ef-header-table {
+                border: 0 !important;
+                border-collapse: collapse;
+                direction: ltr;
+                table-layout: fixed;
+                width: 100%;
+            }
+            .ef-header-table td {
+                border: 0 !important;
+                direction: rtl;
+                padding: 4px 10px;
+                page-break-inside: avoid;
+                vertical-align: middle;
+            }
+            .ef-header-table,
+            .ef-header-table tr {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .ef-company-cell { width: 31%; text-align: right; }
+            .ef-title-cell { overflow: hidden; width: 38%; text-align: center; }
+            .ef-meta-cell { width: 31%; text-align: left; }
+            .ef-logo {
+                display: block;
+                margin: 0 0 5px auto;
+                max-height: 54px;
+                max-width: 145px;
+                object-fit: contain;
+            }
+            .ef-company-name {
+                color: #17365d;
+                font-size: 13px;
+                font-weight: 700;
+                line-height: 1.35;
+            }
+            .ef-company-details {
+                color: #66788a;
+                font-size: 9.5px;
+                line-height: 1.4;
+                margin-top: 2px;
+            }
+            .ef-doc-title {
+                color: #17365d;
+                font-size: 22px;
+                font-weight: 700;
+                letter-spacing: .2px;
+                line-height: 1.3;
+                overflow-wrap: anywhere;
+            }
+            .ef-meta-box {
+                background: #f3f6f9;
+                border: 1px solid #d7e0e8;
+                border-radius: 4px;
+                display: inline-block;
+                min-width: 155px;
+                padding: 7px 10px;
+                text-align: right;
+            }
+            .ef-meta-row { margin: 1px 0; white-space: nowrap; }
+            .ef-meta-label { color: #687b8e; display: inline-block; width: 62px; }
+            .ef-meta-value { color: #17365d; font-weight: 700; }
+            .ef-intro {
+                background: #f8fafc;
+                border-right: 4px solid #b18a43;
+                margin: 0 0 15px;
+                padding: 10px 13px;
+            }
+            .ef-section-title {
+                background: #edf2f7;
+                border-right: 4px solid #17365d;
+                color: #17365d;
+                font-size: 15px;
+                font-weight: 700;
+                margin: 17px 0 8px;
+                padding: 6px 10px;
+            }
+            .ef-table {
+                border-collapse: collapse !important;
+                margin: 0 0 13px !important;
+                table-layout: fixed;
+                width: 100%;
+            }
+            .ef-table th,
+            .ef-table td {
+                border: 1px solid #cbd6e0 !important;
+                padding: 7px 9px !important;
+                text-align: right;
+                vertical-align: middle;
+                word-wrap: break-word;
+            }
+            .ef-table th {
+                background: #edf2f7;
+                color: #17365d;
+                font-weight: 700;
+            }
+            .ef-details th { width: 19%; }
+            .ef-details td { width: 31%; }
+            .ef-finance thead th {
+                background: #17365d;
+                border-color: #17365d !important;
+                color: #ffffff;
+                text-align: center;
+            }
+            .ef-finance tbody tr:nth-child(even) td { background: #f8fafc; }
+            .ef-finance .ef-amount { direction: ltr; text-align: left; white-space: nowrap; }
+            .ef-total-row th,
+            .ef-total-row td {
+                background: #e5edf5 !important;
+                border-top: 2px solid #17365d !important;
+                color: #17365d;
+                font-weight: 700;
+            }
+            .ef-box {
+                background: #fbfcfd;
+                border: 1px solid #cbd6e0;
+                border-radius: 4px;
+                margin: 8px 0 14px;
+                padding: 11px 13px;
+            }
+            .ef-signatures {
+                border-collapse: separate;
+                border-spacing: 8px 0;
+                margin-top: 25px;
+                page-break-inside: avoid;
+                text-align: center;
+                width: 100%;
+            }
+            .ef-signatures td {
+                border: 1px solid #cbd6e0;
+                padding: 10px 8px 14px;
+                vertical-align: top;
+            }
+            .ef-signature-title {
+                color: #17365d;
+                display: block;
+                font-weight: 700;
+                margin-bottom: 18px;
+            }
+            .ef-footer {
+                border-top: 1px solid #d7e0e8;
+                color: #7a8998;
+                font-size: 9px;
+                margin-top: 22px;
+                padding-top: 7px;
+                text-align: center;
+            }
+            .ef-note { color: #526579; font-size: 10.5px; }
+            .ef-summary-table {
+                border-collapse: separate !important;
+                border-spacing: 7px !important;
+                margin: 0 0 13px !important;
+                table-layout: fixed;
+                width: 100%;
+            }
+            .ef-summary-table td {
+                background: #f3f6f9;
+                border: 1px solid #d7e0e8 !important;
+                color: #526579;
+                padding: 9px 6px !important;
+                text-align: center;
+                width: 33.33%;
+            }
+            .ef-summary-count {
+                color: #17365d;
+                display: block;
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 1.2;
+            }
+            .ef-related-table { font-size: 9.5px; }
+            .ef-related-table thead { display: table-header-group; }
+            .ef-related-table thead th {
+                background: #17365d;
+                border-color: #17365d !important;
+                color: #ffffff;
+                text-align: center;
+            }
+            .ef-related-table td { padding: 5px 6px !important; }
+            .ef-table tr, .ef-box, .ef-section-title { page-break-inside: avoid; }
+        </style>
+        <div class="ef-header">
+            <table class="ef-header-table">
+                <tr>
+                    <td class="ef-meta-cell">
+                        <div class="ef-meta-box">
+                            <div class="ef-meta-row"><span class="ef-meta-label">رقم النموذج</span><span class="ef-meta-value" t-field="doc.name"/></div>
+                            <div class="ef-meta-row"><span class="ef-meta-label">التاريخ</span><span class="ef-meta-value" t-field="doc.document_date"/></div>
+                            <div class="ef-meta-row" t-if="doc.branch_id"><span class="ef-meta-label">الفرع</span><span class="ef-meta-value" t-field="doc.branch_id"/></div>
+                        </div>
+                    </td>
+                    <td class="ef-title-cell">
+                        <div class="ef-doc-title"><t t-esc="title"/></div>
+                    </td>
+                    <td class="ef-company-cell">
+                        <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" class="ef-logo" alt="شعار الشركة"/>
+                        <div class="ef-company-name"><span t-field="doc.company_id.name"/></div>
+                        <div class="ef-company-details">
+                            <span t-if="doc.company_id.partner_id.city" t-field="doc.company_id.partner_id.city"/>
+                            <t t-if="doc.company_id.partner_id.city and doc.company_id.country_id"> - </t>
+                            <span t-if="doc.company_id.country_id" t-field="doc.company_id.country_id"/>
+                            <div t-if="doc.company_id.vat">الرقم الضريبي: <span t-field="doc.company_id.vat"/></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </template>
+
+    <template id="additional_form_signatures">
+        <table class="ef-signatures">
+            <tr>
+                <td style="width:33%;"><span class="ef-signature-title">إعداد الموارد البشرية</span>الاسم: __________________<br/><br/>التوقيع: ________________</td>
+                <td style="width:33%;"><span class="ef-signature-title">المسؤول المباشر</span>الاسم: __________________<br/><br/>التوقيع: ________________</td>
+                <td style="width:33%;"><span class="ef-signature-title">الاعتماد</span>الاسم: __________________<br/><br/>التوقيع: ________________</td>
+            </tr>
+        </table>
+    </template>
+
+    <template id="additional_form_footer">
+        <div class="ef-footer">
+            وثيقة صادرة إلكترونيًا من نظام الموارد البشرية
+            <span t-if="doc.name"> - المرجع: <span t-field="doc.name"/></span>
+        </div>
+    </template>
+
+    <template id="report_job_offer_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="article"
+                     t-att-data-oe-model="doc._name"
+                     t-att-data-oe-id="doc.id"
+                     t-att-data-oe-lang="doc.env.context.get('lang')">
+                    <div class="page ef-page" t-translation="off">
+                        <t t-set="title" t-value="'عرض وظيفي'"/>
+                        <t t-call="eljohany_employee_forms.additional_form_header"/>
+                        <div class="ef-intro">
+                            السيد/السيدة: <strong t-field="doc.candidate_name"/>،<br/>
+                            يسر <strong t-field="doc.company_id"/> أن تقدم لكم عرضًا وظيفيًا وفق البيانات والشروط الآتية:
+                        </div>
+                        <table class="ef-table ef-details">
+                            <tr><th style="width:25%;">المسمى الوظيفي</th><td><span t-field="doc.job_id"/></td><th style="width:25%;">الإدارة</th><td><span t-field="doc.department_id"/></td></tr>
+                            <tr><th>الفرع</th><td><span t-field="doc.branch_id"/></td><th>مقر العمل</th><td><span t-field="doc.work_location"/></td></tr>
+                            <tr><th>تاريخ المباشرة المتوقع</th><td><span t-field="doc.expected_joining_date"/></td><th>مدة العقد</th><td><span t-field="doc.contract_duration"/></td></tr>
+                            <tr><th>مدة التجربة</th><td><span t-field="doc.probation_days"/> يومًا</td><th>ساعات العمل</th><td><span t-field="doc.working_hours"/></td></tr>
+                        </table>
+                        <div class="ef-section-title">التعويضات المالية</div>
+                        <table class="ef-table ef-finance">
+                            <thead><tr><th>البيان</th><th>الدورية</th><th>القيمة</th><th>ملاحظات</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>الراتب الأساسي</strong></td><td>شهري</td><td class="ef-amount"><span t-field="doc.basic_salary" t-options="{'widget':'monetary','display_currency':doc.currency_id}"/></td><td/></tr>
+                                <tr t-foreach="doc.allowance_ids" t-as="line">
+                                    <td><span t-field="line.name"/></td><td><span t-field="line.frequency"/></td><td class="ef-amount"><span t-field="line.amount" t-options="{'widget':'monetary','display_currency':doc.currency_id}"/></td><td><span t-field="line.notes"/></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr class="ef-total-row"><th colspan="2">الإجمالي الشهري</th><td class="ef-amount"><span t-field="doc.monthly_total" t-options="{'widget':'monetary','display_currency':doc.currency_id}"/></td><td/></tr>
+                                <tr t-if="doc.one_time_allowance_total" class="ef-total-row"><th colspan="2">مزايا لمرة واحدة</th><td class="ef-amount"><span t-field="doc.one_time_allowance_total" t-options="{'widget':'monetary','display_currency':doc.currency_id}"/></td><td/></tr>
+                            </tfoot>
+                        </table>
+                        <div class="ef-section-title">الشروط والأحكام</div>
+                        <div t-if="doc.terms" class="ef-box"><div t-field="doc.terms"/></div>
+                        <p class="ef-note">هذا العرض صالح حتى: <strong t-field="doc.offer_valid_until"/>، ويخضع توقيع العقد للأنظمة والسياسات المعتمدة.</p>
+                        <table class="ef-signatures"><tr><td style="width:50%;"><span class="ef-signature-title">ممثل الشركة</span>الاسم والتوقيع: __________________</td><td style="width:50%;"><span class="ef-signature-title">موافقة المرشح</span>الاسم والتوقيع: __________________</td></tr></table>
+                        <t t-call="eljohany_employee_forms.additional_form_footer"/>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_work_commencement_document">
+        <t t-call="web.html_container"><t t-foreach="docs" t-as="doc">
+            <div class="article" t-att-data-oe-model="doc._name" t-att-data-oe-id="doc.id" t-att-data-oe-lang="doc.env.context.get('lang')">
+            <div class="page ef-page" t-translation="off">
+                <t t-set="title" t-value="'نموذج مباشرة عمل'"/><t t-call="eljohany_employee_forms.additional_form_header"/>
+                <table class="ef-table ef-details">
+                    <tr><th>اسم الموظف</th><td><span t-field="doc.employee_id"/></td><th>نوع المباشرة</th><td><span t-field="doc.commencement_type"/></td></tr>
+                    <tr><th>الرقم الوظيفي</th><td><span t-field="doc.employee_number"/></td><th>تاريخ المباشرة</th><td><span t-field="doc.commencement_date"/></td></tr>
+                    <tr><th>الفرع</th><td><span t-field="doc.branch_id"/></td><th>الإدارة</th><td><span t-field="doc.department_id"/></td></tr>
+                    <tr><th>المسمى الوظيفي</th><td><span t-field="doc.job_id"/></td><th>المدير المباشر</th><td><span t-field="doc.manager_id"/></td></tr>
+                    <tr t-if="doc.leave_id"><th>الإجازة المرتبطة</th><td colspan="3"><span t-field="doc.leave_id"/></td></tr>
+                    <tr><th>مقر العمل</th><td colspan="3"><span t-field="doc.work_location"/></td></tr>
+                    <tr><th>ملاحظات</th><td colspan="3"><span t-field="doc.notes"/></td></tr>
+                </table>
+                <div class="ef-intro">نفيد بأن الموظف الموضحة بياناته أعلاه قد باشر عمله في التاريخ المحدد، ويرجى استكمال الإجراءات الإدارية والمالية اللازمة.</div>
+                <t t-call="eljohany_employee_forms.additional_form_footer"/>
+            </div>
+            </div>
+        </t></t>
+    </template>
+
+    <template id="report_vehicle_handover_document">
+        <t t-call="web.html_container"><t t-foreach="docs" t-as="doc">
+            <div class="article" t-att-data-oe-model="doc._name" t-att-data-oe-id="doc.id" t-att-data-oe-lang="doc.env.context.get('lang')">
+            <div class="page ef-page" t-translation="off">
+                <t t-set="title" t-value="'نموذج استلام سيارة'"/><t t-call="eljohany_employee_forms.additional_form_header"/>
+                <table class="ef-table ef-details">
+                    <tr><th>الموظف المستلم</th><td><span t-field="doc.employee_id"/></td><th>الفرع</th><td><span t-field="doc.branch_id"/></td></tr>
+                    <tr><th>السيارة</th><td><span t-field="doc.vehicle_id"/></td><th>رقم اللوحة</th><td><span t-field="doc.vehicle_id.license_plate"/></td></tr>
+                    <tr><th>رقم الهيكل</th><td><span t-field="doc.vehicle_id.vin_sn"/></td><th>تاريخ الاستلام</th><td><span t-field="doc.handover_date"/></td></tr>
+                    <tr><th>قراءة العداد</th><td><span t-field="doc.odometer"/></td><th>مستوى الوقود</th><td><span t-field="doc.fuel_level"/></td></tr>
+                    <tr><th>عدد المفاتيح</th><td><span t-field="doc.keys_count"/></td><th>تاريخ الإعادة المتوقع</th><td><span t-field="doc.expected_return_date"/></td></tr>
+                    <tr><th>حالة السيارة</th><td colspan="3"><span t-field="doc.vehicle_condition"/></td></tr>
+                    <tr><th>الملحقات</th><td colspan="3"><span t-field="doc.accessories"/></td></tr>
+                </table>
+                <div class="ef-section-title">إقرار ومسؤوليات المستلم</div>
+                <div class="ef-box"><div t-field="doc.responsibility_terms"/></div>
+                <table t-if="doc.state == 'returned'" class="ef-table ef-details">
+                    <tr><th colspan="4">بيانات إعادة السيارة</th></tr>
+                    <tr><th>تاريخ الإعادة</th><td><span t-field="doc.return_date"/></td><th>قراءة العداد عند الإعادة</th><td><span t-field="doc.return_odometer"/></td></tr>
+                    <tr><th>حالة السيارة عند الإعادة</th><td colspan="3"><span t-field="doc.return_condition"/></td></tr>
+                </table>
+                <table class="ef-signatures"><tr><td style="width:50%;"><span class="ef-signature-title">مسؤول الأسطول</span>التوقيع: __________________</td><td style="width:50%;"><span class="ef-signature-title">الموظف المستلم</span>التوقيع: __________________</td></tr></table>
+                <t t-call="eljohany_employee_forms.additional_form_footer"/>
+            </div>
+            </div>
+        </t></t>
+    </template>
+
+    <template id="report_sim_handover_document">
+        <t t-call="web.html_container"><t t-foreach="docs" t-as="doc">
+            <div class="article" t-att-data-oe-model="doc._name" t-att-data-oe-id="doc.id" t-att-data-oe-lang="doc.env.context.get('lang')">
+            <div class="page ef-page" t-translation="off">
+                <t t-set="title" t-value="'نموذج استلام شريحة إلكترونية'"/><t t-call="eljohany_employee_forms.additional_form_header"/>
+                <table class="ef-table ef-details">
+                    <tr><th>الموظف المستلم</th><td><span t-field="doc.employee_id"/></td><th>الفرع</th><td><span t-field="doc.branch_id"/></td></tr>
+                    <tr><th>رقم الشريحة</th><td><span t-field="doc.sim_id.mobile_number"/></td><th>الرقم التسلسلي</th><td><span t-field="doc.sim_id.serial_number"/></td></tr>
+                    <tr><th>الفئة</th><td><span t-field="doc.sim_id.category_id"/></td><th>السعر الشهري</th><td><span t-field="doc.sim_id.monthly_price" t-options="{'widget':'monetary','display_currency':doc.sim_id.currency_id}"/></td></tr>
+                    <tr><th>شركة الاتصالات</th><td><span t-field="doc.sim_id.carrier"/></td><th>تاريخ الاستلام</th><td><span t-field="doc.handover_date"/></td></tr>
+                    <tr><th>الغرض</th><td colspan="3"><span t-field="doc.purpose"/></td></tr>
+                </table>
+                <div class="ef-section-title">إقرار المستلم</div>
+                <div class="ef-box"><div t-field="doc.acknowledgement"/></div>
+                <table t-if="doc.state == 'returned'" class="ef-table ef-details">
+                    <tr><th colspan="2">بيانات إعادة الشريحة</th></tr>
+                    <tr><th>تاريخ الإعادة</th><td><span t-field="doc.return_date"/></td></tr>
+                    <tr t-if="doc.return_notes"><th>ملاحظات الإعادة</th><td><span t-field="doc.return_notes"/></td></tr>
+                </table>
+                <table class="ef-signatures"><tr><td style="width:50%;"><span class="ef-signature-title">مسؤول العهد</span>التوقيع: __________________</td><td style="width:50%;"><span class="ef-signature-title">الموظف المستلم</span>التوقيع: __________________</td></tr></table>
+                <t t-call="eljohany_employee_forms.additional_form_footer"/>
+            </div>
+            </div>
+        </t></t>
+    </template>
+
+    <template id="report_employee_information_document">
+        <t t-call="web.html_container"><t t-foreach="docs" t-as="doc">
+            <div class="article" t-att-data-oe-model="doc._name" t-att-data-oe-id="doc.id" t-att-data-oe-lang="doc.env.context.get('lang')">
+            <div class="page ef-page" t-translation="off">
+                <t t-set="title" t-value="'تقرير معلومات الموظف'"/><t t-call="eljohany_employee_forms.additional_form_header"/>
+                <div class="ef-intro"><strong>الغرض من التقرير:</strong> <span t-field="doc.purpose"/></div>
+                <table class="ef-table ef-details">
+                    <tr><th>اسم الموظف</th><td><span t-esc="doc.employee_name or ''"/></td><th>الرقم الوظيفي</th><td><span t-field="doc.employee_number"/></td></tr>
+                    <tr><th>رقم الهوية / الإقامة</th><td><span t-field="doc.identification_id"/></td><th>الجنسية</th><td><span t-field="doc.nationality"/></td></tr>
+                    <tr><th>الشركة</th><td><span t-field="doc.company_id"/></td><th>الفرع</th><td><span t-field="doc.branch_id"/></td></tr>
+                    <tr><th>الإدارة</th><td><span t-field="doc.department_id"/></td><th>المسمى الوظيفي</th><td><span t-field="doc.job_id"/></td></tr>
+                    <tr><th>المدير المباشر</th><td><span t-esc="doc.manager_name or ''"/></td><th>تاريخ الالتحاق</th><td><span t-field="doc.hire_date"/></td></tr>
+                    <tr><th>البريد الوظيفي</th><td><span t-field="doc.work_email"/></td><th>هاتف العمل</th><td><span t-field="doc.work_phone"/></td></tr>
+                    <tr><th>رقم الجوال الشخصي</th><td><span t-field="doc.private_phone"/></td><th>تاريخ التقرير</th><td><span t-field="doc.document_date"/></td></tr>
+                    <tr t-if="doc.notes"><th>ملاحظات</th><td colspan="3"><span t-field="doc.notes"/></td></tr>
+                </table>
+
+                <t t-set="employee_related" t-value="doc._get_employee_related_information()"/>
+                <div class="ef-section-title">ملخص السجلات المرتبطة بالموظف</div>
+                <table class="ef-summary-table">
+                    <tr>
+                        <td><span class="ef-summary-count" t-esc="len(employee_related['custodies'])"/>العهد</td>
+                        <td><span class="ef-summary-count" t-esc="len(employee_related['loans'])"/>السلف</td>
+                        <td><span class="ef-summary-count" t-esc="len(employee_related['assignments'])"/>تكليفات العمل الإضافي</td>
+                    </tr>
+                    <tr>
+                        <td><span class="ef-summary-count" t-esc="len(employee_related['sim_handovers'])"/>الشرائح</td>
+                        <td><span class="ef-summary-count" t-esc="len(employee_related['vehicle_handovers'])"/>السيارات</td>
+                        <td><span class="ef-summary-count" t-esc="len(employee_related['warnings'])"/>الإنذارات</td>
+                    </tr>
+                </table>
+
+                <t t-if="employee_related['custodies']">
+                    <div class="ef-section-title">العهد</div>
+                    <table class="ef-table ef-related-table">
+                        <thead><tr><th>الرقم</th><th>تاريخ الاستلام</th><th>الأصناف / الوصف</th><th>الحالة</th><th>حالة الإعادة</th></tr></thead>
+                        <tbody><tr t-foreach="employee_related['custodies']" t-as="custody">
+                            <td><span t-field="custody.name"/></td>
+                            <td><span t-field="custody.received_date" t-options="{'widget':'date'}"/></td>
+                            <td>
+                                <t t-set="custody_items" t-value="[line.product_id.display_name or line.name or '-' for line in custody.line_ids]"/>
+                                <span t-esc="', '.join(custody_items) or custody.description or '-'"/>
+                            </td>
+                            <td><span t-field="custody.state"/><t t-if="custody.done_state"> - <span t-field="custody.done_state"/></t></td>
+                            <td>
+                                <t t-set="returned_lines" t-value="custody.line_ids.filtered(lambda line: line.inventory_state == 'return')"/>
+                                <span t-if="custody.line_ids and len(returned_lines) == len(custody.line_ids)">معادة بالكامل</span>
+                                <span t-elif="returned_lines">معادة جزئيًا</span>
+                                <span t-else="">غير معادة</span>
+                            </td>
+                        </tr></tbody>
+                    </table>
+                </t>
+
+                <t t-if="employee_related['loans']">
+                    <div class="ef-section-title">السلف</div>
+                    <table class="ef-table ef-related-table">
+                        <thead><tr><th>الرقم</th><th>التاريخ</th><th>المبلغ</th><th>المدفوع</th><th>الرصيد</th><th>الحالة</th></tr></thead>
+                        <tbody><tr t-foreach="employee_related['loans']" t-as="loan">
+                            <td><span t-field="loan.name"/></td><td><span t-field="loan.date"/></td>
+                            <td class="ef-amount"><span t-field="loan.loan_amount" t-options="{'widget':'monetary','display_currency':loan.currency_id}"/></td>
+                            <td class="ef-amount"><span t-field="loan.total_paid_amount" t-options="{'widget':'monetary','display_currency':loan.currency_id}"/></td>
+                            <td class="ef-amount"><span t-field="loan.balance_amount" t-options="{'widget':'monetary','display_currency':loan.currency_id}"/></td>
+                            <td><span t-field="loan.state"/></td>
+                        </tr></tbody>
+                    </table>
+                </t>
+
+                <t t-if="employee_related['assignments']">
+                    <div class="ef-section-title">تكليفات العمل الإضافي</div>
+                    <table class="ef-table ef-related-table">
+                        <thead><tr><th>الرقم</th><th>الفترة</th><th>الساعات</th><th>سبب التكليف</th><th>التعويض</th><th>الحالة</th></tr></thead>
+                        <tbody><tr t-foreach="employee_related['assignments']" t-as="assignment">
+                            <td><span t-field="assignment.name"/></td>
+                            <td><span t-field="assignment.start_datetime"/><br/><span t-field="assignment.end_datetime"/></td>
+                            <td><span t-field="assignment.total_hours"/></td><td><span t-field="assignment.assignment_reason"/></td>
+                            <td><span t-field="assignment.compensation_type"/></td><td><span t-field="assignment.state"/></td>
+                        </tr></tbody>
+                    </table>
+                </t>
+
+                <t t-if="employee_related['sim_handovers']">
+                    <div class="ef-section-title">الشرائح الإلكترونية</div>
+                    <table class="ef-table ef-related-table">
+                        <thead><tr><th>رقم الشريحة</th><th>الفئة</th><th>تاريخ الاستلام</th><th>السعر الشهري</th><th>تاريخ الإعادة</th><th>الحالة</th></tr></thead>
+                        <tbody><tr t-foreach="employee_related['sim_handovers']" t-as="sim_handover">
+                            <td><span t-field="sim_handover.sim_id.mobile_number"/></td><td><span t-field="sim_handover.sim_id.category_id"/></td>
+                            <td><span t-field="sim_handover.handover_date"/></td>
+                            <td class="ef-amount"><span t-field="sim_handover.sim_id.monthly_price" t-options="{'widget':'monetary','display_currency':sim_handover.sim_id.currency_id}"/></td>
+                            <td><span t-field="sim_handover.return_date"/></td><td><span t-field="sim_handover.state"/></td>
+                        </tr></tbody>
+                    </table>
+                </t>
+
+                <t t-if="employee_related['vehicle_handovers']">
+                    <div class="ef-section-title">السيارات</div>
+                    <table class="ef-table ef-related-table">
+                        <thead><tr><th>السيارة</th><th>رقم اللوحة</th><th>تاريخ الاستلام</th><th>تاريخ الإعادة</th><th>حالة السيارة عند الاستلام</th><th>الحالة</th></tr></thead>
+                        <tbody><tr t-foreach="employee_related['vehicle_handovers']" t-as="vehicle_handover">
+                            <td><span t-field="vehicle_handover.vehicle_id"/></td><td><span t-field="vehicle_handover.vehicle_id.license_plate"/></td>
+                            <td><span t-field="vehicle_handover.handover_date"/></td><td><span t-field="vehicle_handover.return_date"/></td>
+                            <td><span t-field="vehicle_handover.vehicle_condition"/></td><td><span t-field="vehicle_handover.state"/></td>
+                        </tr></tbody>
+                    </table>
+                </t>
+
+                <t t-if="employee_related['warnings']">
+                    <div class="ef-section-title">الإنذارات</div>
+                    <table class="ef-table ef-related-table">
+                        <thead><tr><th>التاريخ</th><th>الدرجة</th><th>الموضوع</th><th>نوع الجزاء</th><th>الجزاء المحدد</th><th>الحالة</th></tr></thead>
+                        <tbody><tr t-foreach="employee_related['warnings']" t-as="warning">
+                            <td><span t-field="warning.warning_date"/></td><td><span t-field="warning.warning_level"/></td>
+                            <td><span t-field="warning.subject"/></td><td><span t-field="warning.penalty_type"/></td>
+                            <td><span t-field="warning.penalty_description"/></td><td><span t-field="warning.state"/></td>
+                        </tr></tbody>
+                    </table>
+                </t>
+                <p class="ef-note">صدر هذا التقرير بناءً على البيانات المسجلة في نظام الموارد البشرية بتاريخ الطباعة.</p>
+                <t t-call="eljohany_employee_forms.additional_form_footer"/>
+            </div>
+            </div>
+        </t></t>
+    </template>
+
+    <template id="report_employee_warning_document">
+        <t t-call="web.html_container"><t t-foreach="docs" t-as="doc">
+            <div class="article" t-att-data-oe-model="doc._name" t-att-data-oe-id="doc.id" t-att-data-oe-lang="doc.env.context.get('lang')">
+            <div class="page ef-page" t-translation="off">
+                <t t-set="title" t-value="'نموذج إنذار موظف'"/><t t-call="eljohany_employee_forms.additional_form_header"/>
+                <table class="ef-table ef-details">
+                    <tr><th>اسم الموظف</th><td><span t-field="doc.employee_id"/></td><th>الفرع</th><td><span t-field="doc.branch_id"/></td></tr>
+                    <tr><th>رقم الهوية / الإقامة</th><td><span t-field="doc.identification_id"/></td><th>المسمى الوظيفي</th><td><span t-field="doc.job_id"/></td></tr>
+                    <tr><th>درجة الإنذار</th><td><span t-field="doc.warning_level"/></td><th>تاريخ الإنذار</th><td><span t-field="doc.warning_date"/></td></tr>
+                    <tr><th>موضوع الإنذار</th><td colspan="3"><span t-field="doc.subject"/></td></tr>
+                    <tr><th>تاريخ المخالفة</th><td><span t-field="doc.violation_date"/></td><th>نوع الجزاء</th><td><span t-field="doc.penalty_type"/></td></tr>
+                </table>
+                <div class="ef-section-title">تفاصيل المخالفة</div><div class="ef-box" style="min-height:70px;" t-field="doc.details"/>
+                <div class="ef-section-title">الجزاء المحدد</div><div class="ef-box" style="min-height:45px;" t-field="doc.penalty_description"/>
+                <div class="ef-box" t-if="doc.response_deadline or doc.delivery_date">
+                    <div t-if="doc.response_deadline"><strong>آخر موعد لتقديم رد الموظف:</strong> <span t-field="doc.response_deadline"/></div>
+                    <div t-if="doc.delivery_date"><strong>تاريخ تسليم الإنذار:</strong> <span t-field="doc.delivery_date"/></div>
+                </div>
+                <div t-if="doc.employee_response"><div class="ef-section-title">رد الموظف</div><div class="ef-box" style="min-height:45px;" t-field="doc.employee_response"/></div>
+                <div class="ef-section-title">إقرار الموظف بالاستلام</div>
+                <div class="ef-box">الاسم: ____________________ &#160;&#160;&#160; التوقيع: ____________________ &#160;&#160;&#160; التاريخ: ____________________</div>
+                <t t-call="eljohany_employee_forms.additional_form_signatures"/>
+                <t t-call="eljohany_employee_forms.additional_form_footer"/>
+            </div>
+            </div>
+        </t></t>
+    </template>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="dashboard_executive" model="executive.intelligence.dashboard">
+        <field name="name">Executive Overview</field><field name="code">executive</field><field name="sequence">10</field><field name="icon">fa-dashboard</field>
+    </record>
+    <record id="dashboard_finance" model="executive.intelligence.dashboard">
+        <field name="name">Financial Intelligence</field><field name="code">finance</field><field name="sequence">20</field><field name="icon">fa-money</field><field name="required_module_names">account</field><field name="sensitivity">financial</field>
+    </record>
+    <record id="dashboard_sales" model="executive.intelligence.dashboard">
+        <field name="name">Sales &amp; CRM Intelligence</field><field name="code">sales</field><field name="sequence">30</field><field name="icon">fa-bar-chart</field><field name="required_module_names">sale</field>
+    </record>
+    <record id="dashboard_purchase" model="executive.intelligence.dashboard">
+        <field name="name">Procurement Intelligence</field><field name="code">purchase</field><field name="sequence">40</field><field name="icon">fa-shopping-cart</field><field name="required_module_names">purchase_stock</field>
+    </record>
+    <record id="dashboard_inventory" model="executive.intelligence.dashboard">
+        <field name="name">Inventory Intelligence</field><field name="code">inventory</field><field name="sequence">50</field><field name="icon">fa-cubes</field><field name="required_module_names">stock</field>
+    </record>
+    <record id="dashboard_product" model="executive.intelligence.dashboard">
+        <field name="name">Product Intelligence</field><field name="code">product</field><field name="sequence">60</field><field name="icon">fa-barcode</field><field name="required_module_names">product</field>
+    </record>
+    <record id="dashboard_forecast" model="executive.intelligence.dashboard">
+        <field name="name">Predictive Analytics</field><field name="code">forecast</field><field name="sequence">70</field><field name="icon">fa-line-chart</field><field name="required_module_names">stock</field>
+    </record>
+    <record id="dashboard_hr" model="executive.intelligence.dashboard">
+        <field name="name">Human Resources Intelligence</field><field name="code">hr</field><field name="sequence">80</field><field name="icon">fa-users</field><field name="required_module_names">hr</field><field name="sensitivity">hr</field>
+    </record>
+    <record id="dashboard_operations" model="executive.intelligence.dashboard">
+        <field name="name">Operations &amp; Manufacturing</field><field name="code">operations</field><field name="sequence">90</field><field name="icon">fa-industry</field><field name="required_module_names">mrp</field>
+    </record>
+    <record id="dashboard_risk" model="executive.intelligence.dashboard">
+        <field name="name">Risk &amp; Alerts Center</field><field name="code">risk</field><field name="sequence">100</field><field name="icon">fa-exclamation-triangle</field>
+    </record>
+</odoo>
+

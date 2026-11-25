@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pos_sales_margin_report_pdf">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="wizard"/>
+            <div class="page" dir="rtl" lang="ar"
+                 style="font-family: Arial, 'DejaVu Sans', sans-serif;">
+                <h2 class="text-center"><span t-esc="labels['title']"/></h2>
+                <div class="row mb-2">
+                    <div class="col-6">
+                        <strong><span t-esc="labels['company']"/>:</strong>
+                        <span t-esc="doc.company_id.display_name"/>
+                        <span> | </span>
+                        <strong><span t-esc="labels['currency']"/>:</strong>
+                        <span t-esc="doc.company_id.currency_id.display_name"/>
+                    </div>
+                    <div class="col-6">
+                        <strong><span t-esc="labels['period']"/>:</strong>
+                        <span t-esc="date_from_display"/>
+                        <span t-esc="labels['to']"/>
+                        <span t-esc="date_to_display"/>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <strong><span t-esc="labels['points_of_sale']"/>:</strong>
+                    <span t-esc="'، '.join(doc.pos_config_ids.mapped('display_name'))"/>
+                </div>
+                <div t-if="uncomputed_cost_count"
+                     class="alert alert-warning py-1 px-2"
+                     style="font-size: 11px;">
+                    <span t-esc="labels['warning'] % {'count': uncomputed_cost_count}"/>
+                </div>
+
+                <table class="table table-sm table-bordered" style="width: 100%; font-size: 9px;">
+                    <thead>
+                        <tr class="text-center">
+                            <th><span t-esc="labels['headers'][0]"/></th>
+                            <th><span t-esc="labels['headers'][1]"/></th>
+                            <th><span t-esc="labels['headers'][2]"/></th>
+                            <th><span t-esc="labels['headers'][3]"/></th>
+                            <th><span t-esc="labels['headers'][4]"/></th>
+                            <th><span t-esc="labels['headers'][5]"/></th>
+                            <th><span t-esc="labels['headers'][6]"/></th>
+                            <th><span t-esc="labels['headers'][7]"/></th>
+                            <th><span t-esc="labels['headers'][8]"/></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="lines" t-as="line">
+                            <tr>
+                                <td><span t-esc="line['product_name']"/></td>
+                                <td class="text-center"><span t-esc="line['quantity']"/></td>
+                                <td class="text-center"><span t-esc="doc.company_id.currency_id.format(line['gross_total'])"/></td>
+                                <td class="text-center"><span t-esc="doc.company_id.currency_id.format(line['discounts'])"/></td>
+                                <td class="text-center"><span t-esc="doc.company_id.currency_id.format(line['net_total'])"/></td>
+                                <td class="text-center"><span t-esc="doc.company_id.currency_id.format(line['tax'])"/></td>
+                                <td class="text-center"><span t-esc="doc.company_id.currency_id.format(line['grand_total'])"/></td>
+                                <td class="text-center"><span t-esc="doc.company_id.currency_id.format(line['margin'])"/></td>
+                                <td class="text-center">
+                                    <span t-esc="'{:.2f}'.format(line['margin_percent'])"/><span>%</span>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr t-if="lines" style="font-weight: bold; background-color: #e2f0d9;">
+                            <td class="text-center"><span t-esc="labels['total']"/></td>
+                            <td class="text-center"><span t-esc="totals['quantity']"/></td>
+                            <td class="text-center"><span t-esc="doc.company_id.currency_id.format(totals['gross_total'])"/></td>
+                            <td class="text-center"><span t-esc="doc.company_id.currency_id.format(totals['discounts'])"/></td>
+                            <td class="text-center"><span t-esc="doc.company_id.currency_id.format(totals['net_total'])"/></td>
+                            <td class="text-center"><span t-esc="doc.company_id.currency_id.format(totals['tax'])"/></td>
+                            <td class="text-center"><span t-esc="doc.company_id.currency_id.format(totals['grand_total'])"/></td>
+                            <td class="text-center"><span t-esc="doc.company_id.currency_id.format(totals['margin'])"/></td>
+                            <td class="text-center">
+                                <span t-esc="'{:.2f}'.format(totals['margin_percent'])"/><span>%</span>
+                            </td>
+                        </tr>
+                        <tr t-if="not lines">
+                            <td colspan="9" class="text-center"><span t-esc="labels['no_data']"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

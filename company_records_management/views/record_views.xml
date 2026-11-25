@@ -1,0 +1,62 @@
+<odoo>
+<record id="view_registration_tree" model="ir.ui.view"><field name="name">registration.tree</field><field name="model">crm.commercial.registration</field><field name="arch" type="xml"><tree><field name="name"/><field name="company_id"/><field name="unified_no"/><field name="issue_date"/><field name="expiration_date"/><field name="status"/><field name="days_remaining"/></tree></field></record>
+<record id="view_registration_form" model="ir.ui.view"><field name="name">registration.form</field><field name="model">crm.commercial.registration</field><field name="arch" type="xml"><form>
+<header>
+<button name="action_submit" type="object" string="إرسال للاعتماد" class="btn-primary" invisible="workflow_state != 'draft'"/>
+<button name="action_approve" type="object" string="اعتماد" class="btn-success" invisible="workflow_state != 'submitted'"/>
+<button name="action_reject" type="object" string="رفض" class="btn-secondary" invisible="workflow_state != 'submitted'"/>
+<button name="action_archive_record" type="object" string="أرشفة" class="btn-secondary" invisible="workflow_state != 'approved'"/>
+<field name="workflow_state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected,archived"/>
+</header><sheet><group><field name="name"/><field name="workflow_state" invisible="1"/><field name="company_id"/><field name="branch_ids" widget="many2many_tags"/><field name="unified_no"/><field name="social_insurance_no"/><field name="quwa_no"/></group><group><field name="issue_date"/><field name="expiration_date"/><field name="status"/><field name="days_remaining"/></group><field name="attachment_ids" widget="many2many_binary"/></sheet><div class="oe_chatter"><field name="message_follower_ids"/><field name="activity_ids"/><field name="message_ids"/></div></form></field></record>
+<record id="view_municipality_tree" model="ir.ui.view"><field name="name">municipality.tree</field><field name="model">crm.municipality.license</field><field name="arch" type="xml"><tree><field name="name"/><field name="branch_id"/><field name="expiration_date"/><field name="status"/><field name="days_remaining"/><field name="isic_code"/></tree></field></record>
+<record id="view_municipality_form" model="ir.ui.view"><field name="name">municipality.form</field><field name="model">crm.municipality.license</field><field name="arch" type="xml"><form>
+<header>
+<button name="action_submit" type="object" string="إرسال للاعتماد" class="btn-primary" invisible="workflow_state != 'draft'"/>
+<button name="action_approve" type="object" string="اعتماد" class="btn-success" invisible="workflow_state != 'submitted'"/>
+<button name="action_reject" type="object" string="رفض" class="btn-secondary" invisible="workflow_state != 'submitted'"/>
+<button name="action_archive_record" type="object" string="أرشفة" class="btn-secondary" invisible="workflow_state != 'approved'"/>
+<field name="workflow_state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected,archived"/>
+</header><sheet><group><field name="name"/><field name="branch_id"/><field name="owner_name"/><field name="owner_identity_no"/><field name="issue_date"/><field name="expiration_date"/><field name="status"/><field name="days_remaining"/></group><group><field name="isic_code"/><field name="isic_description"/><field name="secretariat"/><field name="municipality"/><field name="district"/><field name="street"/></group><group><field name="sign_type"/><field name="sign_area"/><field name="shop_area"/></group><field name="attachment_ids" widget="many2many_binary"/></sheet><div class="oe_chatter"><field name="message_follower_ids"/><field name="activity_ids"/><field name="message_ids"/></div></form></field></record>
+<record id="view_address_tree" model="ir.ui.view"><field name="name">address.tree</field><field name="model">crm.national.address</field><field name="arch" type="xml"><tree><field name="name"/><field name="branch_id"/><field name="short_address"/><field name="building_no"/><field name="district"/><field name="postal_code"/><field name="city"/></tree></field></record>
+<record id="view_address_form" model="ir.ui.view"><field name="name">address.form</field><field name="model">crm.national.address</field><field name="arch" type="xml"><form>
+<header>
+<button name="action_submit" type="object" string="إرسال للاعتماد" class="btn-primary" invisible="workflow_state != 'draft'"/>
+<button name="action_approve" type="object" string="اعتماد" class="btn-success" invisible="workflow_state != 'submitted'"/>
+<button name="action_reject" type="object" string="رفض" class="btn-secondary" invisible="workflow_state != 'submitted'"/>
+<button name="action_archive_record" type="object" string="أرشفة" class="btn-secondary" invisible="workflow_state != 'approved'"/>
+<field name="workflow_state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected,archived"/>
+</header><sheet><group><field name="name"/><field name="branch_id"/><field name="account_no"/><field name="registration_date"/><field name="short_address"/></group><group><field name="building_no"/><field name="street"/><field name="district"/><field name="secondary_no"/><field name="postal_code"/><field name="city"/></group><field name="attachment_ids" widget="many2many_binary"/></sheet></form></field></record>
+<record id="view_electricity_tree" model="ir.ui.view"><field name="name">electricity.tree</field><field name="model">crm.electricity.meter</field><field name="arch" type="xml"><tree><field name="name"/><field name="branch_id"/><field name="monthly_payment_day"/><field name="state"/></tree></field></record>
+<record id="view_electricity_form" model="ir.ui.view"><field name="name">electricity.form</field><field name="model">crm.electricity.meter</field><field name="arch" type="xml"><form>
+<header>
+<button name="action_submit" type="object" string="إرسال للاعتماد" class="btn-primary" invisible="workflow_state != 'draft'"/>
+<button name="action_approve" type="object" string="اعتماد" class="btn-success" invisible="workflow_state != 'submitted'"/>
+<button name="action_reject" type="object" string="رفض" class="btn-secondary" invisible="workflow_state != 'submitted'"/>
+<button name="action_archive_record" type="object" string="أرشفة" class="btn-secondary" invisible="workflow_state != 'approved'"/>
+<field name="workflow_state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected,archived"/>
+</header><sheet><group><field name="name"/><field name="branch_id"/><field name="monthly_payment_day"/><field name="service_start_date"/><field name="state"/></group><field name="attachment_ids" widget="many2many_binary"/></sheet></form></field></record>
+<record id="view_civil_tree" model="ir.ui.view"><field name="name">civil.tree</field><field name="model">crm.civil.defense.license</field><field name="arch" type="xml"><tree><field name="name"/><field name="branch_id"/><field name="expiration_date"/><field name="status"/><field name="days_remaining"/><field name="classification_no"/></tree></field></record>
+<record id="view_civil_form" model="ir.ui.view"><field name="name">civil.form</field><field name="model">crm.civil.defense.license</field><field name="arch" type="xml"><form>
+<header>
+<button name="action_submit" type="object" string="إرسال للاعتماد" class="btn-primary" invisible="workflow_state != 'draft'"/>
+<button name="action_approve" type="object" string="اعتماد" class="btn-success" invisible="workflow_state != 'submitted'"/>
+<button name="action_reject" type="object" string="رفض" class="btn-secondary" invisible="workflow_state != 'submitted'"/>
+<button name="action_archive_record" type="object" string="أرشفة" class="btn-secondary" invisible="workflow_state != 'approved'"/>
+<field name="workflow_state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected,archived"/>
+</header><sheet><group><field name="name"/><field name="branch_id"/><field name="issue_date"/><field name="expiration_date"/><field name="status"/><field name="days_remaining"/></group><group><field name="facility_classification"/><field name="isic_activity"/><field name="classification_no"/><field name="activity_description"/></group><field name="attachment_ids" widget="many2many_binary"/></sheet><div class="oe_chatter"><field name="message_follower_ids"/><field name="activity_ids"/><field name="message_ids"/></div></form></field></record>
+<record id="view_bank_tree" model="ir.ui.view"><field name="name">bank.tree</field><field name="model">crm.branch.bank.account</field><field name="arch" type="xml"><tree><field name="name"/><field name="branch_id"/><field name="bank_name"/><field name="iban"/><field name="state"/></tree></field></record>
+<record id="view_bank_form" model="ir.ui.view"><field name="name">bank.form</field><field name="model">crm.branch.bank.account</field><field name="arch" type="xml"><form>
+<header>
+<button name="action_submit" type="object" string="إرسال للاعتماد" class="btn-primary" invisible="workflow_state != 'draft'"/>
+<button name="action_approve" type="object" string="اعتماد" class="btn-success" invisible="workflow_state != 'submitted'"/>
+<button name="action_reject" type="object" string="رفض" class="btn-secondary" invisible="workflow_state != 'submitted'"/>
+<button name="action_archive_record" type="object" string="أرشفة" class="btn-secondary" invisible="workflow_state != 'approved'"/>
+<field name="workflow_state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected,archived"/>
+</header><sheet><group><field name="name"/><field name="branch_id"/><field name="bank_name"/><field name="account_no"/><field name="iban"/><field name="currency_id"/></group><group><field name="opening_date"/><field name="closing_date"/><field name="state"/></group><field name="note"/></sheet></form></field></record>
+<record id="action_registration" model="ir.actions.act_window"><field name="name">السجلات التجارية</field><field name="res_model">crm.commercial.registration</field><field name="view_mode">tree,form</field></record>
+<record id="action_municipality" model="ir.actions.act_window"><field name="name">الرخص البلدية</field><field name="res_model">crm.municipality.license</field><field name="view_mode">tree,form</field></record>
+<record id="action_address" model="ir.actions.act_window"><field name="name">العناوين الوطنية</field><field name="res_model">crm.national.address</field><field name="view_mode">tree,form</field></record>
+<record id="action_electricity" model="ir.actions.act_window"><field name="name">عدادات الكهرباء</field><field name="res_model">crm.electricity.meter</field><field name="view_mode">tree,form</field></record>
+<record id="action_civil" model="ir.actions.act_window"><field name="name">الدفاع المدني</field><field name="res_model">crm.civil.defense.license</field><field name="view_mode">tree,form</field></record>
+<record id="action_bank" model="ir.actions.act_window"><field name="name">الحسابات البنكية</field><field name="res_model">crm.branch.bank.account</field><field name="view_mode">tree,form</field></record>
+</odoo>

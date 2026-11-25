@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_attendance_tree" model="ir.ui.view">
+            <field name="name">hr.attendance.tree</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <field name="checkin_geolocation" optional="show"/>
+                    <field name="checkout_geolocation" optional="show"/>
+                    <field name="location" optional="show"/>
+                    <field name="attendance_image" widget="image" options="{'size':[0,90]}" class="bg-view" optional="hide"/>
+                    <field name="out_attendance_image" widget="image" options="{'size':[0,90]}" class="bg-view" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_attendance_view_inherit_filter" model="ir.ui.view">
+            <field name="name">hr.attendance.view.inherit.filter</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='myattendances']" position="before">
+                    <separator/>
+                    <filter name="inside_location" string="Inside Location" domain="[('location','=', 'inside_location')]"/>
+                    <filter name="outside_location" string="Outside Location" domain="[('location','=', 'outside_location')]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_attendance_custom_view_form" model="ir.ui.view">
+            <field name="name">hr.attendance.custom.view.form</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='in_mode']" position="after">
+                    <field name="checkin_geolocation" widget="url"/>
+                    <field name="attendance_image" widget="image" options="{'size':[0,90]}" class="bg-view"/>
+
+                </xpath>
+                <xpath expr="//field[@name='out_mode']" position="after">
+                    <field name="checkout_geolocation" widget="url"/>
+                    <field name="out_attendance_image" widget="image" options="{'size':[0,90]}" class="bg-view"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

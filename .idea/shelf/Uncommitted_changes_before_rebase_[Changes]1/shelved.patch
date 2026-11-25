@@ -1,0 +1,466 @@
+Index: commission_management/models/account_move.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># -*- coding: utf-8 -*-\n\nfrom odoo import fields, models\n\n\nclass AccountMove(models.Model):\n    _inherit = 'account.move'\n\n    commission_line_ids = fields.One2many('commission.line', 'invoice_id', string='Commission Lines')\n    commission_line_count = fields.Integer(compute='_compute_commission_line_count')\n\n    def _compute_commission_line_count(self):\n        for move in self:\n            move.commission_line_count = len(move.commission_line_ids)\n\n    def action_post(self):\n        res = super().action_post()\n        self.filtered(\n            lambda move: move.move_type in ('out_invoice', 'out_refund')\n            and move.state == 'posted'\n        ).action_generate_commission_lines()\n        return res\n\n    def _get_commission_source_move(self):\n        self.ensure_one()\n        if self.move_type != 'out_refund':\n            return self\n        if self.reversed_entry_id:\n            return self.reversed_entry_id\n        if self.env.context.get('commission_skip_source_fallback'):\n            return self\n        source_text = ' '.join(filter(None, [\n            self.ref,\n            self.invoice_origin,\n            self.payment_reference,\n        ]))\n        if not source_text:\n            return self\n        candidates = self.search([\n            ('company_id', '=', self.company_id.id),\n            ('commercial_partner_id', '=', self.commercial_partner_id.id),\n            ('move_type', '=', 'out_invoice'),\n            ('state', '=', 'posted'),\n        ], order='invoice_date desc, id desc', limit=20)\n        return candidates.filtered(lambda move: move.name and move.name in source_text)[:1] or self\n\n    def action_generate_commission_lines(self):\n        CommissionLine = self.env['commission.line'].sudo()\n        target_total_cache = {}\n        target_plan_id = self.env.context.get('commission_plan_id')\n        target_user_id = self.env.context.get('commission_target_user_id')\n        target_partner_id = self.env.context.get('commission_target_partner_id')\n        stale_domain = [\n            ('invoice_id', 'in', self.ids),\n            ('statement_id', '=', False),\n            ('state', 'in', ('draft', 'calculated')),\n        ]\n        if target_plan_id:\n            stale_domain.append(('plan_id', '=', target_plan_id))\n        if target_user_id:\n            stale_domain.append(('user_id', '=', target_user_id))\n        if target_partner_id:\n            stale_domain.append(('partner_id', '=', target_partner_id))\n        CommissionLine.search(stale_domain).unlink()\n        existing_domain = [('invoice_id', 'in', self.ids)]\n        if target_plan_id:\n            existing_domain.append(('plan_id', '=', target_plan_id))\n        if target_user_id:\n            existing_domain.append(('user_id', '=', target_user_id))\n        if target_partner_id:\n            existing_domain.append(('partner_id', '=', target_partner_id))\n        existing_keys = set(CommissionLine.search(existing_domain).mapped('unique_key'))\n        for move in self:\n            if move.move_type not in ('out_invoice', 'out_refund') or move.state != 'posted':\n                continue\n            move_date = move.invoice_date or move.date or fields.Date.context_today(move)\n            trigger_types = ['invoice_posted']\n            if move.payment_state in ('paid', 'in_payment'):\n                trigger_types.append('invoice_paid')\n            if self.env.context.get('manual_commission_generation'):\n                trigger_types.append('manual')\n            if target_plan_id:\n                plans = self.env['commission.plan'].sudo().browse(target_plan_id).filtered(\n                    lambda plan: plan.company_id == move.company_id\n                    and plan.state == 'active'\n                    and plan.trigger_type in trigger_types\n                    and plan._is_effective_for_date(move_date))\n            else:\n                plans = self.env['commission.plan'].sudo().search([\n                    ('company_id', '=', move.company_id.id),\n                    ('state', '=', 'active'),\n                    ('trigger_type', 'in', trigger_types),\n                    ('date_start', '<=', move_date),\n                    '|', ('date_end', '=', False), ('date_end', '>=', move_date),\n                ])\n            invoice_lines = move.invoice_line_ids.filtered(\n                lambda line: not line.display_type and line.product_id)\n            for plan in plans:\n                for rule in plan._get_matching_rules(move):\n                    source_move = move._get_commission_source_move()\n                    beneficiary_values = rule._get_beneficiary_values(move)\n                    if not beneficiary_values.get('user_id') and not beneficiary_values.get('partner_id'):\n                        continue\n                    if target_user_id and beneficiary_values.get('user_id') != target_user_id:\n                        continue\n                    if target_partner_id and beneficiary_values.get('partner_id') != target_partner_id:\n                        continue\n                    if not rule._matches_target_thresholds(\n                        move,\n                        beneficiary_values,\n                        target_total_cache=target_total_cache,\n                    ):\n                        continue\n                    amount, rate, base_amount = rule._compute_commission_amount(move)\n                    if not amount:\n                        continue\n                    unique_key = CommissionLine._make_invoice_unique_key(\n                        plan, rule, move, beneficiary_values)\n                    if unique_key in existing_keys:\n                        continue\n                    line_type = 'clawback' if move.move_type == 'out_refund' else 'commission'\n                    sale_lines = invoice_lines.mapped('sale_line_ids')\n                    reversed_line = False\n                    if move.move_type == 'out_refund' and source_move != move:\n                        reversed_line = CommissionLine.search([\n                            ('invoice_id', '=', source_move.id),\n                            ('plan_id', '=', plan.id),\n                            ('rule_id', '=', rule.id),\n                            ('user_id', '=', beneficiary_values.get('user_id') or False),\n                            ('partner_id', '=', beneficiary_values.get('partner_id') or False),\n                            ('state', '!=', 'cancelled'),\n                        ], limit=1)\n                    CommissionLine.create({\n                        'unique_key': unique_key,\n                        'line_type': line_type,\n                        'plan_id': plan.id,\n                        'rule_id': rule.id,\n                        'company_id': move.company_id.id,\n                        'date': move_date,\n                        'sales_team_id': (move.team_id or source_move.team_id).id,\n                        'customer_id': (move.commercial_partner_id or source_move.commercial_partner_id).id,\n                        'invoice_id': move.id,\n                        'sale_order_id': sale_lines[:1].order_id.id if sale_lines else False,\n                        'base_amount': base_amount,\n                        'commission_rate': rate,\n                        'commission_amount': amount,\n                        'reversed_line_id': reversed_line.id if reversed_line else False,\n                        **beneficiary_values,\n                    })\n                    existing_keys.add(unique_key)\n\n    def action_view_commission_lines(self):\n        self.ensure_one()\n        action = self.env.ref('commission_management.action_commission_line').read()[0]\n        action['domain'] = [('invoice_id', '=', self.id)]\n        action['context'] = {'default_invoice_id': self.id}\n        return action\n\n    def _cron_generate_paid_invoice_commissions(self, limit=500):\n        moves = self.search([\n            ('move_type', 'in', ('out_invoice', 'out_refund')),\n            ('state', '=', 'posted'),\n            ('payment_state', 'in', ('paid', 'in_payment')),\n        ], order='date desc, id desc', limit=limit)\n        moves.action_generate_commission_lines()\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/commission_management/models/account_move.py b/commission_management/models/account_move.py
+--- a/commission_management/models/account_move.py	(revision d3cbe504723b8c90d897ef20e719f508fa32590d)
++++ b/commission_management/models/account_move.py	(date 1778666331112)
+@@ -44,9 +44,62 @@
+         ], order='invoice_date desc, id desc', limit=20)
+         return candidates.filtered(lambda move: move.name and move.name in source_text)[:1] or self
+ 
++    def _get_commission_payment_events(self):
++        self.ensure_one()
++        receivable_lines = self.line_ids.filtered(
++            lambda line: line.account_id.account_type == 'asset_receivable')
++        payment_period_start = self.env.context.get('commission_payment_period_start')
++        payment_period_end = self.env.context.get('commission_payment_period_end')
++        payment_period_start = fields.Date.to_date(payment_period_start) if payment_period_start else False
++        payment_period_end = fields.Date.to_date(payment_period_end) if payment_period_end else False
++        events = []
++        seen_partials = set()
++        for line in receivable_lines:
++            partials = line.matched_debit_ids | line.matched_credit_ids
++            for partial in partials:
++                if partial.id in seen_partials:
++                    continue
++                seen_partials.add(partial.id)
++                counterpart_line = partial.debit_move_id if partial.debit_move_id != line else partial.credit_move_id
++                payment_move = counterpart_line.move_id
++                payment_date = payment_move.date or partial.max_date
++                if payment_period_start and payment_date < payment_period_start:
++                    continue
++                if payment_period_end and payment_date > payment_period_end:
++                    continue
++                events.append({
++                    'partial_reconcile': partial,
++                    'payment_move': payment_move,
++                    'payment_date': payment_date,
++                    'amount': partial.amount,
++                })
++        events.sort(key=lambda event: (event['payment_date'], event['partial_reconcile'].id))
++        return events
++
++    def _get_paid_commission_base_amount(self, rule, paid_amount):
++        self.ensure_one()
++        invoice_base = rule._get_base_amount(self)
++        if not self.amount_total:
++            return 0.0
++        ratio = abs(paid_amount) / abs(self.amount_total)
++        return invoice_base * ratio
++
++    def _get_existing_commission_amount_by_scope(self, plan, rule, beneficiary_values):
++        self.ensure_one()
++        domain = [
++            ('invoice_id', '=', self.id),
++            ('plan_id', '=', plan.id),
++            ('rule_id', '=', rule.id),
++            ('state', '!=', 'cancelled'),
++            ('user_id', '=', beneficiary_values.get('user_id') or False),
++            ('partner_id', '=', beneficiary_values.get('partner_id') or False),
++        ]
++        return sum(self.env['commission.line'].sudo().search(domain).mapped('commission_amount'))
++
+     def action_generate_commission_lines(self):
+         CommissionLine = self.env['commission.line'].sudo()
+         target_total_cache = {}
++        capped_amount_cache = {}
+         target_plan_id = self.env.context.get('commission_plan_id')
+         target_user_id = self.env.context.get('commission_target_user_id')
+         target_partner_id = self.env.context.get('commission_target_partner_id')
+@@ -75,7 +128,7 @@
+                 continue
+             move_date = move.invoice_date or move.date or fields.Date.context_today(move)
+             trigger_types = ['invoice_posted']
+-            if move.payment_state in ('paid', 'in_payment'):
++            if move.payment_state in ('partial', 'paid', 'in_payment'):
+                 trigger_types.append('invoice_paid')
+             if self.env.context.get('manual_commission_generation'):
+                 trigger_types.append('manual')
+@@ -110,13 +163,6 @@
+                         beneficiary_values,
+                         target_total_cache=target_total_cache,
+                     ):
+-                        continue
+-                    amount, rate, base_amount = rule._compute_commission_amount(move)
+-                    if not amount:
+-                        continue
+-                    unique_key = CommissionLine._make_invoice_unique_key(
+-                        plan, rule, move, beneficiary_values)
+-                    if unique_key in existing_keys:
+                         continue
+                     line_type = 'clawback' if move.move_type == 'out_refund' else 'commission'
+                     sale_lines = invoice_lines.mapped('sale_line_ids')
+@@ -130,24 +176,79 @@
+                             ('partner_id', '=', beneficiary_values.get('partner_id') or False),
+                             ('state', '!=', 'cancelled'),
+                         ], limit=1)
+-                    CommissionLine.create({
+-                        'unique_key': unique_key,
+-                        'line_type': line_type,
+-                        'plan_id': plan.id,
+-                        'rule_id': rule.id,
+-                        'company_id': move.company_id.id,
+-                        'date': move_date,
+-                        'sales_team_id': (move.team_id or source_move.team_id).id,
+-                        'customer_id': (move.commercial_partner_id or source_move.commercial_partner_id).id,
+-                        'invoice_id': move.id,
+-                        'sale_order_id': sale_lines[:1].order_id.id if sale_lines else False,
+-                        'base_amount': base_amount,
+-                        'commission_rate': rate,
+-                        'commission_amount': amount,
+-                        'reversed_line_id': reversed_line.id if reversed_line else False,
+-                        **beneficiary_values,
+-                    })
+-                    existing_keys.add(unique_key)
++                    if plan.trigger_type == 'invoice_paid':
++                        events = move._get_commission_payment_events()
++                        for event in events:
++                            unique_key = CommissionLine._make_payment_unique_key(
++                                plan, rule, move, event['partial_reconcile'], beneficiary_values)
++                            if unique_key in existing_keys:
++                                continue
++                            base_amount = move._get_paid_commission_base_amount(rule, event['amount'])
++                            amount, rate, base_amount = rule._compute_commission_amount_from_base(base_amount)
++                            if rule.cap_amount:
++                                cap_key = (
++                                    move.id, plan.id, rule.id,
++                                    beneficiary_values.get('user_id') or False,
++                                    beneficiary_values.get('partner_id') or False,
++                                )
++                                consumed_amount = capped_amount_cache.get(cap_key)
++                                if consumed_amount is None:
++                                    consumed_amount = move._get_existing_commission_amount_by_scope(
++                                        plan, rule, beneficiary_values)
++                                remaining_cap = max(rule.cap_amount - abs(consumed_amount), 0.0)
++                                if not remaining_cap:
++                                    continue
++                                capped_unsigned_amount = min(abs(amount), remaining_cap)
++                                amount = capped_unsigned_amount if amount >= 0 else -capped_unsigned_amount
++                                capped_amount_cache[cap_key] = consumed_amount + amount
++                            if not amount:
++                                continue
++                            CommissionLine.create({
++                                'unique_key': unique_key,
++                                'line_type': line_type,
++                                'plan_id': plan.id,
++                                'rule_id': rule.id,
++                                'company_id': move.company_id.id,
++                                'date': event['payment_date'],
++                                'sales_team_id': (move.team_id or source_move.team_id).id,
++                                'customer_id': (move.commercial_partner_id or source_move.commercial_partner_id).id,
++                                'invoice_id': move.id,
++                                'payment_move_id': event['payment_move'].id,
++                                'partial_reconcile_id': event['partial_reconcile'].id,
++                                'sale_order_id': sale_lines[:1].order_id.id if sale_lines else False,
++                                'base_amount': base_amount,
++                                'commission_rate': rate,
++                                'commission_amount': amount,
++                                'reversed_line_id': reversed_line.id if reversed_line else False,
++                                **beneficiary_values,
++                            })
++                            existing_keys.add(unique_key)
++                    else:
++                        amount, rate, base_amount = rule._compute_commission_amount(move)
++                        if not amount:
++                            continue
++                        unique_key = CommissionLine._make_invoice_unique_key(
++                            plan, rule, move, beneficiary_values)
++                        if unique_key in existing_keys:
++                            continue
++                        CommissionLine.create({
++                            'unique_key': unique_key,
++                            'line_type': line_type,
++                            'plan_id': plan.id,
++                            'rule_id': rule.id,
++                            'company_id': move.company_id.id,
++                            'date': move_date,
++                            'sales_team_id': (move.team_id or source_move.team_id).id,
++                            'customer_id': (move.commercial_partner_id or source_move.commercial_partner_id).id,
++                            'invoice_id': move.id,
++                            'sale_order_id': sale_lines[:1].order_id.id if sale_lines else False,
++                            'base_amount': base_amount,
++                            'commission_rate': rate,
++                            'commission_amount': amount,
++                            'reversed_line_id': reversed_line.id if reversed_line else False,
++                            **beneficiary_values,
++                        })
++                        existing_keys.add(unique_key)
+ 
+     def action_view_commission_lines(self):
+         self.ensure_one()
+@@ -160,6 +261,6 @@
+         moves = self.search([
+             ('move_type', 'in', ('out_invoice', 'out_refund')),
+             ('state', '=', 'posted'),
+-            ('payment_state', 'in', ('paid', 'in_payment')),
++            ('payment_state', 'in', ('partial', 'paid', 'in_payment')),
+         ], order='date desc, id desc', limit=limit)
+         moves.action_generate_commission_lines()
+Index: commission_management/models/commission_statement.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># -*- coding: utf-8 -*-\n\nimport calendar\n\nfrom odoo import api, fields, models\nfrom odoo.exceptions import UserError\n\n\nclass CommissionStatement(models.Model):\n    _name = 'commission.statement'\n    _description = 'Commission Statement'\n    _inherit = ['mail.thread', 'mail.activity.mixin']\n    _order = 'period_start desc, id desc'\n\n    name = fields.Char(default='New', copy=False, readonly=True)\n    state = fields.Selection([\n        ('draft', 'Draft'),\n        ('submitted', 'Submitted'),\n        ('approved', 'Approved'),\n        ('accrued', 'Accrued'),\n        ('paid', 'Paid'),\n        ('cancelled', 'Cancelled'),\n    ], default='draft', tracking=True)\n    company_id = fields.Many2one(\n        'res.company', required=True, default=lambda self: self.env.company,\n        tracking=True)\n    currency_id = fields.Many2one(related='company_id.currency_id', store=True, readonly=True)\n    plan_id = fields.Many2one('commission.plan', required=True)\n    beneficiary_type = fields.Selection([\n        ('user', 'Employee/User'),\n        ('partner', 'External Partner/Agent'),\n    ], default='user', required=True)\n    user_id = fields.Many2one('res.users', string='Salesperson/User')\n    employee_id = fields.Many2one('hr.employee')\n    partner_id = fields.Many2one('res.partner', string='External Partner/Agent')\n    period_start = fields.Date(required=True, default=lambda self: self._default_period_start())\n    period_end = fields.Date(required=True, default=lambda self: self._default_period_end())\n    line_ids = fields.One2many('commission.line', 'statement_id', string='Commission Lines')\n    amount_total = fields.Monetary(compute='_compute_amount_total', store=True, currency_field='currency_id')\n    move_id = fields.Many2one('account.move', string='Accrual Entry', readonly=True)\n    notes = fields.Text()\n\n    _sql_constraints = [\n        ('period_check', 'CHECK(period_end >= period_start)',\n         'The period end date must be after the period start date.'),\n    ]\n\n    def _get_month_period(self, date_value):\n        last_day = calendar.monthrange(date_value.year, date_value.month)[1]\n        period_start = date_value.replace(day=1)\n        period_end = date_value.replace(day=last_day)\n        return period_start, period_end\n\n    def _default_period_start(self):\n        today = fields.Date.context_today(self)\n        return self._get_month_period(today)[0]\n\n    def _default_period_end(self):\n        today = fields.Date.context_today(self)\n        return self._get_month_period(today)[1]\n\n    @api.onchange('period_start')\n    def _onchange_period_start(self):\n        for statement in self:\n            if statement.period_start:\n                statement.period_start, statement.period_end = statement._get_month_period(\n                    statement.period_start)\n\n    @api.model_create_multi\n    def create(self, vals_list):\n        for vals in vals_list:\n            if vals.get('name', 'New') == 'New':\n                vals['name'] = self.env['ir.sequence'].next_by_code('commission.statement') or 'New'\n            if vals.get('period_start'):\n                period_start, period_end = self._get_month_period(\n                    fields.Date.to_date(vals['period_start']))\n                vals['period_start'] = period_start\n                vals['period_end'] = period_end\n        statements = super().create(vals_list)\n        return statements\n\n    def write(self, vals):\n        sync_fields = {\n            'company_id', 'plan_id', 'beneficiary_type', 'user_id', 'partner_id',\n            'period_start', 'period_end',\n        }\n        should_sync = bool(sync_fields & set(vals))\n        if should_sync:\n            self.filtered(lambda statement: statement.state == 'draft').line_ids.write({'statement_id': False})\n        if vals.get('period_start'):\n            period_start, period_end = self._get_month_period(\n                fields.Date.to_date(vals['period_start']))\n            vals['period_start'] = period_start\n            vals['period_end'] = period_end\n        res = super().write(vals)\n        return res\n\n    @api.depends('line_ids.commission_amount')\n    def _compute_amount_total(self):\n        for statement in self:\n            statement.amount_total = sum(statement.line_ids.mapped('commission_amount'))\n\n    def _has_required_statement_filters(self):\n        self.ensure_one()\n        if not self.plan_id or not self.period_start or not self.period_end:\n            return False\n        if self.beneficiary_type == 'partner':\n            return bool(self.partner_id)\n        return bool(self.user_id)\n\n    def _generate_invoice_commissions_for_period(self):\n        for statement in self:\n            if not statement._has_required_statement_filters():\n                continue\n            Move = self.env['account.move'].sudo()\n            moves = Move.search(statement._get_candidate_move_domain())\n            credit_notes = Move.search(statement._get_credit_note_candidate_domain())\n            moves |= credit_notes\n            period_target_totals = statement._get_period_target_totals(moves)\n            context = {\n                'commission_plan_id': statement.plan_id.id,\n                'commission_skip_source_fallback': True,\n                'commission_target_period_start': statement.period_start,\n                'commission_target_period_end': statement.period_end,\n                'commission_period_target_totals': period_target_totals,\n            }\n            if statement.beneficiary_type == 'partner':\n                context['commission_target_partner_id'] = statement.partner_id.id\n            else:\n                context['commission_target_user_id'] = statement.user_id.id\n            moves.with_context(**context).action_generate_commission_lines()\n\n    def _get_period_target_totals(self, moves):\n        self.ensure_one()\n        totals = {}\n        invoice_moves = moves.filtered(lambda move: move.move_type == 'out_invoice' and move.state == 'posted')\n        target_rules = self.plan_id.rule_ids.filtered(\n            lambda rule: rule.active and rule._has_target_thresholds())\n        if not invoice_moves or not target_rules:\n            return totals\n        for rule in target_rules:\n            period_total = 0.0\n            beneficiary_values = {\n                'user_id': self.user_id.id if self.beneficiary_type == 'user' else False,\n                'partner_id': self.partner_id.id if self.beneficiary_type == 'partner' else False,\n            }\n            for move in invoice_moves:\n                if not rule._matches_invoice(move):\n                    continue\n                candidate_beneficiary = rule._get_beneficiary_values(move)\n                if (\n                    (beneficiary_values.get('user_id') or False) != (candidate_beneficiary.get('user_id') or False)\n                    or (beneficiary_values.get('partner_id') or False) != (candidate_beneficiary.get('partner_id') or False)\n                ):\n                    continue\n                period_total += rule._get_base_amount(move)\n            rule_with_period = rule.with_context(\n                commission_target_period_start=self.period_start,\n                commission_target_period_end=self.period_end,\n            )\n            totals[rule_with_period._get_period_target_context_key(\n                invoice_moves[0],\n                beneficiary_values,\n            )] = period_total\n        return totals\n\n    def _get_candidate_move_domain(self):\n        self.ensure_one()\n        domain = [\n            ('company_id', '=', self.company_id.id),\n            ('move_type', '=', 'out_invoice'),\n            ('state', '=', 'posted'),\n            ('invoice_date', '>=', self.period_start),\n            ('invoice_date', '<=', self.period_end),\n        ]\n        relevant_rules = self.plan_id.rule_ids.filtered(lambda rule: rule.active)\n        if self.beneficiary_type == 'partner':\n            partner_rules = relevant_rules.filtered(\n                lambda rule: rule.beneficiary_type == 'partner'\n                and rule.partner_id == self.partner_id)\n            return domain if partner_rules else [('id', '=', 0)]\n\n        specific_user_rules = relevant_rules.filtered(\n            lambda rule: rule.beneficiary_type == 'specific_user'\n            and rule.user_id == self.user_id)\n        if specific_user_rules:\n            return domain\n\n        salesperson_rules = relevant_rules.filtered(lambda rule: rule.beneficiary_type == 'salesperson')\n        team_leader_rules = relevant_rules.filtered(lambda rule: rule.beneficiary_type == 'team_leader')\n        if salesperson_rules and team_leader_rules:\n            return domain + [\n                '|', '|', '|',\n                ('invoice_user_id', '=', self.user_id.id),\n                ('reversed_entry_id.invoice_user_id', '=', self.user_id.id),\n                ('team_id.user_id', '=', self.user_id.id),\n                ('reversed_entry_id.team_id.user_id', '=', self.user_id.id),\n            ]\n        if salesperson_rules:\n            return domain + [\n                '|',\n                ('invoice_user_id', '=', self.user_id.id),\n                ('reversed_entry_id.invoice_user_id', '=', self.user_id.id),\n            ]\n        if team_leader_rules:\n            return domain + [\n                '|',\n                ('team_id.user_id', '=', self.user_id.id),\n                ('reversed_entry_id.team_id.user_id', '=', self.user_id.id),\n            ]\n        return [('id', '=', 0)]\n\n    def _get_credit_note_candidate_domain(self):\n        self.ensure_one()\n        relevant_rules = self.plan_id.rule_ids.filtered(lambda rule: rule.active)\n        if not relevant_rules:\n            return [('id', '=', 0)]\n        domain = [\n            ('company_id', '=', self.company_id.id),\n            ('move_type', '=', 'out_refund'),\n            ('state', '=', 'posted'),\n            ('invoice_date', '>=', self.period_start),\n            ('invoice_date', '<=', self.period_end),\n        ]\n        if self.beneficiary_type == 'partner':\n            partner_rules = relevant_rules.filtered(\n                lambda rule: rule.beneficiary_type == 'partner'\n                and rule.partner_id == self.partner_id)\n            return domain if partner_rules else [('id', '=', 0)]\n\n        specific_user_rules = relevant_rules.filtered(\n            lambda rule: rule.beneficiary_type == 'specific_user'\n            and rule.user_id == self.user_id)\n        if specific_user_rules:\n            return domain\n\n        salesperson_rules = relevant_rules.filtered(lambda rule: rule.beneficiary_type == 'salesperson')\n        team_leader_rules = relevant_rules.filtered(lambda rule: rule.beneficiary_type == 'team_leader')\n        if salesperson_rules and team_leader_rules:\n            return domain + [\n                '|', '|',\n                ('invoice_user_id', '=', self.user_id.id),\n                ('reversed_entry_id.invoice_user_id', '=', self.user_id.id),\n                ('reversed_entry_id.team_id.user_id', '=', self.user_id.id),\n            ]\n        if salesperson_rules:\n            return domain + [\n                '|',\n                ('invoice_user_id', '=', self.user_id.id),\n                ('reversed_entry_id.invoice_user_id', '=', self.user_id.id),\n            ]\n        if team_leader_rules:\n            return domain + [\n                ('reversed_entry_id.team_id.user_id', '=', self.user_id.id),\n            ]\n        return [('id', '=', 0)]\n\n    def _get_available_line_domain(self):\n        self.ensure_one()\n        domain = [\n            ('plan_id', '=', self.plan_id.id),\n            ('company_id', '=', self.company_id.id),\n            ('date', '>=', self.period_start),\n            ('date', '<=', self.period_end),\n            ('state', 'in', ('calculated', 'approved')),\n            ('statement_id', '=', False),\n        ]\n        if self.beneficiary_type == 'partner':\n            domain.append(('partner_id', '=', self.partner_id.id))\n        else:\n            domain.append(('user_id', '=', self.user_id.id))\n        return domain\n\n    def _sync_lines_from_registered_invoices(self):\n        for statement in self:\n            if statement.state != 'draft' or not statement._has_required_statement_filters():\n                continue\n            statement._generate_invoice_commissions_for_period()\n            lines = self.env['commission.line'].search(statement._get_available_line_domain())\n            lines.write({'statement_id': statement.id})\n\n    def action_calculate_from_registered_invoices(self):\n        self._sync_lines_from_registered_invoices()\n\n    def action_submit(self):\n        for statement in self:\n            statement._sync_lines_from_registered_invoices()\n            if not statement.line_ids:\n                raise UserError('No commission lines were calculated from registered invoices for this statement period and beneficiary.')\n            statement.state = 'submitted'\n\n    def action_approve(self):\n        for statement in self:\n            statement.line_ids.filtered(lambda line: line.state == 'calculated').action_approve()\n            statement.state = 'approved'\n\n    def action_post_accrual(self):\n        for statement in self:\n            if statement.state != 'approved':\n                raise UserError('Only approved commission statements can be accrued.')\n            if statement.move_id:\n                raise UserError('This commission statement already has an accrual entry.')\n            plan = statement.plan_id\n            if not plan.journal_id or not plan.expense_account_id or not plan.liability_account_id:\n                raise UserError('Configure accrual journal, expense account, and liability account on the plan.')\n            amount = statement.amount_total\n            if not amount:\n                raise UserError('Cannot accrue a zero amount statement.')\n            debit = amount if amount > 0 else 0.0\n            credit = -amount if amount < 0 else 0.0\n            move = self.env['account.move'].create({\n                'move_type': 'entry',\n                'company_id': statement.company_id.id,\n                'journal_id': plan.journal_id.id,\n                'date': fields.Date.context_today(self),\n                'ref': statement.name,\n                'line_ids': [\n                    (0, 0, {\n                        'name': statement.name,\n                        'account_id': plan.expense_account_id.id,\n                        'debit': debit,\n                        'credit': credit,\n                    }),\n                    (0, 0, {\n                        'name': statement.name,\n                        'account_id': plan.liability_account_id.id,\n                        'debit': credit,\n                        'credit': debit,\n                    }),\n                ],\n            })\n            move.action_post()\n            statement.move_id = move.id\n            statement.line_ids.write({'state': 'accrued'})\n            statement.state = 'accrued'\n\n    def action_mark_paid(self):\n        for statement in self:\n            if statement.state not in ('approved', 'accrued'):\n                raise UserError('Only approved or accrued statements can be marked paid.')\n            statement.line_ids.write({'state': 'paid'})\n            statement.state = 'paid'\n\n    def action_cancel(self):\n        for statement in self:\n            if statement.state in ('accrued', 'paid'):\n                raise UserError('Accrued or paid statements cannot be cancelled.')\n            statement.line_ids.write({'statement_id': False})\n            statement.state = 'cancelled'\n\n    def action_reset_to_draft(self):\n        for statement in self:\n            if statement.state in ('accrued', 'paid'):\n                raise UserError('Accrued or paid statements cannot be reset.')\n            statement.state = 'draft'\n\n    def action_view_lines(self):\n        self.ensure_one()\n        action = self.env.ref('commission_management.action_commission_line').read()[0]\n        action['domain'] = [('statement_id', '=', self.id)]\n        action['context'] = {'default_statement_id': self.id}\n        return action\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/commission_management/models/commission_statement.py b/commission_management/models/commission_statement.py
+--- a/commission_management/models/commission_statement.py	(revision d3cbe504723b8c90d897ef20e719f508fa32590d)
++++ b/commission_management/models/commission_statement.py	(date 1778666331113)
+@@ -113,9 +113,12 @@
+             if not statement._has_required_statement_filters():
+                 continue
+             Move = self.env['account.move'].sudo()
+-            moves = Move.search(statement._get_candidate_move_domain())
+-            credit_notes = Move.search(statement._get_credit_note_candidate_domain())
+-            moves |= credit_notes
++            if statement.plan_id.trigger_type == 'invoice_paid':
++                moves = statement._get_paid_candidate_moves()
++            else:
++                moves = Move.search(statement._get_candidate_move_domain())
++                credit_notes = Move.search(statement._get_credit_note_candidate_domain())
++                moves |= credit_notes
+             period_target_totals = statement._get_period_target_totals(moves)
+             context = {
+                 'commission_plan_id': statement.plan_id.id,
+@@ -123,6 +126,8 @@
+                 'commission_target_period_start': statement.period_start,
+                 'commission_target_period_end': statement.period_end,
+                 'commission_period_target_totals': period_target_totals,
++                'commission_payment_period_start': statement.period_start,
++                'commission_payment_period_end': statement.period_end,
+             }
+             if statement.beneficiary_type == 'partner':
+                 context['commission_target_partner_id'] = statement.partner_id.id
+@@ -130,6 +135,20 @@
+                 context['commission_target_user_id'] = statement.user_id.id
+             moves.with_context(**context).action_generate_commission_lines()
+ 
++    def _get_paid_candidate_moves(self):
++        self.ensure_one()
++        partials = self.env['account.partial.reconcile'].sudo().search([
++            ('max_date', '>=', self.period_start),
++            ('max_date', '<=', self.period_end),
++        ])
++        move_lines = partials.mapped('debit_move_id') | partials.mapped('credit_move_id')
++        moves = move_lines.mapped('move_id').filtered(
++            lambda move: move.company_id == self.company_id
++            and move.move_type in ('out_invoice', 'out_refund')
++            and move.state == 'posted'
++        )
++        return moves
++
+     def _get_period_target_totals(self, moves):
+         self.ensure_one()
+         totals = {}
+@@ -153,7 +172,15 @@
+                     or (beneficiary_values.get('partner_id') or False) != (candidate_beneficiary.get('partner_id') or False)
+                 ):
+                     continue
+-                period_total += rule._get_base_amount(move)
++                if self.plan_id.trigger_type == 'invoice_paid':
++                    move_with_period = move.with_context(
++                        commission_payment_period_start=self.period_start,
++                        commission_payment_period_end=self.period_end,
++                    )
++                    for event in move_with_period._get_commission_payment_events():
++                        period_total += move._get_paid_commission_base_amount(rule, event['amount'])
++                else:
++                    period_total += rule._get_base_amount(move)
+             rule_with_period = rule.with_context(
+                 commission_target_period_start=self.period_start,
+                 commission_target_period_end=self.period_end,
+@@ -275,6 +302,7 @@
+         for statement in self:
+             if statement.state != 'draft' or not statement._has_required_statement_filters():
+                 continue
++            statement.line_ids.write({'statement_id': False})
+             statement._generate_invoice_commissions_for_period()
+             lines = self.env['commission.line'].search(statement._get_available_line_domain())
+             lines.write({'statement_id': statement.id})
+Index: commission_management/models/commission_rule.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># -*- coding: utf-8 -*-\n\nimport calendar\nfrom datetime import timedelta\n\nfrom odoo import api, fields, models\nfrom odoo.exceptions import ValidationError\n\n\nclass CommissionRule(models.Model):\n    _name = 'commission.rule'\n    _description = 'Commission Rule'\n    _order = 'plan_id, sequence, id'\n\n    name = fields.Char(required=True)\n    active = fields.Boolean(default=True)\n    sequence = fields.Integer(default=10)\n    plan_id = fields.Many2one('commission.plan', required=True, ondelete='cascade')\n    company_id = fields.Many2one(related='plan_id.company_id', store=True, readonly=True)\n    currency_id = fields.Many2one(related='plan_id.currency_id', store=True, readonly=True)\n    calculation_method = fields.Selection([\n        ('percentage', 'Percentage'),\n        ('fixed', 'Fixed Amount'),\n        ('tier', 'Tiered'),\n    ], default='percentage', required=True)\n    rate = fields.Float(string='Rate (%)', digits='Discount')\n    fixed_amount = fields.Monetary(currency_field='currency_id')\n    tier_mode = fields.Selection([\n        ('matched', 'Matched Tier'),\n        ('progressive', 'Progressive Tiers'),\n    ], default='matched')\n    tier_ids = fields.One2many('commission.tier', 'rule_id', string='Tiers')\n    beneficiary_type = fields.Selection([\n        ('salesperson', 'Invoice Salesperson'),\n        ('specific_user', 'Specific User'),\n        ('team_leader', 'Sales Team Leader'),\n        ('partner', 'External Partner/Agent'),\n    ], default='salesperson', required=True)\n    user_id = fields.Many2one('res.users', string='Specific User')\n    partner_id = fields.Many2one('res.partner', string='External Partner/Agent')\n    employee_id = fields.Many2one(\n        'hr.employee', string='Employee',\n        compute='_compute_employee_id', store=True, readonly=False)\n    team_id = fields.Many2one('crm.team', string='Sales Team')\n    product_id = fields.Many2one('product.product')\n    product_categ_id = fields.Many2one('product.category', string='Product Category')\n    customer_id = fields.Many2one('res.partner', string='Customer')\n    customer_tag_ids = fields.Many2many('res.partner.category', string='Customer Tags')\n    min_base_amount = fields.Monetary(currency_field='currency_id')\n    max_base_amount = fields.Monetary(currency_field='currency_id')\n    min_margin_percent = fields.Float(\n        help='Minimum gross margin percentage required. Only applies when product cost is available.')\n    cap_amount = fields.Monetary(\n        string='Maximum Commission Amount', currency_field='currency_id',\n        help='Optional cap per source invoice.')\n    target_min_amount = fields.Monetary(\n        string='Min Period Target', currency_field='currency_id',\n        help='Minimum cumulative achievement in the plan period before this rule applies.')\n    target_max_amount = fields.Monetary(\n        string='Max Period Target', currency_field='currency_id',\n        help='Maximum cumulative achievement in the plan period for which this rule still applies.')\n\n    @api.depends('user_id')\n    def _compute_employee_id(self):\n        employees = self.env['hr.employee'].sudo()\n        for rule in self:\n            rule.employee_id = employees.search([('user_id', '=', rule.user_id.id)], limit=1) if rule.user_id else False\n\n    @api.constrains('calculation_method', 'rate', 'fixed_amount', 'tier_ids')\n    def _check_calculation_values(self):\n        for rule in self:\n            if rule.calculation_method == 'percentage' and rule.rate < 0:\n                raise ValidationError('Commission rate cannot be negative.')\n            if rule.calculation_method == 'fixed' and rule.fixed_amount < 0:\n                raise ValidationError('Fixed commission cannot be negative.')\n            if rule.calculation_method == 'tier' and not rule.tier_ids:\n                raise ValidationError('Tiered commission rules require at least one tier.')\n\n    @api.constrains('target_min_amount', 'target_max_amount')\n    def _check_target_amounts(self):\n        for rule in self:\n            if rule.target_min_amount < 0 or rule.target_max_amount < 0:\n                raise ValidationError('Target amounts cannot be negative.')\n            if (\n                rule.target_min_amount\n                and rule.target_max_amount\n                and rule.target_max_amount < rule.target_min_amount\n            ):\n                raise ValidationError('The maximum target must be greater than or equal to the minimum target.')\n\n    @api.constrains('beneficiary_type', 'user_id', 'partner_id')\n    def _check_beneficiary(self):\n        for rule in self:\n            if rule.beneficiary_type == 'specific_user' and not rule.user_id:\n                raise ValidationError('Specific user rules require a user.')\n            if rule.beneficiary_type == 'partner' and not rule.partner_id:\n                raise ValidationError('Partner rules require an external partner/agent.')\n\n    def _get_invoice_product_lines(self, move):\n        return move.invoice_line_ids.filtered(lambda line: not line.display_type and line.product_id)\n\n    def _get_source_move(self, move):\n        self.ensure_one()\n        if hasattr(move, '_get_commission_source_move'):\n            return move._get_commission_source_move()\n        return move.reversed_entry_id if move.move_type == 'out_refund' and move.reversed_entry_id else move\n\n    def _get_matching_product_lines(self, move):\n        self.ensure_one()\n        product_lines = self._get_invoice_product_lines(move)\n        if self.product_id:\n            product_lines = product_lines.filtered(lambda line: line.product_id == self.product_id)\n        if self.product_categ_id:\n            categories = self.env['product.category'].search([\n                ('id', 'child_of', self.product_categ_id.id),\n            ])\n            product_lines = product_lines.filtered(lambda line: line.product_id.categ_id in categories)\n        return product_lines\n\n    def _has_product_filter(self):\n        self.ensure_one()\n        return bool(self.product_id or self.product_categ_id)\n\n    def _matches_product_filter(self, move):\n        if not self._has_product_filter():\n            return True\n        return bool(self._get_matching_product_lines(move))\n\n    def _matches_invoice(self, move):\n        self.ensure_one()\n        source_move = self._get_source_move(move)\n        if move.company_id != self.company_id:\n            return False\n        if self.team_id and source_move.team_id != self.team_id:\n            return False\n        if self.customer_id and source_move.commercial_partner_id != self.customer_id.commercial_partner_id:\n            return False\n        if self.customer_tag_ids and not (source_move.partner_id.category_id & self.customer_tag_ids):\n            return False\n        if not self._matches_product_filter(move):\n            return False\n        base_amount = self._get_base_amount(move)\n        if self.min_base_amount and base_amount < self.min_base_amount:\n            return False\n        if self.max_base_amount and base_amount > self.max_base_amount:\n            return False\n        if self.min_margin_percent:\n            margin_percent = self._get_margin_percent(move)\n            if margin_percent < self.min_margin_percent:\n                return False\n        return True\n\n    def _get_beneficiary_values(self, move):\n        self.ensure_one()\n        user = False\n        partner = False\n        employee = False\n        source_move = self._get_source_move(move)\n        if self.beneficiary_type == 'salesperson':\n            user = move.invoice_user_id or source_move.invoice_user_id\n        elif self.beneficiary_type == 'specific_user':\n            user = self.user_id\n        elif self.beneficiary_type == 'team_leader':\n            user = move.team_id.user_id or source_move.team_id.user_id\n        elif self.beneficiary_type == 'partner':\n            partner = self.partner_id\n        if user:\n            employee = self.employee_id or self.env['hr.employee'].sudo().search(\n                [('user_id', '=', user.id)], limit=1)\n        return {\n            'beneficiary_type': self.beneficiary_type,\n            'user_id': user.id if user else False,\n            'employee_id': employee.id if employee else False,\n            'partner_id': partner.id if partner else False,\n        }\n\n    def _get_move_commission_date(self, move):\n        self.ensure_one()\n        return move.invoice_date or move.date or fields.Date.context_today(move)\n\n    def _has_target_thresholds(self):\n        self.ensure_one()\n        return bool(self.target_min_amount or self.target_max_amount)\n\n    def _get_target_period_range(self, move_date):\n        self.ensure_one()\n        period_start = self.env.context.get('commission_target_period_start')\n        period_end = self.env.context.get('commission_target_period_end')\n        if period_start and period_end:\n            return (\n                fields.Date.to_date(period_start),\n                fields.Date.to_date(period_end),\n            )\n        frequency = self.plan_id.payment_frequency\n        if frequency == 'weekly':\n            period_start = move_date - timedelta(days=move_date.weekday())\n            period_end = period_start + timedelta(days=6)\n        elif frequency == 'quarterly':\n            start_month = ((move_date.month - 1) // 3) * 3 + 1\n            end_month = start_month + 2\n            period_start = move_date.replace(month=start_month, day=1)\n            period_end = move_date.replace(\n                month=end_month,\n                day=calendar.monthrange(move_date.year, end_month)[1],\n            )\n        elif frequency == 'yearly':\n            period_start = move_date.replace(month=1, day=1)\n            period_end = move_date.replace(month=12, day=31)\n        elif frequency == 'manual':\n            period_start = self.plan_id.date_start\n            period_end = self.plan_id.date_end or move_date\n        else:\n            period_start = move_date.replace(day=1)\n            period_end = move_date.replace(\n                day=calendar.monthrange(move_date.year, move_date.month)[1],\n            )\n        period_start = max(period_start, self.plan_id.date_start)\n        if self.plan_id.date_end:\n            period_end = min(period_end, self.plan_id.date_end)\n        if period_end < period_start:\n            period_end = period_start\n        return period_start, period_end\n\n    def _is_same_beneficiary(self, beneficiary_values, candidate_values):\n        self.ensure_one()\n        return (\n            (beneficiary_values.get('user_id') or False) == (candidate_values.get('user_id') or False)\n            and (beneficiary_values.get('partner_id') or False) == (candidate_values.get('partner_id') or False)\n        )\n\n    def _get_period_target_cache_key(self, move, beneficiary_values):\n        self.ensure_one()\n        move_date = self._get_move_commission_date(move)\n        period_start, period_end = self._get_target_period_range(move_date)\n        return (\n            self.id,\n            move.company_id.id,\n            period_start,\n            period_end,\n            beneficiary_values.get('user_id') or False,\n            beneficiary_values.get('partner_id') or False,\n        )\n\n    def _get_period_target_context_key(self, move, beneficiary_values):\n        self.ensure_one()\n        period_start, period_end = self._get_target_period_range(self._get_move_commission_date(move))\n        return '%s|%s|%s|%s|%s|%s' % (\n            self.id,\n            move.company_id.id,\n            period_start,\n            period_end,\n            beneficiary_values.get('user_id') or 0,\n            beneficiary_values.get('partner_id') or 0,\n        )\n\n    def _get_period_target_amount(self, move, beneficiary_values, target_total_cache=None):\n        self.ensure_one()\n        context_totals = self.env.context.get('commission_period_target_totals') or {}\n        context_key = self._get_period_target_context_key(move, beneficiary_values)\n        if context_key in context_totals:\n            return context_totals[context_key]\n        cache_key = self._get_period_target_cache_key(move, beneficiary_values)\n        if target_total_cache is not None and cache_key in target_total_cache:\n            return target_total_cache[cache_key]\n        move_date = self._get_move_commission_date(move)\n        period_start, period_end = self._get_target_period_range(move_date)\n        candidate_moves = self.env['account.move'].sudo().search([\n            ('company_id', '=', move.company_id.id),\n            ('move_type', '=', 'out_invoice'),\n            ('state', '=', 'posted'),\n            ('invoice_date', '>=', period_start),\n            ('invoice_date', '<=', period_end),\n        ])\n        period_total = 0.0\n        for candidate_move in candidate_moves:\n            if not self._matches_invoice(candidate_move):\n                continue\n            candidate_beneficiary = self._get_beneficiary_values(candidate_move)\n            if not self._is_same_beneficiary(beneficiary_values, candidate_beneficiary):\n                continue\n            period_total += self._get_base_amount(candidate_move)\n        if target_total_cache is not None:\n            target_total_cache[cache_key] = period_total\n        return period_total\n\n    def _matches_target_thresholds(self, move, beneficiary_values, target_total_cache=None):\n        self.ensure_one()\n        if not self._has_target_thresholds():\n            return True\n        if move.move_type == 'out_refund':\n            return True\n        period_total = self._get_period_target_amount(\n            move, beneficiary_values, target_total_cache=target_total_cache)\n        if self.target_min_amount and period_total < self.target_min_amount:\n            return False\n        if self.target_max_amount and period_total > self.target_max_amount:\n            return False\n        return True\n\n    def _get_base_amount(self, move):\n        self.ensure_one()\n        sign = -1 if move.move_type == 'out_refund' else 1\n        scoped_lines = self._get_matching_product_lines(move) if self._has_product_filter() else self._get_invoice_product_lines(move)\n        if self.plan_id.base_type == 'invoice_total':\n            base_amount = sum(abs(line.price_total) for line in scoped_lines) if self._has_product_filter() else abs(move.amount_total)\n        elif self.plan_id.base_type in ('invoice_untaxed', 'invoice_line_subtotal'):\n            base_amount = sum(abs(line.price_subtotal) for line in scoped_lines) if self._has_product_filter() else abs(move.amount_untaxed)\n        elif self.plan_id.base_type == 'margin':\n            base_amount = self._get_margin_amount(move, scoped_lines)\n        elif self.plan_id.base_type == 'quantity':\n            base_amount = sum(scoped_lines.mapped('quantity'))\n        else:\n            base_amount = abs(move.amount_untaxed)\n        return sign * base_amount\n\n    def _get_margin_amount(self, move, lines=None):\n        lines = lines or self._get_invoice_product_lines(move)\n        margin = 0.0\n        for line in lines:\n            cost = line.product_id.standard_price * line.quantity\n            margin += abs(line.price_subtotal) - cost\n        return margin\n\n    def _get_margin_percent(self, move):\n        scoped_lines = self._get_matching_product_lines(move) if self._has_product_filter() else self._get_invoice_product_lines(move)\n        subtotal = sum(abs(line.price_subtotal) for line in scoped_lines) if self._has_product_filter() else abs(move.amount_untaxed)\n        if not subtotal:\n            return 0.0\n        margin = self._get_margin_amount(move, scoped_lines)\n        return (margin / subtotal) * 100\n\n    def _compute_commission_amount(self, move):\n        self.ensure_one()\n        base_amount = self._get_base_amount(move)\n        sign = -1 if base_amount < 0 else 1\n        unsigned_base = abs(base_amount)\n        rate = self.rate\n        if self.calculation_method == 'fixed':\n            amount = self.fixed_amount\n            rate = 0.0\n        elif self.calculation_method == 'tier':\n            amount, rate = self._compute_tier_amount(unsigned_base)\n        else:\n            amount = unsigned_base * self.rate / 100\n        if self.cap_amount:\n            amount = min(amount, self.cap_amount)\n        return sign * amount, rate, base_amount\n\n    def _compute_tier_amount(self, base_amount):\n        self.ensure_one()\n        tiers = self.tier_ids.sorted(lambda tier: (tier.amount_from, tier.amount_to or 0.0))\n        if self.tier_mode == 'progressive':\n            total = 0.0\n            last_rate = 0.0\n            for tier in tiers:\n                upper = tier.amount_to or base_amount\n                taxable = max(min(base_amount, upper) - tier.amount_from, 0.0)\n                if taxable:\n                    total += taxable * tier.rate / 100 + tier.fixed_bonus\n                    last_rate = tier.rate\n                if tier.amount_to and base_amount <= tier.amount_to:\n                    break\n            return total, last_rate\n        for tier in tiers:\n            if base_amount >= tier.amount_from and (not tier.amount_to or base_amount <= tier.amount_to):\n                return base_amount * tier.rate / 100 + tier.fixed_bonus, tier.rate\n        return 0.0, 0.0\n\n\nclass CommissionTier(models.Model):\n    _name = 'commission.tier'\n    _description = 'Commission Tier'\n    _order = 'rule_id, amount_from'\n\n    rule_id = fields.Many2one('commission.rule', required=True, ondelete='cascade')\n    currency_id = fields.Many2one(related='rule_id.currency_id', store=True, readonly=True)\n    amount_from = fields.Monetary(required=True, currency_field='currency_id')\n    amount_to = fields.Monetary(currency_field='currency_id')\n    rate = fields.Float(string='Rate (%)', digits='Discount')\n    fixed_bonus = fields.Monetary(currency_field='currency_id')\n\n    @api.constrains('amount_from', 'amount_to', 'rate', 'fixed_bonus')\n    def _check_tier_values(self):\n        for tier in self:\n            if tier.amount_from < 0 or tier.rate < 0 or tier.fixed_bonus < 0:\n                raise ValidationError('Tier values cannot be negative.')\n            if tier.amount_to and tier.amount_to <= tier.amount_from:\n                raise ValidationError('Tier amount to must be greater than amount from.')\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/commission_management/models/commission_rule.py b/commission_management/models/commission_rule.py
+--- a/commission_management/models/commission_rule.py	(revision d3cbe504723b8c90d897ef20e719f508fa32590d)
++++ b/commission_management/models/commission_rule.py	(date 1778666331113)
+@@ -332,6 +332,10 @@
+     def _compute_commission_amount(self, move):
+         self.ensure_one()
+         base_amount = self._get_base_amount(move)
++        return self._compute_commission_amount_from_base(base_amount)
++
++    def _compute_commission_amount_from_base(self, base_amount):
++        self.ensure_one()
+         sign = -1 if base_amount < 0 else 1
+         unsigned_base = abs(base_amount)
+         rate = self.rate
+Index: commission_management/models/commission_line.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># -*- coding: utf-8 -*-\n\nfrom odoo import api, fields, models\nfrom odoo.exceptions import UserError\n\n\nclass CommissionLine(models.Model):\n    _name = 'commission.line'\n    _description = 'Commission Line'\n    _inherit = ['mail.thread', 'mail.activity.mixin']\n    _order = 'date desc, id desc'\n\n    name = fields.Char(default='New', copy=False, readonly=True)\n    unique_key = fields.Char(required=True, copy=False, readonly=True)\n    state = fields.Selection([\n        ('draft', 'Draft'),\n        ('calculated', 'Calculated'),\n        ('approved', 'Approved'),\n        ('accrued', 'Accrued'),\n        ('paid', 'Paid'),\n        ('reversed', 'Reversed'),\n        ('cancelled', 'Cancelled'),\n    ], default='calculated', tracking=True)\n    line_type = fields.Selection([\n        ('commission', 'Commission'),\n        ('adjustment', 'Adjustment'),\n        ('clawback', 'Clawback'),\n    ], default='commission', required=True)\n    plan_id = fields.Many2one('commission.plan', required=True, index=True, ondelete='restrict')\n    rule_id = fields.Many2one('commission.rule', required=True, index=True, ondelete='restrict')\n    company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company)\n    currency_id = fields.Many2one(related='company_id.currency_id', store=True, readonly=True)\n    date = fields.Date(required=True, default=fields.Date.context_today, index=True)\n    beneficiary_type = fields.Selection(related='rule_id.beneficiary_type', store=True, readonly=True)\n    user_id = fields.Many2one('res.users', string='Salesperson/User', index=True)\n    employee_id = fields.Many2one('hr.employee')\n    partner_id = fields.Many2one('res.partner', string='Agent/Partner', index=True)\n    sales_team_id = fields.Many2one('crm.team')\n    customer_id = fields.Many2one('res.partner', string='Customer', index=True)\n    product_id = fields.Many2one('product.product')\n    invoice_id = fields.Many2one('account.move', string='Invoice/Credit Note', index=True, ondelete='cascade')\n    invoice_line_id = fields.Many2one('account.move.line', string='Invoice Line', index=True, ondelete='cascade')\n    sale_order_id = fields.Many2one('sale.order', string='Sales Order')\n    base_amount = fields.Monetary(currency_field='currency_id')\n    commission_rate = fields.Float(string='Rate (%)', digits='Discount')\n    commission_amount = fields.Monetary(currency_field='currency_id', tracking=True)\n    statement_id = fields.Many2one('commission.statement', ondelete='set null')\n    reversed_line_id = fields.Many2one('commission.line', string='Reversed Commission Line')\n    move_id = fields.Many2one('account.move', string='Accrual Entry', related='statement_id.move_id', store=True)\n    note = fields.Text()\n\n    _sql_constraints = [\n        ('unique_commission_source', 'UNIQUE(unique_key)',\n         'A commission line already exists for this plan, rule, source line, and beneficiary.'),\n    ]\n\n    @api.model_create_multi\n    def create(self, vals_list):\n        for vals in vals_list:\n            if vals.get('name', 'New') == 'New':\n                vals['name'] = self.env['ir.sequence'].next_by_code('commission.line') or 'New'\n        return super().create(vals_list)\n\n    def action_approve(self):\n        self.filtered(lambda line: line.state in ('draft', 'calculated')).write({'state': 'approved'})\n\n    def action_cancel(self):\n        blocked = self.filtered(lambda line: line.state in ('accrued', 'paid'))\n        if blocked:\n            raise UserError('Accrued or paid commission lines cannot be cancelled. Create an adjustment instead.')\n        self.write({'state': 'cancelled'})\n\n    def action_reset_to_calculated(self):\n        self.filtered(lambda line: line.state in ('draft', 'cancelled')).write({'state': 'calculated'})\n\n    def _make_unique_key(self, plan, rule, move_line, beneficiary_values):\n        user_id = beneficiary_values.get('user_id') or 0\n        partner_id = beneficiary_values.get('partner_id') or 0\n        return '%s-%s-%s-%s-%s-%s' % (\n            plan.id, rule.id, move_line.id,\n            beneficiary_values.get('beneficiary_type') or 'none',\n            user_id, partner_id)\n\n    def _make_invoice_unique_key(self, plan, rule, move, beneficiary_values):\n        user_id = beneficiary_values.get('user_id') or 0\n        partner_id = beneficiary_values.get('partner_id') or 0\n        return 'invoice-%s-%s-%s-%s-%s-%s' % (\n            plan.id, rule.id, move.id,\n            beneficiary_values.get('beneficiary_type') or 'none',\n            user_id, partner_id)\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/commission_management/models/commission_line.py b/commission_management/models/commission_line.py
+--- a/commission_management/models/commission_line.py	(revision d3cbe504723b8c90d897ef20e719f508fa32590d)
++++ b/commission_management/models/commission_line.py	(date 1778666331112)
+@@ -40,6 +40,8 @@
+     product_id = fields.Many2one('product.product')
+     invoice_id = fields.Many2one('account.move', string='Invoice/Credit Note', index=True, ondelete='cascade')
+     invoice_line_id = fields.Many2one('account.move.line', string='Invoice Line', index=True, ondelete='cascade')
++    payment_move_id = fields.Many2one('account.move', string='Payment Entry', index=True, ondelete='set null')
++    partial_reconcile_id = fields.Many2one('account.partial.reconcile', string='Payment Match', index=True, ondelete='set null')
+     sale_order_id = fields.Many2one('sale.order', string='Sales Order')
+     base_amount = fields.Monetary(currency_field='currency_id')
+     commission_rate = fields.Float(string='Rate (%)', digits='Discount')
+@@ -88,3 +90,11 @@
+             plan.id, rule.id, move.id,
+             beneficiary_values.get('beneficiary_type') or 'none',
+             user_id, partner_id)
++
++    def _make_payment_unique_key(self, plan, rule, move, partial_reconcile, beneficiary_values):
++        user_id = beneficiary_values.get('user_id') or 0
++        partner_id = beneficiary_values.get('partner_id') or 0
++        return 'payment-%s-%s-%s-%s-%s-%s-%s' % (
++            plan.id, rule.id, move.id, partial_reconcile.id,
++            beneficiary_values.get('beneficiary_type') or 'none',
++            user_id, partner_id)
+Index: commission_management/views/commission_line_views.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<odoo>\n    <record id=\"view_commission_line_tree\" model=\"ir.ui.view\">\n        <field name=\"name\">commission.line.tree</field>\n        <field name=\"model\">commission.line</field>\n        <field name=\"arch\" type=\"xml\">\n            <tree decoration-danger=\"commission_amount &lt; 0\" decoration-muted=\"state in ('cancelled', 'reversed')\">\n                <field name=\"date\"/>\n                <field name=\"name\"/>\n                <field name=\"plan_id\"/>\n                <field name=\"rule_id\"/>\n                <field name=\"user_id\"/>\n                <field name=\"partner_id\"/>\n                <field name=\"customer_id\"/>\n                <field name=\"invoice_id\"/>\n                <field name=\"product_id\"/>\n                <field name=\"base_amount\" sum=\"Base\"/>\n                <field name=\"commission_rate\"/>\n                <field name=\"commission_amount\" sum=\"Commission\"/>\n                <field name=\"state\" widget=\"badge\"/>\n            </tree>\n        </field>\n    </record>\n\n    <record id=\"view_commission_line_form\" model=\"ir.ui.view\">\n        <field name=\"name\">commission.line.form</field>\n        <field name=\"model\">commission.line</field>\n        <field name=\"arch\" type=\"xml\">\n            <form create=\"false\">\n                <header>\n                    <button name=\"action_approve\" string=\"Approve\" type=\"object\" class=\"btn-primary\" invisible=\"state not in ('draft', 'calculated')\" groups=\"commission_management.group_commission_manager\"/>\n                    <button name=\"action_cancel\" string=\"Cancel\" type=\"object\" invisible=\"state in ('cancelled', 'accrued', 'paid')\" groups=\"commission_management.group_commission_manager\"/>\n                    <button name=\"action_reset_to_calculated\" string=\"Reset\" type=\"object\" invisible=\"state not in ('draft', 'cancelled')\" groups=\"commission_management.group_commission_manager\"/>\n                    <field name=\"state\" widget=\"statusbar\" statusbar_visible=\"calculated,approved,accrued,paid\"/>\n                </header>\n                <sheet>\n                    <div class=\"oe_title\">\n                        <h1><field name=\"name\"/></h1>\n                    </div>\n                    <group>\n                        <group>\n                            <field name=\"line_type\"/>\n                            <field name=\"date\"/>\n                            <field name=\"plan_id\"/>\n                            <field name=\"rule_id\"/>\n                            <field name=\"company_id\" groups=\"base.group_multi_company\"/>\n                            <field name=\"currency_id\"/>\n                        </group>\n                        <group>\n                            <field name=\"user_id\"/>\n                            <field name=\"employee_id\"/>\n                            <field name=\"partner_id\"/>\n                            <field name=\"sales_team_id\"/>\n                            <field name=\"statement_id\"/>\n                        </group>\n                    </group>\n                    <group>\n                        <group string=\"Source\">\n                            <field name=\"customer_id\"/>\n                            <field name=\"invoice_id\"/>\n                            <field name=\"invoice_line_id\"/>\n                            <field name=\"sale_order_id\"/>\n                            <field name=\"product_id\"/>\n                        </group>\n                        <group string=\"Amounts\">\n                            <field name=\"base_amount\"/>\n                            <field name=\"commission_rate\"/>\n                            <field name=\"commission_amount\"/>\n                            <field name=\"reversed_line_id\"/>\n                            <field name=\"move_id\"/>\n                        </group>\n                    </group>\n                    <notebook>\n                        <page string=\"Notes\">\n                            <field name=\"note\"/>\n                            <field name=\"unique_key\" groups=\"base.group_no_one\"/>\n                        </page>\n                    </notebook>\n                </sheet>\n                <div class=\"oe_chatter\">\n                    <field name=\"message_follower_ids\"/>\n                    <field name=\"activity_ids\"/>\n                    <field name=\"message_ids\"/>\n                </div>\n            </form>\n        </field>\n    </record>\n\n    <record id=\"view_commission_line_search\" model=\"ir.ui.view\">\n        <field name=\"name\">commission.line.search</field>\n        <field name=\"model\">commission.line</field>\n        <field name=\"arch\" type=\"xml\">\n            <search>\n                <field name=\"name\"/>\n                <field name=\"plan_id\"/>\n                <field name=\"rule_id\"/>\n                <field name=\"user_id\"/>\n                <field name=\"partner_id\"/>\n                <field name=\"customer_id\"/>\n                <field name=\"invoice_id\"/>\n                <field name=\"product_id\"/>\n                <filter string=\"Calculated\" name=\"calculated\" domain=\"[('state', '=', 'calculated')]\"/>\n                <filter string=\"Approved\" name=\"approved\" domain=\"[('state', '=', 'approved')]\"/>\n                <filter string=\"Accrued\" name=\"accrued\" domain=\"[('state', '=', 'accrued')]\"/>\n                <filter string=\"Paid\" name=\"paid\" domain=\"[('state', '=', 'paid')]\"/>\n                <filter string=\"Clawbacks\" name=\"clawbacks\" domain=\"[('commission_amount', '&lt;', 0)]\"/>\n                <separator/>\n                <filter string=\"This Month\" name=\"this_month\" domain=\"[('date', '&gt;=', context_today().strftime('%Y-%m-01'))]\"/>\n                <group expand=\"0\" string=\"Group By\">\n                    <filter string=\"Plan\" name=\"group_plan\" context=\"{'group_by': 'plan_id'}\"/>\n                    <filter string=\"Salesperson\" name=\"group_user\" context=\"{'group_by': 'user_id'}\"/>\n                    <filter string=\"Customer\" name=\"group_customer\" context=\"{'group_by': 'customer_id'}\"/>\n                    <filter string=\"Product\" name=\"group_product\" context=\"{'group_by': 'product_id'}\"/>\n                    <filter string=\"State\" name=\"group_state\" context=\"{'group_by': 'state'}\"/>\n                    <filter string=\"Month\" name=\"group_month\" context=\"{'group_by': 'date:month'}\"/>\n                </group>\n            </search>\n        </field>\n    </record>\n\n    <record id=\"view_commission_line_pivot\" model=\"ir.ui.view\">\n        <field name=\"name\">commission.line.pivot</field>\n        <field name=\"model\">commission.line</field>\n        <field name=\"arch\" type=\"xml\">\n            <pivot>\n                <field name=\"date\" type=\"col\" interval=\"month\"/>\n                <field name=\"user_id\" type=\"row\"/>\n                <field name=\"commission_amount\" type=\"measure\"/>\n                <field name=\"base_amount\" type=\"measure\"/>\n            </pivot>\n        </field>\n    </record>\n\n    <record id=\"action_commission_line\" model=\"ir.actions.act_window\">\n        <field name=\"name\">Commission Lines</field>\n        <field name=\"res_model\">commission.line</field>\n        <field name=\"view_mode\">tree,form,pivot</field>\n        <field name=\"context\">{'search_default_calculated': 1}</field>\n    </record>\n</odoo>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/commission_management/views/commission_line_views.xml b/commission_management/views/commission_line_views.xml
+--- a/commission_management/views/commission_line_views.xml	(revision d3cbe504723b8c90d897ef20e719f508fa32590d)
++++ b/commission_management/views/commission_line_views.xml	(date 1778666331113)
+@@ -58,6 +58,8 @@
+                         <group string="Source">
+                             <field name="customer_id"/>
+                             <field name="invoice_id"/>
++                            <field name="payment_move_id"/>
++                            <field name="partial_reconcile_id" groups="base.group_no_one"/>
+                             <field name="invoice_line_id"/>
+                             <field name="sale_order_id"/>
+                             <field name="product_id"/>
+Index: commission_management/tests/test_commission_targets.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># -*- coding: utf-8 -*-\n\nfrom odoo.tests.common import TransactionCase, tagged\n\n\n@tagged('post_install', '-at_install')\nclass TestCommissionTargets(TransactionCase):\n    @classmethod\n    def setUpClass(cls):\n        super().setUpClass()\n        cls.partner = cls.env['res.partner'].create({'name': 'Commission Customer'})\n        cls.salesperson = cls.env.user\n        cls.income_account = cls.env['account.account'].search([\n            ('company_id', '=', cls.env.company.id),\n            ('account_type', '=', 'income'),\n            ('deprecated', '=', False),\n        ], limit=1)\n        if not cls.income_account:\n            cls.income_account = cls.env['account.account'].create({\n                'name': 'Commission Income',\n                'code': 'COMMINC',\n                'account_type': 'income',\n                'company_id': cls.env.company.id,\n            })\n        cls.plan = cls.env['commission.plan'].create({\n            'name': 'Monthly Target Plan',\n            'company_id': cls.env.company.id,\n            'date_start': '2026-01-01',\n            'trigger_type': 'invoice_posted',\n            'base_type': 'invoice_untaxed',\n            'payment_frequency': 'monthly',\n        })\n        cls.rule = cls.env['commission.rule'].create({\n            'name': 'Target Rule',\n            'plan_id': cls.plan.id,\n            'calculation_method': 'percentage',\n            'rate': 10.0,\n            'beneficiary_type': 'salesperson',\n            'target_min_amount': 100.0,\n            'target_max_amount': 120.0,\n        })\n        cls.plan.action_activate()\n\n    def _create_invoice(self, amount, invoice_date):\n        invoice = self.env['account.move'].create({\n            'move_type': 'out_invoice',\n            'partner_id': self.partner.id,\n            'invoice_user_id': self.salesperson.id,\n            'invoice_date': invoice_date,\n            'invoice_line_ids': [(0, 0, {\n                'name': 'Commission Product',\n                'quantity': 1.0,\n                'price_unit': amount,\n                'account_id': self.income_account.id,\n            })],\n        })\n        invoice.action_post()\n        return invoice\n\n    def _create_statement(self):\n        return self.env['commission.statement'].create({\n            'company_id': self.env.company.id,\n            'plan_id': self.plan.id,\n            'beneficiary_type': 'user',\n            'user_id': self.salesperson.id,\n            'period_start': '2026-05-01',\n        })\n\n    def test_min_and_max_target_thresholds_use_statement_period_total(self):\n        invoice_1 = self._create_invoice(60.0, '2026-05-01')\n        invoice_2 = self._create_invoice(50.0, '2026-05-02')\n        statement = self._create_statement()\n        statement.action_calculate_from_registered_invoices()\n\n        line_1 = self.env['commission.line'].search([('invoice_id', '=', invoice_1.id)])\n        line_2 = self.env['commission.line'].search([('invoice_id', '=', invoice_2.id)])\n\n        self.assertEqual(len(line_1), 1, 'The full period total should qualify the first invoice too.')\n        self.assertEqual(len(line_2), 1, 'The second invoice should qualify from the same period total.')\n        self.assertAlmostEqual(line_1.commission_amount, 6.0, places=2)\n        self.assertAlmostEqual(line_2.commission_amount, 5.0, places=2)\n        self.assertEqual(statement.line_ids, line_1 | line_2)\n\n        invoice_3 = self._create_invoice(20.0, '2026-05-03')\n        statement.action_calculate_from_registered_invoices()\n\n        all_lines = self.env['commission.line'].search([\n            ('invoice_id', 'in', (invoice_1 | invoice_2 | invoice_3).ids),\n        ])\n        self.assertFalse(all_lines, 'When the period total exceeds the maximum target, no invoice in the period should qualify.')\n        self.assertFalse(statement.line_ids)\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/commission_management/tests/test_commission_targets.py b/commission_management/tests/test_commission_targets.py
+--- a/commission_management/tests/test_commission_targets.py	(revision d3cbe504723b8c90d897ef20e719f508fa32590d)
++++ b/commission_management/tests/test_commission_targets.py	(date 1778666331113)
+@@ -1,5 +1,6 @@
+ # -*- coding: utf-8 -*-
+ 
++from odoo import fields
+ from odoo.tests.common import TransactionCase, tagged
+ 
+ 
+@@ -89,3 +90,94 @@
+         ])
+         self.assertFalse(all_lines, 'When the period total exceeds the maximum target, no invoice in the period should qualify.')
+         self.assertFalse(statement.line_ids)
++
++
++@tagged('post_install', '-at_install')
++class TestCommissionPartialPayments(TransactionCase):
++    @classmethod
++    def setUpClass(cls):
++        super().setUpClass()
++        cls.partner = cls.env['res.partner'].create({'name': 'Partial Payment Customer'})
++        cls.salesperson = cls.env.user
++        cls.bank_journal = cls.env['account.journal'].search([
++            ('company_id', '=', cls.env.company.id),
++            ('type', '=', 'bank'),
++        ], limit=1)
++        cls.income_account = cls.env['account.account'].search([
++            ('company_id', '=', cls.env.company.id),
++            ('account_type', '=', 'income'),
++            ('deprecated', '=', False),
++        ], limit=1)
++        cls.plan = cls.env['commission.plan'].create({
++            'name': 'Paid Trigger Plan',
++            'company_id': cls.env.company.id,
++            'date_start': '2026-01-01',
++            'trigger_type': 'invoice_paid',
++            'base_type': 'invoice_total',
++            'payment_frequency': 'monthly',
++        })
++        cls.rule = cls.env['commission.rule'].create({
++            'name': 'Paid Trigger Rule',
++            'plan_id': cls.plan.id,
++            'calculation_method': 'percentage',
++            'rate': 10.0,
++            'beneficiary_type': 'salesperson',
++        })
++        cls.plan.action_activate()
++
++    def _create_invoice(self):
++        invoice = self.env['account.move'].create({
++            'move_type': 'out_invoice',
++            'partner_id': self.partner.id,
++            'invoice_user_id': self.salesperson.id,
++            'invoice_date': '2026-01-01',
++            'invoice_line_ids': [(0, 0, {
++                'name': 'Paid Trigger Product',
++                'quantity': 1.0,
++                'price_unit': 1000.0,
++                'account_id': self.income_account.id,
++            })],
++        })
++        invoice.action_post()
++        return invoice
++
++    def _register_payment(self, invoice, amount, payment_date):
++        wizard = self.env['account.payment.register'].with_context(
++            active_model='account.move',
++            active_ids=invoice.ids,
++        ).create({
++            'amount': amount,
++            'payment_date': payment_date,
++            'journal_id': self.bank_journal.id,
++        })
++        return wizard._create_payments()
++
++    def _create_statement(self, period_start):
++        return self.env['commission.statement'].create({
++            'company_id': self.env.company.id,
++            'plan_id': self.plan.id,
++            'beneficiary_type': 'user',
++            'user_id': self.salesperson.id,
++            'period_start': period_start,
++        })
++
++    def test_partial_payments_split_commissions_by_payment_month(self):
++        invoice = self._create_invoice()
++        self._register_payment(invoice, 300.0, '2026-01-10')
++        self._register_payment(invoice, 700.0, '2026-02-15')
++
++        january_statement = self._create_statement('2026-01-01')
++        january_statement.action_calculate_from_registered_invoices()
++        january_lines = january_statement.line_ids.filtered(lambda line: line.invoice_id == invoice)
++        self.assertEqual(len(january_lines), 1)
++        self.assertEqual(january_lines.date, fields.Date.to_date('2026-01-10'))
++        self.assertAlmostEqual(january_lines.base_amount, 300.0, places=2)
++        self.assertAlmostEqual(january_lines.commission_amount, 30.0, places=2)
++
++        february_statement = self._create_statement('2026-02-01')
++        february_statement.action_calculate_from_registered_invoices()
++        february_lines = february_statement.line_ids.filtered(lambda line: line.invoice_id == invoice)
++        self.assertEqual(len(february_lines), 1)
++        self.assertEqual(february_lines.date, fields.Date.to_date('2026-02-15'))
++        self.assertAlmostEqual(february_lines.base_amount, 700.0, places=2)
++        self.assertAlmostEqual(february_lines.commission_amount, 70.0, places=2)

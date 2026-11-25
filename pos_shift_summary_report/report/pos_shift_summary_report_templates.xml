@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_pos_shift_summary">
+        <t t-call="web.html_container">
+            <div class="article"
+                 t-att-data-oe-model="wizard._name"
+                 t-att-data-oe-id="wizard.id"
+                 t-att-data-oe-lang="lang"
+                 dir="rtl"
+                 lang="ar">
+            <div class="page" dir="rtl" lang="ar">
+                <style>
+                    .page {
+                        width: 72mm;
+                        margin: 0 auto;
+                        padding: 0;
+                        color: #000;
+                        font-family: 'DejaVu Sans', Tahoma, Arial, sans-serif;
+                        font-size: 10px;
+                        line-height: 1.35;
+                    }
+                    .shift-title {
+                        margin: 0 0 6px 0;
+                        text-align: center;
+                        font-size: 16px;
+                        font-weight: 700;
+                    }
+                    .meta-table, .amount-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+                    .meta-table td, .amount-table td {
+                        padding: 2px 0;
+                        vertical-align: top;
+                    }
+                    .label {
+                        text-align: right;
+                    }
+                    .amount {
+                        text-align: left;
+                        direction: ltr;
+                        white-space: nowrap;
+                    }
+                    .separator {
+                        border-top: 1px dashed #000;
+                        margin: 6px 0;
+                    }
+                    .section-title {
+                        margin: 4px 0;
+                        text-align: center;
+                        font-size: 12px;
+                        font-weight: 700;
+                    }
+                    .session-title {
+                        font-size: 11px;
+                        font-weight: 700;
+                    }
+                    .strong-row td {
+                        font-weight: 700;
+                        font-size: 11px;
+                    }
+                    .note {
+                        margin: 4px 0;
+                        padding: 3px;
+                        border: 1px solid #000;
+                        font-size: 8px;
+                    }
+                    .muted {
+                        font-size: 8px;
+                    }
+                </style>
+
+                <h1 class="shift-title">تقرير المناوبة</h1>
+                <table class="meta-table">
+                    <tr>
+                        <td class="label"><strong>الشركة:</strong></td>
+                        <td><span t-esc="company.display_name"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label"><strong>نقاط البيع:</strong></td>
+                        <td><span t-esc="pos_names"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label"><strong>من:</strong></td>
+                        <td class="amount"><span t-esc="date_from_display"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label"><strong>إلى:</strong></td>
+                        <td class="amount"><span t-esc="date_to_display"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label"><strong>المنطقة الزمنية:</strong></td>
+                        <td class="amount"><span t-esc="timezone_name"/></td>
+                    </tr>
+                </table>
+
+                <div class="separator"/>
+                <div class="section-title">تفاصيل المناوبات ودرج النقدية</div>
+
+                <t t-if="sessions">
+                    <t t-foreach="sessions" t-as="session">
+                        <div class="session-title">
+                            <span t-esc="session['name']"/>
+                            <span> - </span>
+                            <span t-esc="session['pos_name']"/>
+                        </div>
+                        <table class="meta-table">
+                            <tr>
+                                <td class="label">الحالة:</td>
+                                <td><span t-esc="session['state']"/></td>
+                            </tr>
+                            <tr>
+                                <td class="label">فتح بواسطة:</td>
+                                <td><span t-esc="session['opened_by']"/></td>
+                            </tr>
+                            <tr>
+                                <td class="label">وقت الفتح:</td>
+                                <td class="amount"><span t-esc="session['opened_at']"/></td>
+                            </tr>
+                            <tr>
+                                <td class="label">أغلق بواسطة:</td>
+                                <td><span t-esc="session['closed_by']"/></td>
+                            </tr>
+                            <tr>
+                                <td class="label">وقت الإغلاق:</td>
+                                <td class="amount"><span t-esc="session['closed_at']"/></td>
+                            </tr>
+                        </table>
+
+                        <t t-if="session['cash_control']">
+                            <div class="separator"/>
+                            <table class="amount-table">
+                                <tr>
+                                    <td class="label">النقدية في بداية الفترة</td>
+                                    <td class="amount"><span t-esc="currency.format(session['opening_balance'])"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="label">المدفوعات النقدية</td>
+                                    <td class="amount"><span t-esc="currency.format(session['cash_payments'])"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="label">المبالغ المستردة نقداً</td>
+                                    <td class="amount"><span t-esc="currency.format(session['cash_refunds'])"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="label">المبالغ المدفوعة للدرج</td>
+                                    <td class="amount"><span t-esc="currency.format(session['cash_in'])"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="label">المبالغ المسحوبة من الدرج</td>
+                                    <td class="amount"><span t-esc="currency.format(session['cash_out'])"/></td>
+                                </tr>
+                                <tr class="strong-row">
+                                    <td class="label">المبلغ النقدي المتوقع</td>
+                                    <td class="amount"><span t-esc="currency.format(session['expected_balance'])"/></td>
+                                </tr>
+                                <tr t-if="session['actual_balance'] is not None">
+                                    <td class="label">كمية النقد الفعلي</td>
+                                    <td class="amount"><span t-esc="currency.format(session['actual_balance'])"/></td>
+                                </tr>
+                                <tr t-if="session['difference'] is not None" class="strong-row">
+                                    <td class="label">الفرق</td>
+                                    <td class="amount"><span t-esc="currency.format(session['difference'])"/></td>
+                                </tr>
+                            </table>
+                            <div t-if="session['actual_balance'] is None" class="note">
+                                النقد الفعلي والفرق غير متاحين لهذه الفترة؛ يظهران فقط عندما تصل الفترة المختارة إلى نهاية مناوبة مغلقة.
+                            </div>
+                        </t>
+                        <div t-else="" class="note">
+                            التحكم النقدي غير مفعّل في نقطة البيع لهذه المناوبة.
+                        </div>
+                        <div t-if="session['is_partial']" class="muted">
+                            * قيم الحركة النقدية تخص الجزء المحدد من المناوبة فقط:
+                            <span class="amount" t-esc="session['segment_from']"/>
+                            <span> - </span>
+                            <span class="amount" t-esc="session['segment_to']"/>
+                        </div>
+                        <div class="separator"/>
+                    </t>
+                </t>
+                <div t-else="" class="note">لا توجد مناوبات متقاطعة مع الفترة المختارة.</div>
+
+                <div class="section-title">ملخص المبيعات</div>
+                <table class="amount-table">
+                    <tr class="strong-row">
+                        <td class="label">إجمالي المبيعات</td>
+                        <td class="amount"><span t-esc="currency.format(sales['gross_sales'])"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">المبالغ المستردة</td>
+                        <td class="amount"><span t-esc="currency.format(sales['refunds'])"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">الخصومات</td>
+                        <td class="amount"><span t-esc="currency.format(sales['discounts'])"/></td>
+                    </tr>
+                    <tr class="strong-row">
+                        <td class="label">صافي المبيعات</td>
+                        <td class="amount"><span t-esc="currency.format(sales['net_sales'])"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">الضريبة</td>
+                        <td class="amount"><span t-esc="currency.format(sales['taxes'])"/></td>
+                    </tr>
+                    <tr t-if="sales['cash_rounding']">
+                        <td class="label">التقريب النقدي</td>
+                        <td class="amount"><span t-esc="currency.format(sales['cash_rounding'])"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">عدد عمليات البيع</td>
+                        <td class="amount"><span t-esc="sales['sales_count']"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">عدد عمليات الاسترجاع</td>
+                        <td class="amount"><span t-esc="sales['refund_count']"/></td>
+                    </tr>
+                </table>
+
+                <div class="separator"/>
+                <div class="section-title">طرق الدفع</div>
+                <table class="amount-table">
+                    <t t-foreach="payments" t-as="payment">
+                        <tr>
+                            <td class="label"><span t-esc="payment['name']"/></td>
+                            <td class="amount"><span t-esc="currency.format(payment['amount'])"/></td>
+                        </tr>
+                    </t>
+                    <tr t-if="not payments">
+                        <td colspan="2" class="label">لا توجد مدفوعات في الفترة المختارة.</td>
+                    </tr>
+                </table>
+
+                <div class="separator"/>
+                <div class="section-title">المنتجات من الأعلى مبيعاً إلى الأقل</div>
+                <div class="muted">حسب صافي الكمية بعد المرتجعات، ثم صافي القيمة. القيمة شاملة الضريبة وبعد الخصومات.</div>
+                <table class="amount-table">
+                    <t t-foreach="product_ranking" t-as="product">
+                        <tr>
+                            <td class="label">
+                                <strong><span t-esc="product['rank']"/>. <span t-esc="product['product_name']"/></strong>
+                                <div class="muted">
+                                    المباع: <span t-esc="product['sold_quantity']" t-options="{'widget': 'float', 'precision': 3}"/>
+                                    | المسترد: <span t-esc="product['refund_quantity']" t-options="{'widget': 'float', 'precision': 3}"/>
+                                </div>
+                                <div class="muted">
+                                    الصافي: <span t-esc="product['net_quantity']" t-options="{'widget': 'float', 'precision': 3}"/>
+                                    <span t-esc="product['uom']"/>
+                                </div>
+                            </td>
+                            <td class="amount"><span t-esc="currency.format(product['net_amount'])"/></td>
+                        </tr>
+                    </t>
+                    <tr t-if="not product_ranking">
+                        <td colspan="2" class="label">لا توجد منتجات مباعة في الفترة المختارة.</td>
+                    </tr>
+                </table>
+
+                <div class="separator"/>
+                <div class="muted" style="text-align: center;">
+                    إجمالي المبيعات قبل الخصومات والمرتجعات، وصافي المبيعات بعد طرحهما. جميع المبالغ شاملة الضريبة ومحسوبة ضمن التاريخ والوقت المختارين.
+                </div>
+            </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="session_shift">
+        <t t-call="pos_shift_summary_report.report_pos_shift_summary"/>
+    </template>
+</odoo>

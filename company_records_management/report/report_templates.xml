@@ -1,0 +1,21 @@
+<odoo>
+<template id="records_report">
+<t t-call="web.html_container">
+<t t-foreach="docs" t-as="o">
+<t t-call="web.external_layout">
+<div class="page" dir="rtl">
+<h2>تقرير إدارة السجلات</h2>
+<p><strong>الشركة:</strong> <span t-esc="o.name"/></p>
+<table class="table table-sm table-bordered">
+<thead><tr><th>الفرع</th><th>السجلات التجارية</th><th>الرخص البلدية</th><th>الدفاع المدني</th><th>عقود الإيجار</th></tr></thead>
+<tbody><t t-foreach="o.branch_ids" t-as="b"><tr>
+<td t-esc="b.name"/><td t-esc="len(b.commercial_registration_ids)"/>
+<td t-esc="len(b.municipality_license_ids)"/><td t-esc="len(b.civil_defense_ids)"/>
+<td t-esc="len(b.lease_contract_ids)"/>
+</tr></t></tbody>
+</table>
+</div>
+</t></t>
+</t>
+</template>
+</odoo>

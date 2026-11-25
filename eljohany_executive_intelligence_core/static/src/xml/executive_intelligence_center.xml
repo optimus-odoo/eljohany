@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="eljohany_executive_intelligence_core.Center">
+        <div class="o_ei_center">
+            <div t-if="state.loading" class="o_ei_loading" t-esc="labels.loadingCenter"/>
+            <t t-elif="state.bootstrap">
+                <aside class="o_ei_sidebar">
+                    <div class="o_ei_brand">
+                        <span class="o_ei_brand_mark">EI</span>
+                        <div>
+                            <strong t-esc="labels.brand"/>
+                            <small t-esc="labels.center"/>
+                        </div>
+                    </div>
+                    <nav class="o_ei_nav">
+                        <button t-foreach="state.bootstrap.dashboards" t-as="dashboard" t-key="dashboard.id"
+                                t-att-class="'o_ei_nav_item ' + (state.activeDashboard &amp;&amp; state.activeDashboard.code === dashboard.code ? 'active' : '')"
+                                t-on-click="() => this.selectDashboard(dashboard)">
+                            <i t-att-class="'fa ' + dashboard.icon"/>
+                            <span t-esc="dashboard.name"/>
+                        </button>
+                    </nav>
+                </aside>
+                <main class="o_ei_main">
+                    <header class="o_ei_header">
+                        <div>
+                            <h1 t-esc="state.activeDashboard ? state.activeDashboard.name : this.defaultTitle"/>
+                            <small t-if="state.data &amp;&amp; state.data.generated_at"><t t-esc="labels.lastUpdate"/> <t t-esc="state.data.generated_at"/></small>
+                        </div>
+                    </header>
+                    <section class="o_ei_filters">
+                        <label class="o_ei_filter_field"><span t-esc="labels.from"/><input type="date" t-model="state.dateFrom"/></label>
+                        <label class="o_ei_filter_field"><span t-esc="labels.to"/><input type="date" t-model="state.dateTo"/></label>
+                        <div class="o_ei_filter_field">
+                            <span t-esc="labels.companies"/>
+                            <details class="o_ei_multiselect">
+                                <summary><span t-esc="labels.companies"/><b><t t-esc="state.selectedCompanyIds.length"/> <t t-esc="labels.selected"/></b></summary>
+                                <div class="o_ei_multiselect_panel">
+                                    <div class="o_ei_multiselect_actions">
+                                        <button type="button" t-on-click="selectAllCompanies" t-esc="labels.selectAll"/>
+                                        <button type="button" t-on-click="clearCompanies" t-esc="labels.clear"/>
+                                    </div>
+                                    <label t-foreach="state.bootstrap.companies" t-as="company" t-key="company.id" class="o_ei_check_option">
+                                        <input type="checkbox" t-att-checked="state.selectedCompanyIds.includes(company.id)" t-on-change="(ev) => this.onCompanyToggle(company.id, ev)"/>
+                                        <span t-esc="company.name"/>
+                                    </label>
+                                </div>
+                            </details>
+                        </div>
+                        <div t-if="state.bootstrap.warehouses &amp;&amp; state.bootstrap.warehouses.length" class="o_ei_filter_field">
+                            <span t-esc="labels.warehouses"/>
+                            <details class="o_ei_multiselect">
+                                <summary><span t-esc="labels.warehouses"/><b><t t-esc="state.selectedWarehouseIds.length"/> <t t-esc="labels.selected"/></b></summary>
+                                <div class="o_ei_multiselect_panel">
+                                    <div class="o_ei_multiselect_actions">
+                                        <button type="button" t-on-click="selectAllWarehouses" t-esc="labels.selectAll"/>
+                                        <button type="button" t-on-click="clearWarehouses" t-esc="labels.clear"/>
+                                    </div>
+                                    <t t-foreach="state.bootstrap.warehouses" t-as="warehouse" t-key="warehouse.id">
+                                        <label t-if="state.selectedCompanyIds.includes(warehouse.company_id)" class="o_ei_check_option">
+                                            <input type="checkbox" t-att-checked="state.selectedWarehouseIds.includes(warehouse.id)" t-on-change="(ev) => this.onWarehouseToggle(warehouse.id, ev)"/>
+                                            <span t-esc="warehouse.name"/>
+                                        </label>
+                                    </t>
+                                </div>
+                            </details>
+                        </div>
+                        <div class="o_ei_filter_apply">
+                            <button class="btn btn-primary" t-on-click="loadDashboardData" t-att-disabled="state.loadingData || !state.selectedCompanyIds.length">
+                                <i class="fa fa-filter"/><span t-esc="labels.apply"/>
+                            </button>
+                        </div>
+                    </section>
+                    <t t-if="state.error" t-call="eljohany_executive_intelligence_core.ErrorPanel"/>
+                    <section t-elif="!state.bootstrap.dashboards.length" class="o_ei_empty" t-esc="labels.noDashboards"/>
+                    <section t-elif="state.loadingData" class="o_ei_loading" t-esc="labels.loadingData"/>
+                    <section t-elif="state.data" class="o_ei_content">
+                        <div t-if="state.data.status !== 'ok'" class="alert alert-info" t-esc="state.data.message"/>
+                        <div class="o_ei_cards">
+                            <article t-foreach="state.data.cards || []" t-as="card" t-key="card.key" class="o_ei_card">
+                                <small t-esc="card.label"/>
+                                <strong t-esc="card.display_value"/>
+                                <div t-if="card.comparison" t-att-class="'o_ei_card_comparison ' + (card.comparison.tone || 'neutral')">
+                                    <i t-att-class="card.comparison.direction === 'up' ? 'fa fa-arrow-up' : (card.comparison.direction === 'down' ? 'fa fa-arrow-down' : 'fa fa-minus')"/>
+                                    <b t-esc="card.comparison.display"/>
+                                    <small t-esc="card.comparison.label"/>
+                                </div>
+                                <span t-if="card.note" t-esc="card.note"/>
+                            </article>
+                        </div>
+                        <div class="o_ei_charts">
+                            <t t-foreach="state.data.charts || []" t-as="chart" t-key="chart.key">
+                            <article t-if="chart.items &amp;&amp; chart.items.length" class="o_ei_chart_panel">
+                                <header>
+                                    <div>
+                                        <h2 t-esc="chart.title"/>
+                                        <small t-if="chart.subtitle" t-esc="chart.subtitle"/>
+                                    </div>
+                                    <span class="o_ei_chart_type" t-esc="chartTypeLabel(chart)"/>
+                                </header>
+
+                                <t t-if="chart.type === 'line' || chart.type === 'area'">
+                                    <div class="o_ei_line_chart">
+                                        <svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" t-att-aria-label="chart.title">
+                                            <polygon t-if="chart.type === 'area'" class="o_ei_area_fill" t-att-points="areaPoints(chart)"/>
+                                            <polyline class="o_ei_line_path" t-att-points="linePoints(chart)"/>
+                                            <circle t-foreach="chart.items" t-as="item" t-key="item.key" class="o_ei_line_point" t-att-cx="chartPointX(chart, item_index)" t-att-cy="chartPointY(chart, item)" r="1.8">
+                                                <title><t t-esc="item.label"/>: <t t-esc="item.display_value || item.value"/></title>
+                                            </circle>
+                                        </svg>
+                                        <div class="o_ei_axis_labels">
+                                            <span t-foreach="chart.items" t-as="item" t-key="item.key" t-esc="axisLabel(chart, item, item_index)"/>
+                                        </div>
+                                    </div>
+                                </t>
+
+                                <div t-elif="chart.type === 'bar'" class="o_ei_bar_chart">
+                                    <div t-foreach="chart.items" t-as="item" t-key="item.key" class="o_ei_bar_row">
+                                        <div><span t-esc="item.label"/><b t-esc="item.display_value || item.value"/></div>
+                                        <div class="o_ei_bar_track"><i t-att-style="barStyle(chart, item)"/></div>
+                                    </div>
+                                </div>
+
+                                <div t-elif="chart.type === 'column'" class="o_ei_column_chart">
+                                    <div t-foreach="chart.items" t-as="item" t-key="item.key" class="o_ei_column_item">
+                                        <b t-esc="item.display_value || item.value"/>
+                                        <div class="o_ei_column_track"><i t-att-style="columnStyle(chart, item)"/></div>
+                                        <span t-esc="item.label"/>
+                                    </div>
+                                </div>
+
+                                <div t-elif="chart.type === 'progress'" class="o_ei_progress_chart">
+                                    <div t-foreach="chart.items" t-as="item" t-key="item.key" class="o_ei_progress_item">
+                                        <div><span t-esc="item.label"/><b t-esc="item.display_value || item.value"/></div>
+                                        <div class="o_ei_progress_track"><i t-att-style="progressStyle(chart, item)"/></div>
+                                        <small t-if="item.target_label" t-esc="item.target_label"/>
+                                    </div>
+                                </div>
+
+                                <div t-elif="chart.type === 'gauge'" class="o_ei_gauge_chart">
+                                    <div t-foreach="chart.items" t-as="item" t-key="item.key" class="o_ei_gauge_item">
+                                        <div class="o_ei_gauge" t-att-style="gaugeStyle(chart, item)"><span><b><t t-esc="roundedChartPercent(chart, item)"/>%</b></span></div>
+                                        <strong t-esc="item.label"/>
+                                        <small t-esc="item.display_value || item.value"/>
+                                    </div>
+                                </div>
+
+                                <div t-elif="chart.type === 'heatmap'" class="o_ei_heatmap">
+                                    <div t-foreach="chart.items" t-as="item" t-key="item.key" class="o_ei_heat_cell" t-att-style="heatStyle(chart, item)">
+                                        <span t-esc="item.label"/>
+                                        <b t-esc="item.display_value || item.value"/>
+                                    </div>
+                                </div>
+
+                                <div t-elif="chart.type === 'geo'" class="o_ei_geo_chart">
+                                    <svg viewBox="0 0 100 100" role="img" t-att-aria-label="chart.title">
+                                        <path class="o_ei_geo_grid" d="M10 20H90M10 40H90M10 60H90M10 80H90M20 10V90M40 10V90M60 10V90M80 10V90"/>
+                                        <circle t-foreach="chart.items" t-as="item" t-key="item.key" class="o_ei_geo_marker" t-att-cx="geoX(chart, item)" t-att-cy="geoY(chart, item)" t-att-r="geoRadius(chart, item)">
+                                            <title><t t-esc="item.label"/>: <t t-esc="item.display_value || item.value"/> — <t t-esc="item.latitude"/>, <t t-esc="item.longitude"/></title>
+                                        </circle>
+                                    </svg>
+                                    <div class="o_ei_geo_legend">
+                                        <span t-foreach="chart.items" t-as="item" t-key="item.key"><i/><t t-esc="item.label"/></span>
+                                    </div>
+                                </div>
+                                <footer t-if="chart.note" t-esc="chart.note"/>
+                            </article>
+                            </t>
+                        </div>
+                        <article t-foreach="state.data.tables || []" t-as="table" t-key="table.key" class="o_ei_table_panel">
+                            <div class="o_ei_table_header">
+                                <div><h2 t-esc="table.title"/><small><t t-esc="tableRows(table).length"/> <t t-esc="labels.rows"/></small></div>
+                                <label><i class="fa fa-search"/><input type="search" t-att-placeholder="labels.searchTable" t-on-input="(ev) => this.onTableSearch(table.key, ev)"/></label>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead><tr><th t-foreach="table.columns" t-as="column" t-key="column.key"><button type="button" t-on-click="() => this.toggleTableSort(table.key, column.key)"><span t-esc="column.label"/><i t-att-class="sortIcon(table.key, column.key)"/></button></th></tr></thead>
+                                    <tbody>
+                                        <tr t-foreach="tableRows(table)" t-as="row" t-key="row.key">
+                                            <td t-foreach="table.columns" t-as="column" t-key="column.key" t-esc="row[column.key]"/>
+                                        </tr>
+                                        <tr t-if="!tableRows(table).length"><td t-att-colspan="table.columns.length" class="o_ei_no_rows" t-esc="labels.noMatchingRows"/></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </article>
+                    </section>
+                </main>
+            </t>
+            <main t-elif="state.error" class="o_ei_main o_ei_main_standalone">
+                <t t-call="eljohany_executive_intelligence_core.ErrorPanel"/>
+            </main>
+        </div>
+    </t>
+
+    <t t-name="eljohany_executive_intelligence_core.ErrorPanel">
+        <section class="o_ei_error_panel" role="alert" aria-live="assertive">
+            <header>
+                <span class="o_ei_error_icon"><i class="fa fa-exclamation-triangle"/></span>
+                <div>
+                    <h2 t-esc="state.error.title"/>
+                    <p t-esc="labels.errorHelp"/>
+                </div>
+            </header>
+            <dl class="o_ei_error_context">
+                <t t-if="state.error.dashboardName">
+                    <dt t-esc="labels.dashboard"/>
+                    <dd t-esc="state.error.dashboardName"/>
+                </t>
+                <dt t-esc="labels.occurredAt"/>
+                <dd t-esc="state.error.occurredAt"/>
+            </dl>
+            <div class="o_ei_error_message">
+                <strong t-esc="labels.completeErrorDetails"/>
+                <p t-esc="state.error.message"/>
+            </div>
+            <div class="o_ei_error_actions">
+                <button type="button" class="btn btn-primary" t-on-click="retryLastError">
+                    <i class="fa fa-refresh"/><span t-esc="labels.retry"/>
+                </button>
+                <button type="button" class="btn btn-outline-secondary" t-on-click="copyErrorDetails">
+                    <i t-att-class="state.error.copied ? 'fa fa-check' : 'fa fa-copy'"/>
+                    <span t-esc="state.error.copied ? labels.copied : labels.copyError"/>
+                </button>
+            </div>
+            <details class="o_ei_error_traceback" open="open">
+                <summary t-esc="labels.technicalTraceback"/>
+                <pre dir="ltr" t-esc="state.error.technicalDetails"/>
+            </details>
+        </section>
+    </t>
+</templates>
+

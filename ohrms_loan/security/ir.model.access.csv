@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_loan_employee,hr.loan.employee,model_hr_loan,ohrms_loan.group_employee_forms_access,1,1,1,0
+access_hr_loan_approver,hr.loan.approver,model_hr_loan,ohrms_loan.group_loan_approver,1,1,0,0
+access_hr_loan_line_employee,hr.loan.line.employee,model_hr_loan_line,ohrms_loan.group_employee_forms_access,1,0,0,0
+access_hr_loan_line_approver,hr.loan.line.approver,model_hr_loan_line,ohrms_loan.group_loan_approver,1,0,0,0
+access_hr_loan_approval_line_employee,hr.loan.approval.line.employee,model_hr_loan_approval_line,ohrms_loan.group_employee_forms_access,1,0,0,0
+access_hr_loan_approval_line_approver,hr.loan.approval.line.approver,model_hr_loan_approval_line,ohrms_loan.group_loan_approver,1,0,0,0
+access_hr_loan_workflow_approver,hr.loan.workflow.approver,model_hr_loan_workflow,ohrms_loan.group_loan_approver,1,0,0,0
+access_hr_loan_workflow_step_approver,hr.loan.workflow.step.approver,model_hr_loan_workflow_step,ohrms_loan.group_loan_approver,1,0,0,0
+access_hr_loan_payroll_user,hr.loan.payroll.user,model_hr_loan,hr_payroll.group_hr_payroll_user,1,0,0,0
+access_hr_loan_line_payroll_user,hr.loan.line.payroll.user,model_hr_loan_line,hr_payroll.group_hr_payroll_user,1,1,0,0
+access_hr_loan_officer,hr.loan.officer,model_hr_loan,hr.group_hr_user,1,1,1,1
+access_hr_loan_line_officer,hr.loan.line.officer,model_hr_loan_line,hr.group_hr_user,1,1,1,1
+access_hr_loan_approval_line_officer,hr.loan.approval.line.officer,model_hr_loan_approval_line,hr.group_hr_user,1,1,1,1
+access_hr_loan_workflow_manager,hr.loan.workflow.manager,model_hr_loan_workflow,hr.group_hr_manager,1,1,1,1
+access_hr_loan_workflow_step_manager,hr.loan.workflow.step.manager,model_hr_loan_workflow_step,hr.group_hr_manager,1,1,1,1

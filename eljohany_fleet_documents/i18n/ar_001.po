@@ -1,0 +1,235 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#       * eljohany_fleet_documents
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-15 00:00+0000\n"
+"PO-Revision-Date: 2026-09-15 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: eljohany_fleet_documents
+#: model:ir.module.module,shortdesc:base.module_eljohany_fleet_documents
+msgid "Eljohany Fleet Documents"
+msgstr "مستندات أسطول الجهني"
+
+#. module: eljohany_fleet_documents
+#: model:ir.module.module,summary:base.module_eljohany_fleet_documents
+msgid "Company vehicle documents, accident files, and expiry reminders"
+msgstr "مستندات سيارات الشركة وملفات الحوادث وتنبيهات الانتهاء"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_periodic_inspection_expiry_date
+msgid "Periodic Inspection Expiry Date"
+msgstr "تاريخ انتهاء الفحص الدوري"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_registration_expiry_date
+msgid "Vehicle Registration Expiry Date"
+msgstr "تاريخ انتهاء رخصة السير"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_operation_card_expiry_date
+msgid "Operation Card Expiry Date"
+msgstr "تاريخ انتهاء بطاقة التشغيل"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_insurance_expiry_date
+msgid "Insurance Expiry Date"
+msgstr "تاريخ انتهاء التأمين"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_driver_branch_id
+msgid "Driver Branch"
+msgstr "فرع السائق"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_vehicle_model
+msgid "Vehicle Model"
+msgstr "موديل السيارة"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_vehicle_type
+msgid "Vehicle Type"
+msgstr "نوع السيارة"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_serial_number
+msgid "Serial Number"
+msgstr "الرقم التسلسلي"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_chassis_number
+msgid "Chassis Number"
+msgstr "رقم الهيكل"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_owner_id
+msgid "Vehicle Owner"
+msgstr "مالك السيارة"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_vehicle_color
+msgid "Vehicle Color"
+msgstr "لون المركبة"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_vehicle_attachment_ids
+#: model_terms:ir.ui.view,arch_db:eljohany_fleet_documents.fleet_vehicle_view_form_inherit_eljohany_documents
+msgid "Vehicle Files"
+msgstr "ملفات السيارة"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_accident_count
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle__x_accident_ids
+#: model_terms:ir.ui.view,arch_db:eljohany_fleet_documents.fleet_vehicle_view_form_inherit_eljohany_documents
+msgid "Accidents"
+msgstr "الحوادث"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model,name:eljohany_fleet_documents.model_fleet_vehicle_accident
+#: model_terms:ir.ui.view,arch_db:eljohany_fleet_documents.fleet_vehicle_accident_view_form
+msgid "Vehicle Accident"
+msgstr "حادث سيارة"
+
+#. module: eljohany_fleet_documents
+#: model:ir.actions.act_window,name:eljohany_fleet_documents.action_fleet_vehicle_accident
+#: model_terms:ir.ui.view,arch_db:eljohany_fleet_documents.fleet_vehicle_accident_view_search
+#: model_terms:ir.ui.view,arch_db:eljohany_fleet_documents.fleet_vehicle_accident_view_tree
+msgid "Vehicle Accidents"
+msgstr "حوادث السيارات"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle_accident__name
+msgid "Reference"
+msgstr "المرجع"
+
+#. module: eljohany_fleet_documents
+#: code:addons/eljohany_fleet_documents/models/fleet_vehicle_accident.py:0
+msgid "New Accident"
+msgstr "حادث جديد"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle_accident__vehicle_id
+#: model_terms:ir.ui.view,arch_db:eljohany_fleet_documents.fleet_vehicle_accident_view_search
+msgid "Vehicle"
+msgstr "السيارة"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle_accident__accident_date
+msgid "Accident Date"
+msgstr "تاريخ الحادث"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle_accident__fault_percentage
+msgid "Fault Percentage"
+msgstr "نسبة الخطأ"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle_accident__driver_id
+#: model_terms:ir.ui.view,arch_db:eljohany_fleet_documents.fleet_vehicle_accident_view_search
+msgid "Driver"
+msgstr "السائق"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle_accident__driver_details
+msgid "Driver Details"
+msgstr "بيانات السائق"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle_accident__description
+msgid "Accident Notes"
+msgstr "ملاحظات الحادث"
+
+#. module: eljohany_fleet_documents
+#: model:ir.model.fields,field_description:eljohany_fleet_documents.field_fleet_vehicle_accident__attachment_ids
+#: model_terms:ir.ui.view,arch_db:eljohany_fleet_documents.fleet_vehicle_accident_view_form
+msgid "Accident Files"
+msgstr "ملفات الحادث"
+
+#. module: eljohany_fleet_documents
+#: model_terms:ir.ui.view,arch_db:eljohany_fleet_documents.fleet_vehicle_view_form_inherit_eljohany_documents
+msgid "Official Documents"
+msgstr "الأوراق الرسمية"
+
+#. module: eljohany_fleet_documents
+#: model_terms:ir.ui.view,arch_db:eljohany_fleet_documents.fleet_vehicle_view_form_inherit_eljohany_documents
+msgid "Company Vehicle Details"
+msgstr "بيانات سيارة الشركة"
+
+#. module: eljohany_fleet_documents
+#: model_terms:ir.ui.view,arch_db:eljohany_fleet_documents.fleet_vehicle_view_search_inherit_eljohany_documents
+msgid "Branch"
+msgstr "الفرع"
+
+#. module: eljohany_fleet_documents
+#: model_terms:ir.ui.view,arch_db:eljohany_fleet_documents.fleet_vehicle_view_search_inherit_eljohany_documents
+msgid "Owner"
+msgstr "المالك"
+
+#. module: eljohany_fleet_documents
+#: model:ir.cron,name:eljohany_fleet_documents.ir_cron_fleet_document_expiry_activities
+msgid "Fleet Document Expiry Reminders"
+msgstr "تذكيرات انتهاء مستندات الأسطول"
+
+#. module: eljohany_fleet_documents
+#: code:addons/eljohany_fleet_documents/models/fleet_vehicle.py:0
+msgid "Periodic inspection expires on %(date)s"
+msgstr "ينتهي الفحص الدوري بتاريخ %(date)s"
+
+#. module: eljohany_fleet_documents
+#: code:addons/eljohany_fleet_documents/models/fleet_vehicle.py:0
+msgid "Periodic inspection expiry reminder"
+msgstr "تذكير انتهاء الفحص الدوري"
+
+#. module: eljohany_fleet_documents
+#: code:addons/eljohany_fleet_documents/models/fleet_vehicle.py:0
+msgid "Vehicle registration expires on %(date)s"
+msgstr "تنتهي رخصة السير بتاريخ %(date)s"
+
+#. module: eljohany_fleet_documents
+#: code:addons/eljohany_fleet_documents/models/fleet_vehicle.py:0
+msgid "Vehicle registration expiry reminder"
+msgstr "تذكير انتهاء رخصة السير"
+
+#. module: eljohany_fleet_documents
+#: code:addons/eljohany_fleet_documents/models/fleet_vehicle.py:0
+msgid "Operation card expires on %(date)s"
+msgstr "تنتهي بطاقة التشغيل بتاريخ %(date)s"
+
+#. module: eljohany_fleet_documents
+#: code:addons/eljohany_fleet_documents/models/fleet_vehicle.py:0
+msgid "Operation card expiry reminder"
+msgstr "تذكير انتهاء بطاقة التشغيل"
+
+#. module: eljohany_fleet_documents
+#: code:addons/eljohany_fleet_documents/models/fleet_vehicle.py:0
+msgid "Insurance expires on %(date)s"
+msgstr "ينتهي التأمين بتاريخ %(date)s"
+
+#. module: eljohany_fleet_documents
+#: code:addons/eljohany_fleet_documents/models/fleet_vehicle.py:0
+msgid "Insurance expiry reminder"
+msgstr "تذكير انتهاء التأمين"
+
+#. module: eljohany_fleet_documents
+#: code:addons/eljohany_fleet_documents/models/fleet_vehicle.py:0
+msgid "The document date is within 60 days of expiry or already expired."
+msgstr "تاريخ المستند خلال 60 يوم من الانتهاء أو انتهى بالفعل."
+
+#. module: eljohany_fleet_documents
+#: code:addons/eljohany_fleet_documents/models/fleet_vehicle.py:0
+msgid "%(document_note)s. The document date is within 60 days of expiry or already expired."
+msgstr "%(document_note)s. تاريخ المستند خلال 60 يوم من الانتهاء أو انتهى بالفعل."
+
+#. module: eljohany_fleet_documents
+#: code:addons/eljohany_fleet_documents/models/fleet_vehicle_accident.py:0
+msgid "Fault percentage must be between 0 and 100."
+msgstr "يجب أن تكون نسبة الخطأ بين 0 و 100."

@@ -1,0 +1,18 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * pos_order_customer_notes
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: pos_order_customer_notes
+msgid "Customer Note"
+msgstr "ملاحظة العميل"
+
+#. module: pos_order_customer_notes
+msgid "Customer Notes"
+msgstr "ملاحظات العميل"

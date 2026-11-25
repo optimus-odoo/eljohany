@@ -1,0 +1,263 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * eljohany_partner_dual_account_control
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Directional Account Status"
+msgstr "حالة حسابات العميل والمورد"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Directional Account Check"
+msgstr "فحص حسابات العميل والمورد"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Valid"
+msgstr "سليم"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Requires Review"
+msgstr "يحتاج إلى مراجعة"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Expected Partner Settlement Account"
+msgstr "حساب تسوية الشريك المتوقع"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Expected Payment Settlement Account"
+msgstr "حساب تسوية الدفعة المتوقع"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Payment Settlement Account"
+msgstr "حساب تسوية الدفعة المستخدم"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Partner Account Control"
+msgstr "التحقق من حساب الشريك"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Payment Account Control"
+msgstr "التحقق من حساب الدفعة"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Not Applicable"
+msgstr "غير منطبق"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Pending Journal Items"
+msgstr "بانتظار بنود القيد"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Pending Destination Account"
+msgstr "بانتظار تحديد حساب الوجهة"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Matches Partner Document"
+msgstr "مطابق لحساب مستند خاص بالشريك"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Invalid Configuration"
+msgstr "إعداد غير صحيح"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Account Mismatch"
+msgstr "الحساب غير مطابق"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Control Disabled"
+msgstr "التحقق غير مفعل"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Enforce Customer and Vendor Account Separation"
+msgstr "فرض الفصل بين حساب العميل وحساب المورد"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Customer and Vendor Account Separation"
+msgstr "الفصل بين حساب العميل وحساب المورد"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Block invoices, bills, and payments that use a settlement account outside the partner's configured customer or vendor account path."
+msgstr "منع الفواتير والدفعات التي تستخدم حساب تسوية خارج حساب العميل أو المورد المحدد للشريك."
+
+#. module: eljohany_partner_dual_account_control
+msgid "Enable this only after running the partner account audit and correcting all reported issues."
+msgstr "فعّل هذا الخيار فقط بعد تشغيل تدقيق حسابات الشركاء وتصحيح جميع الإشكالات الظاهرة."
+
+#. module: eljohany_partner_dual_account_control
+msgid "Partner Directional Account Audit"
+msgstr "تدقيق حسابات العملاء والموردين"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Partner Account Audit"
+msgstr "تدقيق حسابات الشركاء"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Specific Partners"
+msgstr "شركاء محددون"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Include Archived Partners"
+msgstr "تضمين الشركاء المؤرشفين"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Show Valid Accounts"
+msgstr "إظهار الحسابات السليمة"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Audit Results"
+msgstr "نتائج التدقيق"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Issues"
+msgstr "الإشكالات"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Partners Checked"
+msgstr "الشركاء الذين تم فحصهم"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Direction"
+msgstr "نوع المعاملة"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Customer / Receivable"
+msgstr "عميل / حساب مدين"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Vendor / Payable"
+msgstr "مورد / حساب دائن"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Configured Account"
+msgstr "الحساب المحدد"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Result"
+msgstr "النتيجة"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Missing Account"
+msgstr "الحساب غير محدد"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Wrong Account Type"
+msgstr "نوع الحساب غير صحيح"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Deprecated Account"
+msgstr "الحساب مهمل"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Not Reconcilable"
+msgstr "الحساب غير قابل للتسوية"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Wrong Company"
+msgstr "الحساب تابع لشركة أخرى"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Details"
+msgstr "التفاصيل"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Open Partner"
+msgstr "فتح الشريك"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Run Audit"
+msgstr "تشغيل التدقيق"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Close"
+msgstr "إغلاق"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Company"
+msgstr "الشركة"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Partner"
+msgstr "الشريك"
+
+#. module: eljohany_partner_dual_account_control
+msgid "Customer and vendor accounts are configured independently for %(company)s."
+msgstr "تم إعداد حساب العميل وحساب المورد بصورة مستقلة لشركة %(company)s."
+
+#. module: eljohany_partner_dual_account_control
+msgid "The customer or vendor account requires review for %(company)s."
+msgstr "يحتاج حساب العميل أو المورد إلى مراجعة لشركة %(company)s."
+
+#. module: eljohany_partner_dual_account_control
+msgid "The account is valid."
+msgstr "الحساب سليم."
+
+#. module: eljohany_partner_dual_account_control
+msgid "No account is configured."
+msgstr "لم يتم تحديد حساب."
+
+#. module: eljohany_partner_dual_account_control
+msgid "The account type does not match the transaction direction."
+msgstr "نوع الحساب لا يتوافق مع نوع المعاملة."
+
+#. module: eljohany_partner_dual_account_control
+msgid "The account is deprecated."
+msgstr "الحساب مهمل."
+
+#. module: eljohany_partner_dual_account_control
+msgid "The account is not reconcilable."
+msgstr "الحساب غير قابل للتسوية."
+
+#. module: eljohany_partner_dual_account_control
+msgid "The account belongs to another company."
+msgstr "الحساب تابع لشركة أخرى."
+
+#. module: eljohany_partner_dual_account_control
+msgid "Leave empty to audit all active customers and vendors."
+msgstr "اترك الحقل فارغًا لتدقيق جميع العملاء والموردين النشطين."
+
+#. module: eljohany_partner_dual_account_control
+msgid "No receivable or payable journal item was generated for %(document)s."
+msgstr "لم يتم إنشاء بند حساب مدين أو دائن للمستند %(document)s."
+
+#. module: eljohany_partner_dual_account_control
+msgid "The %(direction)s settlement account for %(partner)s is not valid for company %(company)s."
+msgstr "حساب تسوية %(direction)s للشريك %(partner)s غير صالح لشركة %(company)s."
+
+#. module: eljohany_partner_dual_account_control
+msgid "The partner settlement account on %(document)s must be %(account)s."
+msgstr "يجب أن يكون حساب تسوية الشريك في %(document)s هو %(account)s."
+
+#. module: eljohany_partner_dual_account_control
+msgid "The payment account for %(partner)s must be %(account)s or match a document for that partner."
+msgstr "يجب أن يكون حساب دفعة الشريك %(partner)s هو %(account)s أو أن يطابق حساب مستند خاص بهذا الشريك."
+
+#. module: eljohany_partner_dual_account_control
+msgid "The settlement account for %(partner)s is not valid for company %(company)s."
+msgstr "حساب تسوية الشريك %(partner)s غير صالح لشركة %(company)s."
+
+#. module: eljohany_partner_dual_account_control
+msgid "customer"
+msgstr "العميل"
+
+#. module: eljohany_partner_dual_account_control
+msgid "vendor"
+msgstr "المورد"
+
+#. module: eljohany_partner_dual_account_control
+msgid "The destination account on the payment is not a valid %(direction)s account."
+msgstr "حساب الوجهة في الدفعة ليس حساب %(direction)s صالحًا."
+
+#. module: eljohany_partner_dual_account_control
+msgid "receivable"
+msgstr "مدين"
+
+#. module: eljohany_partner_dual_account_control
+msgid "payable"
+msgstr "دائن"

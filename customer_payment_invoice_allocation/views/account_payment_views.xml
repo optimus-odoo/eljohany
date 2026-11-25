@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_payment_form_inherit_invoice_allocation" model="ir.ui.view">
+        <field name="name">account.payment.form.invoice.allocation</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Invoice Allocation" invisible="partner_type != 'customer' or payment_type != 'inbound'">
+                    <group>
+                        <group>
+                            <field name="allocated_amount" readonly="1"/>
+                            <field name="unallocated_amount" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <button name="action_refresh_open_invoices"
+                                type="object"
+                                string="Refresh Invoices"
+                                class="btn-secondary"
+                                invisible="state != 'draft'"/>
+                        <button name="action_select_all_invoices"
+                                type="object"
+                                string="Select All"
+                                class="btn-secondary"
+                                invisible="state != 'draft'"/>
+                        <button name="action_unselect_all_invoices"
+                                type="object"
+                                string="Clear Selection"
+                                class="btn-secondary"
+                                invisible="state != 'draft'"/>
+                        <button name="action_auto_allocate_invoices"
+                                type="object"
+                                string="Auto Allocate"
+                                class="btn-primary"
+                                invisible="state != 'draft'"/>
+                    </group>
+
+                    <field name="invoice_allocation_ids"
+                           nolabel="1"
+                           readonly="state != 'draft'"
+                           options="{'no_create': True, 'no_open': True}">
+                        <tree create="0" delete="0" edit="1">
+                            <field name="selected"/>
+                            <field name="invoice_id" readonly="1"/>
+                            <field name="invoice_date" readonly="1"/>
+                            <field name="due_date" readonly="1"/>
+                            <field name="invoice_total" readonly="1"/>
+                            <field name="residual_amount" readonly="1"/>
+                            <field name="allocate_amount"/>
+                            <field name="currency_id" readonly="1" optional="hide"/>
+                        </tree>
+                    </field>
+                </page>
+                </notebook>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

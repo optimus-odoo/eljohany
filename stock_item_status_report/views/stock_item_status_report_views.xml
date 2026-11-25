@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_item_status_report_wizard_form" model="ir.ui.view">
+        <field name="name">stock.item.status.report.wizard.form</field>
+        <field name="model">stock.item.status.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Stock Item Status Report" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="branch_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="location_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="include_child_locations"/>
+                            <field name="order_point"/>
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <field name="product_categ_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        <field name="product_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
+
+                    <footer>
+                        <button string="Export Excel" type="object" name="action_export_excel" class="btn-primary"/>
+                        <button string="Print PDF" type="object" name="action_print_pdf" class="btn-secondary"/>
+                        <button string="Close" class="btn-link" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_item_status_report_wizard" model="ir.actions.act_window">
+        <field name="name">Stock Item Status Report</field>
+        <field name="res_model">stock.item.status.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_stock_item_status_report_root"
+              name="Stock Item Status Report"
+              parent="stock.menu_stock_warehouse_mgmt"
+              sequence="90"
+              action="action_stock_item_status_report_wizard"/>
+</odoo>

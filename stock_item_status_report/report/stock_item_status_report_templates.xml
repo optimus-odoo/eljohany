@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="stock_item_status_report_pdf">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="wizard"/>
+            <div class="page">
+                <h2 style="text-align:center;">تقرير حالة أصناف المخزون</h2>
+
+                <div style="margin: 8px 0;">
+                    <strong>الشركة:</strong>
+                    <span t-esc="doc.company_id.display_name"/>
+                    <t t-if="doc.branch_ids">
+                        |
+                        <strong>الفروع:</strong>
+                        <span t-esc="', '.join(doc.branch_ids.mapped('display_name'))"/>
+                    </t>
+                    |
+                    <strong>المواقع:</strong>
+                    <span t-esc="', '.join(doc.location_ids.mapped('display_name'))"/>
+                    |
+                    <strong>الفترة:</strong>
+                    <span t-esc="doc.date_from"/>
+                    <span> - </span>
+                    <span t-esc="doc.date_to"/>
+                </div>
+
+                <table class="table table-sm table-bordered" style="width:100%; font-size: 12px;">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;">كود الصنف</th>
+                            <th style="text-align:center;">اسم المنتج</th>
+                            <th style="text-align:center;">المورد</th>
+                            <th style="text-align:center;">تكلفة الوحدة</th>
+                            <th style="text-align:center;">الكمية الحالية</th>
+                            <th style="text-align:center;">حد الطلب</th>
+                            <th style="text-align:center;">الكمية المباعة</th>
+                            <th style="text-align:center;">اجمالي قيمة المخزون</th>
+                            <th style="text-align:center;">حالة الصنف</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="lines" t-as="l">
+                            <tr>
+                                <td style="text-align:center;"><t t-esc="l.get('default_code')"/></td>
+                                <td style="text-align:right;"><t t-esc="l.get('product_name')"/></td>
+                                <td style="text-align:right;"><t t-esc="l.get('vendor_name')"/></td>
+                                <td style="text-align:center;">
+                                    <t t-esc="formatLang(l.get('unit_cost') or 0.0, currency_obj=doc.company_id.currency_id)"/>
+                                </td>
+                                <td style="text-align:center;"><t t-esc="l.get('qty_on_hand')"/></td>
+                                <td style="text-align:center;"><t t-esc="l.get('reorder_point')"/></td>
+                                <td style="text-align:center;"><t t-esc="l.get('qty_sold')"/></td>
+                                <td style="text-align:center;">
+                                    <t t-esc="formatLang(l.get('stock_value') or 0.0, currency_obj=doc.company_id.currency_id)"/>
+                                </td>
+                                <td style="text-align:center;"><t t-esc="l.get('status')"/></td>
+                            </tr>
+                        </t>
+                        <t t-if="not lines">
+                            <tr>
+                                <td colspan="9" style="text-align:center;">لا توجد بيانات حسب الإعدادات المختارة</td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

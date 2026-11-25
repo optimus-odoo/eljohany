@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="web.SwitchBranchMenu">
+    <div class="o_switch_branch_menu dropdown d-none d-md-block"
+         t-attf-class="o_switch_branch_menu dropdown">
+        <a class="dropdown-toggle d-flex align-items-center"
+           href="#"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false"
+           t-att-title="BranchService.currentBranch.name">
+            <i class="fa fa-building d-lg-none"/>
+            <span class="oe_topbar_name d-none d-lg-block text-truncate"
+                  t-esc="BranchService.currentBranch.name or 'Select branch'"/>
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-end o_switch_branch_menu_dropdown p-2">
+            <div class="d-flex flex-row pe-2 mb-2" t-att-class="{ 'visually-hidden': !showFilter }">
+                <div
+                    role="menuitemcheckbox"
+                    t-att-aria-checked="BranchSelector.selectedBranchesIds.length > 0 ? 'true' : 'false'"
+                    t-on-click="selectAll"
+                >
+                    <span class="btn border-0 pt-2 px-2" t-att-class="selectAllClass">
+                        <i class="fa fa-fw" t-att-class="selectAllIcon"/>
+                    </span>
+                </div>
+                <div class="form-control d-flex align-items-center py-1">
+                    <i class="oi oi-search me-2"/>
+                    <input type="text"
+                           t-ref="inputRef"
+                           class="o_input flex-grow-1 border-0"
+                           placeholder="Search..."
+                           t-on-input="onSearch"/>
+                </div>
+            </div>
+
+            <div class="o_switch_branch_menu_items">
+                <t t-foreach="branchesEntries" t-as="entry" t-key="entry.branch.id">
+                    <t t-call="web.SwitchBranchMenu.Item">
+                        <t t-set="entry" t-value="entry"/>
+                    </t>
+                </t>
+            </div>
+
+            <div t-if="hasSelectionChanged"
+                 class="o_switch_branch_menu_buttons d-flex justify-content-end gap-2 px-2 pt-2">
+                <button class="btn btn-primary flex-grow-1 text-center" t-on-click="confirm">
+                    Confirm
+                </button>
+                <button class="btn btn-secondary flex-grow-1 text-center" t-on-click="resetSelection">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </div>
+</t>
+
+<t t-name="web.SwitchBranchMenu.Item">
+    <a class="dropdown-item"
+       href="#"
+       t-att-data-branch-id="entry.branch.id"
+       t-on-click="onBranchClick">
+        <t t-esc="entry.branch.name"/>
+    </a>
+</t>
+
+</templates>

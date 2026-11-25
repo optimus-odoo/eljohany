@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_product_cost_edit" model="res.groups">
+        <field name="name">Edit Product Cost</field>
+        <field name="comment">Users in this group are allowed to edit product cost fields.</field>
+    </record>
+
+    <record id="group_sale_order_cost_view" model="res.groups">
+        <field name="name">View Cost on Quotations and Sales Orders</field>
+        <field name="comment">Users in this group can see the Cost column on quotation and sales order lines.</field>
+    </record>
+</odoo>

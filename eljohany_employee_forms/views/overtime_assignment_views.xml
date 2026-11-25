@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="overtime_assignment_view_tree" model="ir.ui.view">
+        <field name="name">hr.overtime.assignment.tree</field>
+        <field name="model">hr.overtime.assignment</field>
+        <field name="arch" type="xml">
+            <tree string="Overtime Assignments">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="company_id" column_invisible="True"/>
+                <field name="branch_id"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="total_hours" sum="Total Hours"/>
+                <field name="compensation_type"/>
+                <field name="employee_consented" optional="show"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="overtime_assignment_view_form" model="ir.ui.view">
+        <field name="name">hr.overtime.assignment.form</field>
+        <field name="model">hr.overtime.assignment</field>
+        <field name="arch" type="xml">
+            <form string="Overtime Work Assignment">
+                <header>
+                    <button name="action_submit" type="object" string="Submit" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_employee_consent" type="object" string="Employee Consent" class="oe_highlight" invisible="state not in ('submitted', 'manager_approved') or compensation_type != 'comp_leave' or employee_consented"/>
+                    <button name="action_manager_approve" type="object" string="Manager Approve" class="oe_highlight" invisible="state != 'submitted'" groups="eljohany_employee_forms.group_employee_forms_manager"/>
+                    <button name="action_approve" type="object" string="Final Approval" class="oe_highlight" invisible="state != 'manager_approved'" groups="eljohany_employee_forms.group_employee_forms_manager"/>
+                    <button name="action_reject" type="object" string="Reject" invisible="state not in ('submitted', 'manager_approved')" groups="eljohany_employee_forms.group_employee_forms_manager"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state not in ('draft', 'submitted')"/>
+                    <button name="action_reset_to_draft" type="object" string="Reset to Draft" invisible="state not in ('rejected', 'cancelled')" groups="eljohany_employee_forms.group_employee_forms_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,manager_approved,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group string="Employee and Organization">
+                            <field name="employee_id" readonly="state != 'draft'"/>
+                            <field name="company_id" readonly="state != 'draft'"/>
+                            <field name="branch_id" readonly="state != 'draft'" options="{'no_create': True}"/>
+                            <field name="department_id" readonly="state != 'draft'"/>
+                            <field name="manager_id" readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Assignment Schedule">
+                            <field name="start_datetime" readonly="state != 'draft'"/>
+                            <field name="end_datetime" readonly="state != 'draft'"/>
+                            <field name="break_hours" readonly="state != 'draft'"/>
+                            <field name="total_hours" widget="float_time"/>
+                            <field name="work_location" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <group string="Assignment and Compensation">
+                        <field name="assignment_reason" readonly="state != 'draft'" placeholder="Describe the required work and why overtime is needed..."/>
+                        <group>
+                            <field name="compensation_type" readonly="state != 'draft'"/>
+                            <field name="compensatory_leave_hours" widget="float_time" invisible="compensation_type != 'comp_leave'"/>
+                            <field name="employee_consented" invisible="compensation_type != 'comp_leave'"/>
+                            <field name="consented_by" invisible="not employee_consented"/>
+                            <field name="consented_at" invisible="not employee_consented"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Attachments">
+                            <field name="attachment_ids" widget="many2many_binary" readonly="state == 'approved'"/>
+                        </page>
+                        <page string="Approval Information" groups="eljohany_employee_forms.group_employee_forms_manager">
+                            <group>
+                                <field name="manager_approved_by"/>
+                                <field name="manager_approved_at"/>
+                                <field name="approved_by"/>
+                                <field name="approved_at"/>
+                                <field name="rejection_reason" invisible="state not in ('submitted', 'manager_approved', 'rejected')" readonly="state == 'rejected'"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="overtime_assignment_view_search" model="ir.ui.view">
+        <field name="name">hr.overtime.assignment.search</field>
+        <field name="model">hr.overtime.assignment</field>
+        <field name="arch" type="xml">
+            <search string="Overtime Assignments">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="company_id" invisible="1"/>
+                <field name="branch_id"/>
+                <filter name="my_assignments" string="My Assignments" domain="[('employee_id.user_id', '=', uid)]"/>
+                <filter name="pending" string="Pending Approval" domain="[('state', 'in', ('submitted', 'manager_approved'))]"/>
+                <separator/>
+                <filter name="group_branch" string="Branch" context="{'group_by': 'branch_id'}"/>
+                <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="overtime_assignment_action" model="ir.actions.act_window">
+        <field name="name">Overtime Assignments</field>
+        <field name="res_model">hr.overtime.assignment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="overtime_assignment_view_search"/>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_user'))]"/>
+        <field name="help" type="html"><p class="o_view_nocontent_smiling_face">Create an overtime work assignment.</p></field>
+    </record>
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_loan_management_view_accounting" model="ir.ui.view">
+        <field name="name">hr.loan.management.form.accounting</field>
+        <field name="model">hr.loan</field>
+        <field name="inherit_id" ref="ohrms_loan.hr_loan_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='current_approval_group']" position="after">
+                <group string="Loan Accounting"
+                       groups="account.group_account_user"
+                       invisible="current_step_type != 'accounting' and not loan_move_id">
+                    <field name="employee_account_id" readonly="loan_move_id"/>
+                    <field name="treasury_account_id" readonly="loan_move_id"/>
+                    <field name="journal_id" readonly="loan_move_id"/>
+                    <field name="loan_move_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_loan_approver_view_accounting" model="ir.ui.view">
+        <field name="name">hr.loan.approver.form.accounting</field>
+        <field name="model">hr.loan</field>
+        <field name="inherit_id" ref="ohrms_loan.hr_loan_approver_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='required_action_group']" position="after">
+                <group string="Required Accounting Details"
+                       groups="account.group_account_user"
+                       invisible="current_step_type != 'accounting' and not loan_move_id">
+                    <field name="employee_account_id" readonly="loan_move_id"/>
+                    <field name="treasury_account_id" readonly="loan_move_id"/>
+                    <field name="journal_id" readonly="loan_move_id"/>
+                    <field name="loan_move_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

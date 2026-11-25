@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+        <record id="id_form_view_plumber_plumber" model="ir.ui.view">
+            <field name="name">plumber.plumber</field>
+            <field name="model">plumber.plumber</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="code"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="id_tree_view_plumber_plumber" model="ir.ui.view">
+            <field name="name">plumber.plumber</field>
+            <field name="model">plumber.plumber</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        <record id="id_action_view_plumper" model="ir.actions.act_window">
+            <field name="name">Plumber/سباك</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">plumber.plumber</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+        <menuitem id="id_action_menu_item_plumper" name="Plumber/سباك" parent="sale.menu_sale_config"
+                  action="id_action_view_plumper"
+                  sequence="39"/>
+
+
+        <template id="id_report_saleorder_document" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//div/h2" position="replace">
+                <h2 class="mt-4">
+                    <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice #</span>
+                    <span t-elif="doc.state in ['draft','sent']">عرض سعر #</span>
+                    <span t-else="">عرض سعر #</span>
+                    <span t-field="doc.name">SO0000</span>
+
+                </h2>
+
+            </xpath>
+        </template>
+
+    </data>
+
+</odoo>

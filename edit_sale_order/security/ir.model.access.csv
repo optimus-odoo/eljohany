@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+edit_sale_order.access_plumber_plumber,access_plumber_plumber,edit_sale_order.model_plumber_plumber,base.group_user,1,1,1,1
+edit_sale_order.access_projects_project,access_projects_project,edit_sale_order.model_projects_project,base.group_user,1,1,1,1
+

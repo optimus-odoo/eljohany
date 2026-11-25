@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_vendor_stock_difference_wizard_form" model="ir.ui.view">
+        <field name="name">vendor.stock.difference.wizard.form</field>
+        <field name="model">vendor.stock.difference.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Vendor vs Stock Difference">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="group_by"/>
+                        </group>
+                        <group>
+                            <field name="partner_ids" widget="many2many_tags"/>
+                            <field name="product_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" nolabel="1" readonly="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_generate" type="object" string="Generate" class="btn-primary"/>
+                    <button name="action_print_pdf" type="object" string="Print PDF"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vendor_stock_difference_wizard" model="ir.actions.act_window">
+        <field name="name">Vendor vs Stock Difference</field>
+        <field name="res_model">vendor.stock.difference.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

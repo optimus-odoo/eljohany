@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_vendor_stock_difference" model="ir.actions.report">
+        <field name="name">Vendor vs Stock Difference</field>
+        <field name="model">vendor.stock.difference.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">vendor_stock_difference_report.report_vendor_stock_difference_document</field>
+        <field name="report_file">vendor_stock_difference_report.report_vendor_stock_difference_document</field>
+        <field name="print_report_name">'Vendor_vs_Stock_Difference_%s' % (object.date_to or '')</field>
+    </record>
+</odoo>

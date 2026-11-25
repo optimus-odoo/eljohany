@@ -1,0 +1,1129 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eljohany_employee_forms
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-12 07:08+0000\n"
+"PO-Revision-Date: 2026-11-12 07:08+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0?0:n==1?1:n==2?2:n%100>=3 && n%100<=10?3:n%100>=11 && n%100<=99?4:5;\n"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__absence_days
+msgid "Absence Days"
+msgstr "أيام الغياب"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/work_injury.py:151
+#, python-format
+msgid "Absence days cannot be negative."
+msgstr "لا يمكن أن تكون أيام الغياب سالبة."
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__accident_datetime
+msgid "Accident Datetime"
+msgstr "تاريخ ووقت الحادث"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Accident Details"
+msgstr "تفاصيل الحادث"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__accident_location
+msgid "Accident Location"
+msgstr "موقع الحادث"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__accident_type
+msgid "Accident Type"
+msgstr "نوع الحادث"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:206
+#, python-format
+msgid ""
+"All destination organizational data must belong to the destination company."
+msgstr "يجب أن تتبع جميع البيانات التنظيمية الجديدة الشركة الجديدة."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:440
+#, python-format
+msgid "An applied transfer record cannot be changed."
+msgstr "لا يمكن تعديل سجل مناقلة تم تنفيذه."
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__application_error
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+msgid "Application Error"
+msgstr "خطأ التنفيذ"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_employee_transfer__state__application_failed
+msgid "Application Failed"
+msgstr "تعذر التنفيذ"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__application_failed_at
+msgid "Application Failed At"
+msgstr "تاريخ تعذر التنفيذ"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+msgid "Application Information"
+msgstr "بيانات التنفيذ"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__applied_at
+msgid "Applied At"
+msgstr "تاريخ التنفيذ"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__applied_by
+msgid "Applied By"
+msgstr "نُفذت بواسطة"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+msgid "Approval Information"
+msgstr "بيانات الاعتماد"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+msgid "Approve and Apply Transfer"
+msgstr "اعتماد وتنفيذ المناقلة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_overtime_assignment__state__approved
+msgid "Approved"
+msgstr "معتمد"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_employee_transfer__state__approved
+msgid "Approved - Awaiting Effective Date"
+msgstr "معتمد بانتظار تاريخ السريان"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_employee_transfer__state__applied
+msgid "Approved and Applied"
+msgstr "معتمد ومنفذ"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__approved_at
+msgid "Approved At"
+msgstr "تاريخ الاعتماد"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__approved_by
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__approved_by
+msgid "Approved By"
+msgstr "اعتمد بواسطة"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+msgid "Assignment and Compensation"
+msgstr "التكليف والتعويض"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__assignment_reason
+msgid "Assignment Reason"
+msgstr "سبب وتفاصيل التكليف"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+msgid "Assignment Schedule"
+msgstr "جدول التكليف"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Attachments"
+msgstr "المرفقات"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee__branch_id
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__branch_id
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__branch_id
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_search
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_search
+msgid "Branch"
+msgstr "الفرع"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:319
+#, python-format
+msgid "Branch: %(old)s → %(new)s"
+msgstr "الفرع: %(old)s ← %(new)s"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__break_hours
+msgid "Break Hours"
+msgstr "ساعات الاستراحة"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:141
+#, python-format
+msgid "Break hours cannot be negative."
+msgstr "لا يمكن أن تكون ساعات الاستراحة سالبة."
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+msgid "Cancel Scheduled Transfer"
+msgstr "إلغاء المناقلة المجدولة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_employee_transfer__state__cancelled
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_overtime_assignment__state__cancelled
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__state__cancelled
+msgid "Cancelled"
+msgstr "ملغي"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_overtime_assignment__compensation_type__cash
+msgid "Cash Overtime Pay"
+msgstr "بدل عمل إضافي نقدي"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Close Report"
+msgstr "إغلاق البلاغ"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__state__closed
+msgid "Closed"
+msgstr "مغلق"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__closed_at
+msgid "Closed At"
+msgstr "تاريخ الإغلاق"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__closed_by
+msgid "Closed By"
+msgstr "أغلق بواسطة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__accident_type__commute
+msgid "Commuting Accident"
+msgstr "حادث أثناء الذهاب للعمل أو العودة منه"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__company_id
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:312
+#, python-format
+msgid "Company: %(old)s → %(new)s"
+msgstr "الشركة: %(old)s ← %(new)s"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__compensation_type
+msgid "Compensation Type"
+msgstr "نوع التعويض"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__compensatory_leave_hours
+msgid "Compensatory Leave Hours"
+msgstr "ساعات الإجازة التعويضية"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_overtime_assignment__compensation_type__comp_leave
+msgid "Compensatory Paid Leave"
+msgstr "إجازة تعويضية مدفوعة الأجر"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:185
+#, python-format
+msgid "Consent can only be recorded after submission."
+msgstr "يمكن تسجيل الموافقة بعد إرسال التكليف فقط."
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__consented_at
+msgid "Consented At"
+msgstr "تاريخ الموافقة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__consented_by
+msgid "Consented By"
+msgstr "سجل الموافقة بواسطة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__corrective_actions
+msgid "Corrective Actions"
+msgstr "الإجراءات التصحيحية"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.actions.act_window,help:eljohany_employee_forms.work_injury_action
+msgid "Create a work injury or occupational accident report."
+msgstr "أنشئ بلاغ إصابة عمل أو حادث مهني."
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.actions.act_window,help:eljohany_employee_forms.employee_transfer_action
+msgid "Create an employee transfer between companies or branches."
+msgstr "أنشئ طلب مناقلة موظف بين الشركات أو الفروع."
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.actions.act_window,help:eljohany_employee_forms.overtime_assignment_action
+msgid "Create an overtime work assignment."
+msgstr "أنشئ طلب تكليف بالعمل الإضافي."
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+msgid "Current Assignment"
+msgstr "التعيين الحالي"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__department_id
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__department_id
+msgid "Department"
+msgstr "الإدارة"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+msgid "Describe the required work and why overtime is needed..."
+msgstr "اشرح العمل المطلوب وسبب الحاجة إلى العمل الإضافي..."
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Describe what happened, how it happened, and the resulting injury..."
+msgstr "اشرح ما حدث وكيف وقع الحادث والإصابة الناتجة عنه..."
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__description
+msgid "Description"
+msgstr "وصف الحادث"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+msgid "Destination Assignment"
+msgstr "التعيين الجديد"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_search
+msgid "Destination Branch"
+msgstr "الفرع الجديد"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__manager_id
+msgid "Direct Manager"
+msgstr "المدير المباشر"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_employee_transfer__state__draft
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_overtime_assignment__state__draft
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__state__draft
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__effective_date
+msgid "Effective Date"
+msgstr "تاريخ سريان المناقلة"
+
+#. module: eljohany_employee_forms
+#: model:ir.module.module,shortdesc:base.module_eljohany_employee_forms
+msgid "Eljohany Employee Forms"
+msgstr "نماذج موظفي الجهني"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__employee_id
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__employee_id
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__employee_id
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Employee and Organization"
+msgstr "الموظف والجهة التنظيمية"
+
+#. module: eljohany_employee_forms
+#: model:ir.model,name:eljohany_employee_forms.model_hr_employee_transfer
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+msgid "Employee Branch Transfer"
+msgstr "مناقلة موظف بين الشركات والفروع"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+msgid "Employee Consent"
+msgstr "موافقة الموظف"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:183
+#, python-format
+msgid "Employee consent is only required for compensatory leave."
+msgstr "موافقة الموظف مطلوبة فقط عند اختيار الإجازة التعويضية."
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__employee_consented
+msgid "Employee Consented"
+msgstr "وافق الموظف"
+
+#. module: eljohany_employee_forms
+#: model:res.groups,name:eljohany_employee_forms.group_employee_forms_manager
+msgid "Employee Forms Manager"
+msgstr "مسؤول نماذج الموظفين"
+
+#. module: eljohany_employee_forms
+#: model:res.groups,name:eljohany_employee_forms.group_employee_forms_user
+msgid "Employee Forms User"
+msgstr "مستخدم نماذج الموظفين"
+
+#. module: eljohany_employee_forms
+#: model:ir.cron,name:eljohany_employee_forms.ir_cron_apply_due_employee_transfers
+msgid "Employee Forms: Apply Due Employee Transfers"
+msgstr "نماذج الموظفين: تنفيذ المناقلات المستحقة"
+
+#. module: eljohany_employee_forms
+#: model:ir.rule,name:eljohany_employee_forms.employee_forms_branch_rule
+msgid "Employee forms: branches in allowed companies"
+msgstr "نماذج الموظفين: فروع الشركات المسموحة"
+
+#. module: eljohany_employee_forms
+#: model:ir.sequence,name:eljohany_employee_forms.seq_employee_transfer
+msgid "Employee Transfer"
+msgstr "مناقلة موظف"
+
+#. module: eljohany_employee_forms
+#: model:ir.actions.act_window,name:eljohany_employee_forms.employee_transfer_action
+#: model:ir.ui.menu,name:eljohany_employee_forms.menu_employee_transfers
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_search
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_tree
+msgid "Employee Transfers"
+msgstr "مناقلات الموظفين"
+
+#. module: eljohany_employee_forms
+#: model:ir.rule,name:eljohany_employee_forms.employee_transfer_manager_rule
+msgid "Employee transfers: allowed companies"
+msgstr "مناقلات الموظفين: الشركات المسموحة"
+
+#. module: eljohany_employee_forms
+#: model:ir.rule,name:eljohany_employee_forms.employee_transfer_own_rule
+msgid "Employee transfers: own records"
+msgstr "مناقلات الموظفين: السجلات الخاصة بالمستخدم"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__end_datetime
+msgid "End Datetime"
+msgstr "تاريخ ووقت النهاية"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:357
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:232
+#: code:addons/eljohany_employee_forms/models/work_injury.py:200
+#, python-format
+msgid "Enter a rejection reason first."
+msgstr "أدخل سبب الرفض أولًا."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/work_injury.py:183
+#, python-format
+msgid "Enter the investigation result and corrective actions before closing."
+msgstr "أدخل نتيجة التحقيق والإجراءات التصحيحية قبل الإغلاق."
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+msgid "Enter the operational or organizational reason for the transfer..."
+msgstr "أدخل السبب التشغيلي أو التنظيمي للمناقلة..."
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__severity__fatal
+msgid "Fatal"
+msgstr "وفاة"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+msgid "Final Approval"
+msgstr "الاعتماد النهائي"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__immediate_action
+msgid "First Aid and Immediate Action"
+msgstr "الإسعافات الأولية والإجراء الفوري"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__from_branch_id
+msgid "From Branch"
+msgstr "الفرع الحالي"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__from_company_id
+msgid "From Company"
+msgstr "الشركة الحالية"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__from_department_id
+msgid "From Department"
+msgstr "الإدارة الحالية"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__from_job_id
+msgid "From Job"
+msgstr "الوظيفة الحالية"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__from_manager_id
+msgid "From Manager"
+msgstr "المدير الحالي"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__from_work_location_id
+msgid "From Work Location"
+msgstr "موقع العمل الحالي"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "GOSI Notification"
+msgstr "إشعار التأمينات الاجتماعية"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__gosi_report_date
+msgid "Gosi Report Date"
+msgstr "تاريخ بلاغ التأمينات"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__gosi_report_number
+msgid "Gosi Report Number"
+msgstr "رقم بلاغ التأمينات"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__handover_notes
+msgid "Handover Notes"
+msgstr "ملاحظات التسليم والاستلام"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__injured_body_part
+msgid "Injured Body Part"
+msgstr "موضع الإصابة"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Investigation"
+msgstr "التحقيق"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__investigation_result
+msgid "Investigation Result"
+msgstr "نتيجة التحقيق"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__job_id
+msgid "Job Position"
+msgstr "المسمى الوظيفي"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__employee_user_id
+msgid "Linked User"
+msgstr "المستخدم المرتبط"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+msgid "Manager Approve"
+msgstr "اعتماد المدير"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_overtime_assignment__state__manager_approved
+msgid "Manager Approved"
+msgstr "معتمد من المدير"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__manager_approved_at
+msgid "Manager Approved At"
+msgstr "تاريخ اعتماد المدير"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__manager_approved_by
+msgid "Manager Approved By"
+msgstr "اعتماد المدير بواسطة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__medical_provider
+msgid "Medical Provider"
+msgstr "الجهة الطبية"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__severity__minor
+msgid "Minor"
+msgstr "بسيطة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__severity__moderate
+msgid "Moderate"
+msgstr "متوسطة"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_search
+msgid "My Assignments"
+msgstr "تكليفاتي"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_search
+msgid "My Reports"
+msgstr "بلاغاتي"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_search
+msgid "My Transfers"
+msgstr "مناقلاتي"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__name
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__name
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__name
+msgid "Name"
+msgstr "المرجع"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__accident_type__occupational_disease
+msgid "Occupational Disease"
+msgstr "مرض مهني"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:223
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:169
+#: code:addons/eljohany_employee_forms/models/work_injury.py:219
+#, python-format
+msgid "Only an Employee Forms Manager can perform this action."
+msgstr "هذا الإجراء متاح لمسؤول نماذج الموظفين فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:175
+#, python-format
+msgid "Only draft assignments can be submitted."
+msgstr "يمكن إرسال تكليفات العمل الإضافي المسودة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:297
+#, python-format
+msgid "Only draft or cancelled assignments can be deleted."
+msgstr "يمكن حذف التكليفات المسودة أو الملغاة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/work_injury.py:248
+#, python-format
+msgid "Only draft or cancelled reports can be deleted."
+msgstr "يمكن حذف البلاغات المسودة أو الملغاة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:445
+#, python-format
+msgid "Only draft or cancelled transfer requests can be deleted."
+msgstr "يمكن حذف طلبات المناقلة المسودة أو الملغاة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:238
+#, python-format
+msgid "Only draft or submitted assignments can be cancelled."
+msgstr "يمكن إلغاء التكليفات المسودة أو المرسلة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/work_injury.py:206
+#, python-format
+msgid "Only draft or submitted reports can be cancelled."
+msgstr "يمكن إلغاء البلاغات المسودة أو المرسلة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/work_injury.py:166
+#, python-format
+msgid "Only draft reports can be submitted."
+msgstr "يمكن إرسال البلاغات المسودة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:229
+#, python-format
+msgid "Only draft transfer requests can be submitted."
+msgstr "يمكن إرسال طلبات المناقلة المسودة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:366
+#, python-format
+msgid ""
+"Only draft, submitted, or scheduled transfer requests can be cancelled."
+msgstr "يمكن إلغاء طلبات المناقلة المسودة أو المرسلة أو المجدولة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:244
+#, python-format
+msgid "Only rejected or cancelled assignments can return to draft."
+msgstr "يمكن إعادة التكليفات المرفوضة أو الملغاة إلى مسودة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/work_injury.py:212
+#, python-format
+msgid "Only rejected or cancelled reports can return to draft."
+msgstr "يمكن إعادة البلاغات المرفوضة أو الملغاة إلى مسودة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:380
+#, python-format
+msgid ""
+"Only rejected, cancelled, scheduled, or failed transfers can return to "
+"draft."
+msgstr ""
+"يمكن إعادة المناقلات المرفوضة أو الملغاة أو المجدولة أو المتعذر تنفيذها إلى "
+"مسودة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/work_injury.py:180
+#, python-format
+msgid "Only reports under investigation can be closed."
+msgstr "يمكن إغلاق البلاغات قيد التحقيق فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:203
+#, python-format
+msgid "Only submitted assignments can receive manager approval."
+msgstr "يمكن اعتماد التكليفات المرسلة من المدير فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:230
+#, python-format
+msgid "Only submitted or manager-approved assignments can be rejected."
+msgstr "يمكن رفض التكليفات المرسلة أو المعتمدة من المدير فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/work_injury.py:173
+#, python-format
+msgid "Only submitted reports can enter investigation."
+msgstr "يمكن بدء التحقيق في البلاغات المرسلة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/work_injury.py:197
+#, python-format
+msgid "Only submitted reports or reports under investigation can be rejected."
+msgstr "يمكن رفض البلاغات المرسلة أو قيد التحقيق فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:236
+#, python-format
+msgid "Only submitted transfer requests can be approved and applied."
+msgstr "يمكن اعتماد وتنفيذ طلبات المناقلة المرسلة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:355
+#, python-format
+msgid "Only submitted transfer requests can be rejected."
+msgstr "يمكن رفض طلبات المناقلة المرسلة فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:190
+#, python-format
+msgid "Only the employee or a Forms Manager can record consent."
+msgstr "يمكن للموظف أو مسؤول النماذج فقط تسجيل الموافقة."
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_search
+msgid "Open Reports"
+msgstr "البلاغات المفتوحة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__accident_type__other
+msgid "Other"
+msgstr "أخرى"
+
+#. module: eljohany_employee_forms
+#: model:ir.sequence,name:eljohany_employee_forms.seq_overtime_assignment
+msgid "Overtime Assignment"
+msgstr "تكليف عمل إضافي"
+
+#. module: eljohany_employee_forms
+#: model:ir.actions.act_window,name:eljohany_employee_forms.overtime_assignment_action
+#: model:ir.ui.menu,name:eljohany_employee_forms.menu_overtime_assignments
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_search
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_tree
+msgid "Overtime Assignments"
+msgstr "طلبات التكليف بالعمل الإضافي"
+
+#. module: eljohany_employee_forms
+#: model:ir.rule,name:eljohany_employee_forms.overtime_assignment_manager_rule
+msgid "Overtime assignments: allowed companies"
+msgstr "تكليفات العمل الإضافي: الشركات المسموحة"
+
+#. module: eljohany_employee_forms
+#: model:ir.rule,name:eljohany_employee_forms.overtime_assignment_own_rule
+msgid "Overtime assignments: own records"
+msgstr "تكليفات العمل الإضافي: السجلات الخاصة بالمستخدم"
+
+#. module: eljohany_employee_forms
+#: model:ir.model,name:eljohany_employee_forms.model_hr_overtime_assignment
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+msgid "Overtime Work Assignment"
+msgstr "طلب تكليف بالعمل الإضافي"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_search
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_search
+msgid "Pending Approval"
+msgstr "بانتظار الاعتماد"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__reason
+msgid "Reason"
+msgstr "سبب المناقلة"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Reject"
+msgstr "رفض"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_employee_transfer__state__rejected
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_overtime_assignment__state__rejected
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__state__rejected
+msgid "Rejected"
+msgstr "مرفوض"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__rejection_reason
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__rejection_reason
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__rejection_reason
+msgid "Rejection Reason"
+msgstr "سبب الرفض"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Report"
+msgstr "البلاغ"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__gosi_reported
+msgid "Reported to GOSI"
+msgstr "تم الإبلاغ للتأمينات الاجتماعية"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Reset to Draft"
+msgstr "إعادة إلى مسودة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__root_cause
+msgid "Root Cause"
+msgstr "السبب الجذري"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__severity__serious
+msgid "Serious"
+msgstr "جسيمة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__severity
+msgid "Severity"
+msgstr "درجة الخطورة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__start_datetime
+msgid "Start Datetime"
+msgstr "تاريخ ووقت البداية"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Start Investigation"
+msgstr "بدء التحقيق"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__state
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__state
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__state
+msgid "State"
+msgstr "الحالة"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_search
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_search
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_search
+msgid "Status"
+msgstr "الحالة"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_form
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Submit"
+msgstr "إرسال"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_employee_transfer__state__submitted
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_overtime_assignment__state__submitted
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__state__submitted
+msgid "Submitted"
+msgstr "مُرسل"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:291
+#, python-format
+msgid "Submitted assignments can only be changed by a Forms Manager."
+msgstr "لا يمكن تعديل التكليفات المرسلة إلا بواسطة مسؤول النماذج."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/work_injury.py:243
+#, python-format
+msgid "Submitted reports can only be changed by a Forms Manager."
+msgstr "لا يمكن تعديل البلاغات المرسلة إلا بواسطة مسؤول النماذج."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:433
+#, python-format
+msgid "Submitted transfers can only be changed by a Forms Manager."
+msgstr "لا يمكن تعديل المناقلات المرسلة إلا بواسطة مسؤول النماذج."
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__attachment_ids
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__attachment_ids
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__attachment_ids
+msgid "Supporting Attachments"
+msgstr "المرفقات المؤيدة"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:152
+#: code:addons/eljohany_employee_forms/models/work_injury.py:142
+#, python-format
+msgid "The branch must belong to the selected company."
+msgstr "يجب أن يتبع الفرع الشركة المحددة."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:179
+#, python-format
+msgid "The destination branch must belong to the destination company."
+msgstr "يجب أن يتبع الفرع الجديد الشركة الجديدة."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:186
+#, python-format
+msgid "The destination must differ from the current company or branch."
+msgstr "يجب أن تختلف الشركة أو الفرع الجديد عن التعيين الحالي."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:216
+#, python-format
+msgid "The direct manager approval is required first."
+msgstr "يلزم اعتماد المدير المباشر أولًا."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/hr_employee.py:24
+#, python-format
+msgid "The employee branch must belong to the employee company."
+msgstr "يجب أن يتبع فرع الموظف شركة الموظف."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:155
+#: code:addons/eljohany_employee_forms/models/work_injury.py:145
+#, python-format
+msgid "The employee must belong to the selected company."
+msgstr "يجب أن يتبع الموظف الشركة المحددة."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:218
+#, python-format
+msgid "The employee must consent to compensatory leave first."
+msgstr "يجب أن يوافق الموظف على الإجازة التعويضية أولًا."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:306
+#, python-format
+msgid "The employee transfer was approved and applied to the actual records."
+msgstr "تم اعتماد المناقلة وتطبيقها على السجلات الفعلية للموظف والمستخدم."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:254
+#, python-format
+msgid ""
+"The employee's current company or branch changed after this request was "
+"created. Reset the request to draft and review it again."
+msgstr ""
+"تغيرت شركة الموظف أو فرعه الحالي بعد إنشاء الطلب. أعد الطلب إلى مسودة وراجعه"
+" مرة أخرى."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:144
+#, python-format
+msgid "The end time must be after the start time."
+msgstr "يجب أن يكون وقت النهاية بعد وقت البداية."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:146
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:177
+#, python-format
+msgid "The overtime duration must be greater than zero."
+msgstr "يجب أن تكون مدة العمل الإضافي أكبر من صفر."
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+msgid ""
+"This will update the employee and linked user's actual company and branch. "
+"Continue?"
+msgstr ""
+"سيتم تحديث الشركة والفرع فعليًا في بيانات الموظف والمستخدم المرتبط. هل تريد "
+"المتابعة؟"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__to_branch_id
+msgid "To Branch"
+msgstr "الفرع الجديد"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__to_company_id
+msgid "To Company"
+msgstr "الشركة الجديدة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__to_department_id
+msgid "To Department"
+msgstr "الإدارة الجديدة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__to_job_id
+msgid "To Job"
+msgstr "الوظيفة الجديدة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__to_manager_id
+msgid "To Manager"
+msgstr "المدير الجديد"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_employee_transfer__to_work_location_id
+msgid "To Work Location"
+msgstr "موقع العمل الجديد"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__total_hours
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.overtime_assignment_view_tree
+msgid "Total Hours"
+msgstr "إجمالي الساعات"
+
+#. module: eljohany_employee_forms
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.employee_transfer_view_form
+msgid "Transfer Details"
+msgstr "تفاصيل المناقلة"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__state__investigation
+msgid "Under Investigation"
+msgstr "قيد التحقيق"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_work_injury_report__witness_names
+msgid "Witness Names"
+msgstr "أسماء الشهود"
+
+#. module: eljohany_employee_forms
+#: model:ir.module.module,summary:base.module_eljohany_employee_forms
+msgid "Work injuries, overtime assignments, and employee transfers"
+msgstr "بلاغات إصابات العمل وتكليفات العمل الإضافي ومناقلات الموظفين"
+
+#. module: eljohany_employee_forms
+#: model:ir.model,name:eljohany_employee_forms.model_hr_work_injury_report
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_form
+msgid "Work Injury or Occupational Accident Report"
+msgstr "بلاغ إصابة عمل أو حادث مهني"
+
+#. module: eljohany_employee_forms
+#: model:ir.sequence,name:eljohany_employee_forms.seq_work_injury_report
+msgid "Work Injury Report"
+msgstr "بلاغ إصابة عمل"
+
+#. module: eljohany_employee_forms
+#: model:ir.actions.act_window,name:eljohany_employee_forms.work_injury_action
+#: model:ir.ui.menu,name:eljohany_employee_forms.menu_work_injury_reports
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_search
+#: model_terms:ir.ui.view,arch_db:eljohany_employee_forms.work_injury_view_tree
+msgid "Work Injury Reports"
+msgstr "بلاغات إصابات العمل"
+
+#. module: eljohany_employee_forms
+#: model:ir.rule,name:eljohany_employee_forms.work_injury_manager_rule
+msgid "Work injury reports: allowed companies"
+msgstr "بلاغات إصابات العمل: الشركات المسموحة"
+
+#. module: eljohany_employee_forms
+#: model:ir.rule,name:eljohany_employee_forms.work_injury_own_rule
+msgid "Work injury reports: own records"
+msgstr "بلاغات إصابات العمل: السجلات الخاصة بالمستخدم"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields,field_description:eljohany_employee_forms.field_hr_overtime_assignment__work_location
+msgid "Work Location"
+msgstr "موقع العمل"
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__accident_type__mission
+msgid "Work Mission Accident"
+msgstr "حادث أثناء مهمة عمل"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:408
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:274
+#: code:addons/eljohany_employee_forms/models/work_injury.py:227
+#, python-format
+msgid ""
+"Workflow and audit fields can only be changed through the form actions."
+msgstr "لا يمكن تغيير حقول سير العمل والتدقيق إلا من خلال أزرار النموذج."
+
+#. module: eljohany_employee_forms
+#: model:ir.model.fields.selection,name:eljohany_employee_forms.selection__hr_work_injury_report__accident_type__workplace
+msgid "Workplace Accident"
+msgstr "حادث في مقر العمل"
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:281
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:97
+#, python-format
+msgid "You can only create assignments for yourself."
+msgstr "يمكنك إنشاء تكليفات تخصك فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/work_injury.py:114
+#: code:addons/eljohany_employee_forms/models/work_injury.py:234
+#, python-format
+msgid "You can only create reports for yourself."
+msgstr "يمكنك إنشاء بلاغات تخصك فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:132
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:415
+#, python-format
+msgid "You can only create transfer requests for yourself."
+msgstr "يمكنك إنشاء طلبات مناقلة تخصك فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/overtime_assignment.py:165
+#, python-format
+msgid "You can only process your own assignments."
+msgstr "يمكنك معالجة تكليفاتك فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/work_injury.py:160
+#, python-format
+msgid "You can only process your own reports."
+msgstr "يمكنك معالجة بلاغاتك فقط."
+
+#. module: eljohany_employee_forms
+#: code:addons/eljohany_employee_forms/models/employee_transfer.py:219
+#, python-format
+msgid "You can only process your own transfer requests."
+msgstr "يمكنك معالجة طلبات المناقلة الخاصة بك فقط."

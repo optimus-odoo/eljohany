@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="commission_management_menu_root"
+              name="Commissions"
+              sequence="120"
+              groups="commission_management.group_commission_user"/>
+
+    <menuitem id="commission_management_menu_operations"
+              name="Operations"
+              parent="commission_management_menu_root"
+              sequence="10"/>
+
+    <menuitem id="commission_line_menu"
+              name="Commission Lines"
+              parent="commission_management_menu_operations"
+              action="action_commission_line"
+              sequence="10"/>
+
+    <menuitem id="commission_statement_menu"
+              name="Statements"
+              parent="commission_management_menu_operations"
+              action="action_commission_statement"
+              sequence="20"/>
+
+    <menuitem id="commission_management_menu_configuration"
+              name="Configuration"
+              parent="commission_management_menu_root"
+              groups="commission_management.group_commission_admin"
+              sequence="100"/>
+
+    <menuitem id="commission_plan_menu"
+              name="Commission Plans"
+              parent="commission_management_menu_configuration"
+              action="action_commission_plan"
+              sequence="10"/>
+
+    <menuitem id="commission_rule_menu"
+              name="Commission Rules"
+              parent="commission_management_menu_configuration"
+              action="action_commission_rule"
+              sequence="20"/>
+</odoo>

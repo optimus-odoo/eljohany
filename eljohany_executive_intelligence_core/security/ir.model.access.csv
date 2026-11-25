@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ei_dashboard_admin,executive.intelligence.dashboard.admin,model_executive_intelligence_dashboard,eljohany_executive_intelligence_core.group_ei_admin,1,1,1,1
+access_ei_profile_admin,executive.intelligence.access.profile.admin,model_executive_intelligence_access_profile,eljohany_executive_intelligence_core.group_ei_admin,1,1,1,1
+access_ei_access_log_admin,executive.intelligence.access.log.admin,model_executive_intelligence_access_log,eljohany_executive_intelligence_core.group_ei_admin,1,0,0,0
+

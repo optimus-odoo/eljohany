@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sale_details_enhanced" inherit_id="point_of_sale.report_saledetails">
+        <xpath expr="//div[@id='sales']" position="before">
+            <style>
+                .ej-pos-report-section { direction: rtl; text-align: right; margin: 14px 0; }
+                .ej-pos-report-section h3 { font-size: 17px; margin: 8px 0; page-break-after: avoid; }
+                .ej-pos-report-section h4 { font-size: 13px; padding: 7px; background: #eee; margin: 12px 0 0; page-break-after: avoid; }
+                .ej-pos-report-section table { width: 100%; border-collapse: collapse; font-size: 11px; }
+                .ej-pos-report-section th, .ej-pos-report-section td { border: 1px solid #ccc; padding: 5px; vertical-align: top; overflow-wrap: anywhere; }
+                .ej-pos-report-section thead { display: table-header-group; }
+                .ej-pos-report-section tr { page-break-inside: avoid; }
+                .ej-pos-report-section th { background: #eee; text-align: right; }
+                .ej-pos-report-section .ej-number { direction: ltr; text-align: left; white-space: nowrap; }
+                .ej-pos-report-section .ej-reference { direction: ltr; unicode-bidi: embed; }
+                .ej-pos-report-section .ej-note { font-size: 10px; margin: 4px 0; }
+                .ej-pos-report-section .ej-refund-header { font-weight: bold; }
+            </style>
+            <div t-if="top_selling_products" class="ej-pos-report-section" id="ej_top_selling_products">
+                <h3>ترتيب المنتجات من الأعلى مبيعاً إلى الأقل</h3>
+                <p class="ej-note">الترتيب حسب صافي الكمية بعد المرتجعات، ثم صافي القيمة عند تساوي الكمية. القيمة شاملة الضريبة وبعد الخصومات. وحدة القياس موضحة لكل منتج.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th><th>المنتج</th><th>الوحدة</th>
+                            <th>المباع</th><th>المسترد</th><th>صافي الكمية</th><th>صافي القيمة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="top_selling_products" t-as="product">
+                            <td t-out="product['rank']"/>
+                            <td>
+                                <span t-if="product['code']" class="ej-reference" t-out="'[%s] ' % product['code']"/>
+                                <span t-out="product['product_name']"/>
+                            </td>
+                            <td t-out="product['uom']"/>
+                            <td class="ej-number" t-out="product['sold_quantity']" t-options="{'widget': 'float', 'precision': 3}"/>
+                            <td class="ej-number" t-out="product['refund_quantity']" t-options="{'widget': 'float', 'precision': 3}"/>
+                            <td class="ej-number" t-out="product['net_quantity']" t-options="{'widget': 'float', 'precision': 3}"/>
+                            <td class="ej-number" t-out="product['net_amount']" t-options="{'widget': 'monetary', 'display_currency': ej_report_currency}"/>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </xpath>
+        <xpath expr="//*[@id='refunds']" position="after">
+            <div t-if="refund_order_details" class="ej-pos-report-section" id="ej_refund_order_details">
+                <h3>تفاصيل عمليات الاسترداد ومراجع الفواتير</h3>
+                <p class="ej-note">الكميات والمبالغ المستردة معروضة بإشارتها السالبة. تظهر مراجع الفواتير المحاسبية عند إصدارها وربطها بالطلب. المراجع غير المسجلة موضحة صراحةً.</p>
+                <t t-foreach="refund_order_details" t-as="refund">
+                    <h4>
+                        <span>إيصال الاسترداد: </span>
+                        <span class="ej-reference" t-out="refund['receipt_number']"/>
+                    </h4>
+                    <table class="ej-refund-meta">
+                        <tbody>
+                            <tr>
+                                <th>مرجع الطلب</th><td class="ej-reference" t-out="refund['order_reference']"/>
+                                <th>رقم الطلب</th><td t-out="refund['order_number'] or 'غير مسجل'"/>
+                            </tr>
+                            <tr>
+                                <th>التاريخ والوقت</th><td class="ej-reference" t-out="refund['date']"/>
+                                <th>الكاشير</th><td t-out="refund['cashier']"/>
+                            </tr>
+                            <tr>
+                                <th>العميل</th><td t-out="refund['customer']"/>
+                                <th>نقطة البيع / الجلسة</th>
+                                <td><span t-out="refund['pos_name']"/> / <span class="ej-reference" t-out="refund['session_name']"/></td>
+                            </tr>
+                            <tr>
+                                <th>الفاتورة / الإشعار الدائن للاسترداد</th>
+                                <td colspan="3" class="ej-reference" t-out="refund['refund_invoice'] or 'لا توجد فاتورة محاسبية مرتبطة'"/>
+                            </tr>
+                            <tr>
+                                <th>الإيصالات الأصلية</th>
+                                <td colspan="3" class="ej-reference" t-out="refund['original_receipts'] or 'غير مرتبط بإيصال أصلي'"/>
+                            </tr>
+                            <tr>
+                                <th>الفواتير الأصلية</th>
+                                <td colspan="3" class="ej-reference" t-out="refund['original_invoices'] or 'لا توجد فاتورة أصلية مرتبطة'"/>
+                            </tr>
+                            <tr>
+                                <th>أرقام الطلبات الأصلية</th>
+                                <td colspan="3" t-out="refund['original_order_numbers'] or 'غير مسجلة'"/>
+                            </tr>
+                            <tr>
+                                <th>طرق الدفع ومبالغها</th>
+                                <td colspan="3" t-out="refund['payments'] or 'لا توجد مدفوعات مسجلة'"/>
+                            </tr>
+                            <tr t-if="refund['note']">
+                                <th>ملاحظات الطلب</th><td colspan="3" t-out="refund['note']"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="ej-refund-lines">
+                        <thead>
+                            <tr>
+                                <th>المنتج</th><th>الكمية / الوحدة</th><th>سعر الوحدة</th>
+                                <th>الخصم %</th><th>قبل الضريبة</th><th>الضريبة</th><th>شامل الضريبة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="refund['lines']" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-if="line['code']" class="ej-reference" t-out="'[%s] ' % line['code']"/>
+                                        <span t-out="line['product_name']"/>
+                                    </td>
+                                    <td><span class="ej-number" t-out="line['quantity']" t-options="{'widget': 'float', 'precision': 3}"/> <span t-out="line['uom']"/></td>
+                                    <td class="ej-number" t-out="line['price_unit']" t-options="{'widget': 'monetary', 'display_currency': ej_report_currency}"/>
+                                    <td class="ej-number" t-out="line['discount']" t-options="{'widget': 'float', 'precision': 2}"/>
+                                    <td class="ej-number" t-out="line['subtotal']" t-options="{'widget': 'monetary', 'display_currency': ej_report_currency}"/>
+                                    <td class="ej-number" t-out="line['tax']" t-options="{'widget': 'monetary', 'display_currency': ej_report_currency}"/>
+                                    <td class="ej-number" t-out="line['total']" t-options="{'widget': 'monetary', 'display_currency': ej_report_currency}"/>
+                                </tr>
+                                <tr t-if="line['original_order'] or line['original_receipt'] or line['original_invoice'] or line['customer_note']">
+                                    <td colspan="7" class="ej-note">
+                                        <t t-if="line['original_order']">مرجع الطلب الأصلي: <span class="ej-reference" t-out="line['original_order']"/>. </t>
+                                        <t t-if="line['original_receipt']">الإيصال الأصلي للبند: <span class="ej-reference" t-out="line['original_receipt']"/>. </t>
+                                        <t t-if="line['original_invoice']">الفاتورة الأصلية للبند: <span class="ej-reference" t-out="line['original_invoice']"/>. </t>
+                                        <t t-if="line['customer_note']">ملاحظة العميل: <span t-out="line['customer_note']"/></t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr class="ej-refund-header">
+                                <td colspan="4">إجمالي البنود المستردة</td>
+                                <td class="ej-number" t-out="refund['refund_subtotal']" t-options="{'widget': 'monetary', 'display_currency': ej_report_currency}"/>
+                                <td class="ej-number" t-out="refund['refund_tax']" t-options="{'widget': 'monetary', 'display_currency': ej_report_currency}"/>
+                                <td class="ej-number" t-out="refund['refund_total']" t-options="{'widget': 'monetary', 'display_currency': ej_report_currency}"/>
+                            </tr>
+                            <tr>
+                                <td colspan="6">صافي الطلب شامل الضريبة</td>
+                                <td class="ej-number" t-out="refund['amount_total']" t-options="{'widget': 'monetary', 'display_currency': ej_report_currency}"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p t-if="refund['has_sale_lines']" class="ej-note">يتضمن هذا الطلب بنود بيع وبنود استرداد؛ إجمالي البنود المستردة مستقل عن صافي الطلب ومدفوعاته.</p>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_slow_moving_report_wizard_form" model="ir.ui.view">
+        <field name="name">eljohany.slow.moving.report.wizard.form</field>
+        <field name="model">eljohany.slow.moving.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="تقرير المنتجات الراكدة" create="false" edit="true">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        يعتمد التقرير على التسليمات المنجزة فعليًا للعملاء. ولا تعتبر التحويلات الداخلية أو الاستلامات أو التسويات مبيعات.
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id" options="{'no_create': True}"/>
+                            <field name="branch_ids" widget="many2many_tags" options="{'no_create': True}" domain="[('company_id', '=', company_id)]"/>
+                            <field name="location_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="include_child_locations"/>
+                        </group>
+                        <group>
+                            <field name="report_date"/>
+                            <field name="inactivity_days"/>
+                            <label for="sales_date_from" string="فترة احتساب المبيعات"/>
+                            <div class="o_row">
+                                <field name="sales_date_from" class="oe_inline" nolabel="1"/>
+                                <span class="mx-2">إلى</span>
+                                <field name="sales_date_to" class="oe_inline" nolabel="1"/>
+                            </div>
+                            <field name="product_categ_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="product_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_view_results" string="عرض النتائج" type="object" class="btn-primary"/>
+                        <button name="action_export_excel" string="تصدير Excel" type="object" class="btn-secondary"/>
+                        <button name="action_print_pdf" string="طباعة PDF" type="object" class="btn-secondary"/>
+                        <button string="إغلاق" class="btn-link" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_slow_moving_report_line_tree" model="ir.ui.view">
+        <field name="name">eljohany.slow.moving.report.line.tree</field>
+        <field name="model">eljohany.slow.moving.report.line</field>
+        <field name="arch" type="xml">
+            <tree string="المنتجات الراكدة" create="false" edit="false" delete="false" decoration-danger="status == 'very_stagnant'" decoration-warning="status == 'stagnant'" decoration-muted="status == 'never_sold'">
+                <field name="default_code"/>
+                <field name="product_name"/>
+                <field name="category_name" optional="show"/>
+                <field name="vendor_name" optional="show"/>
+                <field name="uom_name" optional="hide"/>
+                <field name="qty_on_hand"/>
+                <field name="net_qty_sold_period" optional="show"/>
+                <field name="qty_delivered_period" optional="hide"/>
+                <field name="qty_returned_period" optional="hide"/>
+                <field name="unit_cost" optional="show"/>
+                <field name="stock_value" sum="إجمالي قيمة الرواكد"/>
+                <field name="first_stock_date" optional="hide"/>
+                <field name="last_receipt_date" optional="show"/>
+                <field name="last_delivery_date" optional="show"/>
+                <field name="days_inactive"/>
+                <field name="status" widget="badge"/>
+                <field name="currency_id" column_invisible="True"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_slow_moving_report_line_search" model="ir.ui.view">
+        <field name="name">eljohany.slow.moving.report.line.search</field>
+        <field name="model">eljohany.slow.moving.report.line</field>
+        <field name="arch" type="xml">
+            <search string="بحث المنتجات الراكدة">
+                <field name="default_code"/>
+                <field name="product_name"/>
+                <field name="category_name"/>
+                <field name="vendor_name"/>
+                <filter name="stagnant" string="راكد" domain="[('status', '=', 'stagnant')]"/>
+                <filter name="very_stagnant" string="راكد جدًا" domain="[('status', '=', 'very_stagnant')]"/>
+                <filter name="never_sold" string="لم يُبع مطلقًا" domain="[('status', '=', 'never_sold')]"/>
+                <group expand="0" string="تجميع حسب">
+                    <filter name="group_category" string="الفئة" context="{'group_by': 'category_name'}"/>
+                    <filter name="group_vendor" string="المورد" context="{'group_by': 'vendor_name'}"/>
+                    <filter name="group_status" string="الحالة" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_slow_moving_report_lines" model="ir.actions.act_window">
+        <field name="name">نتائج المنتجات الراكدة</field>
+        <field name="res_model">eljohany.slow.moving.report.line</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="view_slow_moving_report_line_search"/>
+    </record>
+
+    <record id="action_slow_moving_report_wizard" model="ir.actions.act_window">
+        <field name="name">تقرير المنتجات الراكدة</field>
+        <field name="res_model">eljohany.slow.moving.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_slow_moving_report" name="تقرير المنتجات الراكدة" parent="stock.menu_stock_warehouse_mgmt" action="action_slow_moving_report_wizard" sequence="93" groups="stock.group_stock_user"/>
+</odoo>

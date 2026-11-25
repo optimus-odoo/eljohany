@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_sale_trusts_seq" model="ir.sequence">
+            <field name="name">S.O Trust</field>
+            <field name="code">seq_sale_order_trust</field>
+            <field name="prefix">AM/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="0"/>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="operation_trusts_seq" model="ir.sequence">
+            <field name="name">operation Trust</field>
+            <field name="code">seq_operation_trust</field>
+            <field name="prefix">AM/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="0"/>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

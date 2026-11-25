@@ -1,0 +1,13 @@
+.o_switch_company_menu {
+    .o_company_select_all_item {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: var(--o-view-background-color, #fff);
+
+        button {
+            color: var(--o-main-text-color, inherit);
+            text-decoration: none;
+        }
+    }
+}

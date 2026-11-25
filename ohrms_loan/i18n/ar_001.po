@@ -1,0 +1,1175 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ohrms_loan
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-14 00:00+0000\n"
+"PO-Revision-Date: 2026-11-14 00:00+0000\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0?0:n==1?1:n==2?2:n%100>=3 && n%100<=10?3:n%100>=11 && n%100<=99?4:5;\n"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+#: model:ir.module.module,shortdesc:base.module_ohrms_loan
+msgid "Open HRMS Loan Management"
+msgstr "إدارة سلف الموظفين"
+
+#. module: ohrms_loan
+#: model:ir.module.module,summary:base.module_ohrms_loan
+msgid "Manage employee loans with the official Odoo payroll engine"
+msgstr "إدارة سلف الموظفين وربطها بمحرك الرواتب الرسمي في أودو"
+
+#. module: ohrms_loan
+#: model:ir.module.module,description:base.module_ohrms_loan
+msgid ""
+"Create and manage employee loan requests and deduct installments "
+"automatically from payroll."
+msgstr ""
+"إنشاء طلبات سلف الموظفين وإدارتها وخصم الأقساط تلقائيًا من مسيرات الرواتب."
+
+#. module: ohrms_loan
+#: model:ir.model,name:ohrms_loan.model_hr_loan
+#: model:ir.sequence,name:ohrms_loan.ir_seq_hr_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Loan Request"
+msgstr "طلب سلفة"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_tree
+msgid "Loan Requests"
+msgstr "طلبات السلف"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+#: model:ir.actions.act_window,name:ohrms_loan.hr_loan_action
+#: model:ir.ui.menu,name:ohrms_loan.hr_loan_menu_requests
+msgid "Request for Loan"
+msgstr "طلب سلفة"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_employee.py:0
+#: code:addons/ohrms_loan/models/hr_employee.py:45
+#: model:hr.payslip.input.type,name:ohrms_loan.hr_loan_input_type
+#: model:hr.salary.rule,name:ohrms_loan.hr_rule_loan
+#: model:ir.ui.menu,name:ohrms_loan.hr_loan_menu
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_search
+msgid "Loan"
+msgstr "سلفة"
+
+#. module: ohrms_loan
+#: model:ir.actions.act_window,name:ohrms_loan.act_hr_employee_loan_request
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.view_employee_form
+msgid "Loans"
+msgstr "السلف"
+
+#. module: ohrms_loan
+#: model:ir.ui.menu,name:ohrms_loan.employee_forms_menu_root
+msgid "Forms"
+msgstr "النماذج"
+
+#. module: ohrms_loan
+#: model:res.groups,name:ohrms_loan.group_employee_forms_access
+msgid "Employee Forms Access"
+msgstr "صلاحية نماذج الموظف"
+
+#. module: ohrms_loan
+#: model:res.groups,comment:ohrms_loan.group_employee_forms_access
+msgid ""
+"Grants access to the standalone Employee Forms menu and its loan and advance"
+" requests."
+msgstr ""
+"يمنح صلاحية الوصول إلى قائمة نماذج الموظفين المستقلة وطلبات السلف "
+"التابعة لها."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__name
+msgid "Loan Name"
+msgstr "رقم طلب السلفة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__name
+msgid "Name of the loan"
+msgstr "رقم أو اسم طلب السلفة"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+msgid "New"
+msgstr "جديد"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__date
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__date
+msgid "Date of the loan request"
+msgstr "تاريخ طلب السلفة"
+
+#. module: ohrms_loan
+#: model:ir.model,name:ohrms_loan.model_hr_employee
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__employee_id
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line__employee_id
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan_line__employee_id
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_search
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__employee_id
+msgid "Employee Name"
+msgstr "اسم الموظف"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__department_id
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_search
+msgid "Department"
+msgstr "القسم"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__department_id
+msgid "The department to which the employee belongs."
+msgstr "القسم الذي يتبع له الموظف."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__job_position
+msgid "Job Position"
+msgstr "المسمى الوظيفي"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__job_position
+msgid "Job position of the employee"
+msgstr "المسمى الوظيفي للموظف"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__company_id
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__currency_id
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__currency_id
+msgid "Currency"
+msgstr "العملة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__loan_amount
+msgid "Loan Amount"
+msgstr "مبلغ السلفة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__loan_amount
+msgid "Loan amount"
+msgstr "مبلغ السلفة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__installment
+msgid "No Of Installments"
+msgstr "عدد الأقساط"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__installment
+msgid "Number of installments"
+msgstr "عدد الأقساط"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__payment_date
+msgid "Payment Start Date"
+msgstr "تاريخ بدء السداد"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__payment_date
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan_line__date
+msgid "Date of the payment"
+msgstr "تاريخ السداد"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__loan_lines
+msgid "Loan Line"
+msgstr "أقساط السلفة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__loan_lines
+msgid "Details of installment lines associated with the loan."
+msgstr "تفاصيل الأقساط المرتبطة بالسلفة."
+
+#. module: ohrms_loan
+#: model:ir.model,name:ohrms_loan.model_hr_loan_line
+msgid "Installment Line"
+msgstr "بند القسط"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Installments"
+msgstr "الأقساط"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line__date
+msgid "Payment Date"
+msgstr "تاريخ استحقاق القسط"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line__amount
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan_line__amount
+msgid "Amount"
+msgstr "المبلغ"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line__paid
+msgid "Paid"
+msgstr "مدفوع"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan_line__paid
+msgid "Indicates whether the installment has been paid."
+msgstr "يحدد ما إذا كان القسط قد سُدد."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line__loan_id
+msgid "Loan Ref."
+msgstr "مرجع السلفة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan_line__loan_id
+msgid "Reference to the associated loan."
+msgstr "مرجع طلب السلفة المرتبط."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line__payslip_id
+msgid "Payslip Ref."
+msgstr "مرجع مسير الراتب"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan_line__payslip_id
+msgid "Reference to the associated payslip, if any."
+msgstr "مرجع مسير الراتب المرتبط، إن وجد."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__total_amount
+msgid "Total Amount"
+msgstr "إجمالي مبلغ السلفة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__total_amount
+msgid "The total amount of the loan"
+msgstr "إجمالي مبلغ السلفة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__balance_amount
+msgid "Balance Amount"
+msgstr "الرصيد المتبقي"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__balance_amount
+msgid ""
+"The remaining balance amount of the loan after deducting the total paid "
+"amount."
+msgstr "الرصيد المتبقي من السلفة بعد خصم إجمالي المبالغ المسددة."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__total_paid_amount
+msgid "Total Paid Amount"
+msgstr "إجمالي المبلغ المسدد"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__total_paid_amount
+msgid "The total amount that has been paid towards the loan."
+msgstr "إجمالي المبلغ الذي سُدد من السلفة."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__state
+msgid "State"
+msgstr "الحالة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__state
+msgid "The current state of the loan request."
+msgstr "الحالة الحالية لطلب السلفة."
+
+#. module: ohrms_loan
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan__state__draft
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan__state__waiting_approval_1
+msgid "Submitted"
+msgstr "مرسل للموافقة"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan__state__approve
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan_approval_line__status__approved
+msgid "Approved"
+msgstr "معتمد"
+
+#. module: ohrms_loan
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan__state__refuse
+msgid "Refused"
+msgstr "مرفوض"
+
+#. module: ohrms_loan
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan__state__cancel
+msgid "Canceled"
+msgstr "ملغي"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Compute Installment"
+msgstr "احتساب الأقساط"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Submit"
+msgstr "إرسال للموافقة"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Approve"
+msgstr "اعتماد"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Refuse"
+msgstr "رفض"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: ohrms_loan
+#: model:ir.ui.menu,name:ohrms_loan.hr_loan_menu_root
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_search
+msgid "My Requests"
+msgstr "طلباتي"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_approval_line__status
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_search
+msgid "Status"
+msgstr "الحالة"
+
+#. module: ohrms_loan
+#: model_terms:ir.actions.act_window,help:ohrms_loan.hr_loan_action
+msgid "Click to create a new Loan request."
+msgstr "انقر لإنشاء طلب سلفة جديد."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_employee.py:0
+msgid ""
+"<p class=\"oe_view_nocontent_create\">Click to create a new loan "
+"request.</p>"
+msgstr "<p class=\"oe_view_nocontent_create\">انقر لإنشاء طلب سلفة جديد.</p>"
+
+#. module: ohrms_loan
+#: model_terms:ir.actions.act_window,help:ohrms_loan.hr_loan_action
+msgid "Use this menu to create loan requests."
+msgstr "استخدم هذه القائمة لإنشاء طلبات السلف ومتابعتها."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_employee__loan_count
+msgid "Loan Count"
+msgstr "عدد السلف"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_employee__loan_count
+msgid "Number of loans associated with the employee"
+msgstr "عدد السلف المرتبطة بالموظف"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_payslip_input__loan_line_id
+msgid "Loan Installment"
+msgstr "قسط السلفة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_payslip_input__loan_line_id
+msgid "Loan installment associated with this payslip input."
+msgstr "قسط السلفة المرتبط بمدخل مسير الراتب."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_payslip_input__date_to
+msgid "Date To"
+msgstr "إلى تاريخ"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_payslip_input__date_to
+msgid "End date for the payslip input."
+msgstr "تاريخ نهاية مدخل مسير الراتب."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_payslip_input__date_from
+msgid "Date from"
+msgstr "من تاريخ"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_payslip_input__date_from
+msgid "Start date for the payslip input."
+msgstr "تاريخ بداية مدخل مسير الراتب."
+
+#. module: ohrms_loan
+#: model:ir.model,name:ohrms_loan.model_hr_payslip
+msgid "Pay Slip"
+msgstr "مسير الراتب"
+
+#. module: ohrms_loan
+#: model:ir.model,name:ohrms_loan.model_hr_payslip_input
+msgid "Payslip Input"
+msgstr "مدخل مسير الراتب"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+msgid "Please Compute installment"
+msgstr "يرجى احتساب الأقساط أولًا."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+msgid "The Employee has already a pending installment"
+msgstr "لدى الموظف سلفة معتمدة برصيد مستحق بالفعل."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+msgid "You cannot delete a loan which is not in draft or cancelled state"
+msgstr "لا يمكن حذف طلب سلفة إلا إذا كان في حالة مسودة أو ملغي."
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_rule_company
+msgid "Loan Request Multi Company"
+msgstr "طلبات السلف متعددة الشركات"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_rule_user
+msgid "Loan Forms Modification Accounts and Hr"
+msgstr "تعديل طلبات السلف للموارد البشرية والحسابات"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_rule_employee
+msgid "User: Modify own loan only"
+msgstr "المستخدم: تعديل طلبات سلفه فقط"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_needaction
+msgid "Action Needed"
+msgstr "يتطلب إجراء"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__activity_ids
+msgid "Activities"
+msgstr "الأنشطة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "تمييز استثناء النشاط"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__activity_state
+msgid "Activity State"
+msgstr "حالة النشاط"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "أيقونة نوع النشاط"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_attachment_count
+msgid "Attachment Count"
+msgstr "عدد المرفقات"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__create_uid
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line__create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__create_date
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line__create_date
+msgid "Created on"
+msgstr "تاريخ الإنشاء"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__display_name
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line__display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_follower_ids
+msgid "Followers"
+msgstr "المتابعون"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "المتابعون (جهات الاتصال)"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "أيقونة Font Awesome، مثل fa-tasks"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__has_message
+msgid "Has Message"
+msgstr "يحتوي على رسائل"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__id
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line__id
+msgid "ID"
+msgstr "المعرّف"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__activity_exception_icon
+msgid "Icon"
+msgstr "الأيقونة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "أيقونة تشير إلى وجود استثناء في النشاط."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__message_needaction
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "عند التحديد، توجد رسائل جديدة تتطلب انتباهك."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__message_has_error
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "عند التحديد، تعذر تسليم بعض الرسائل."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_is_follower
+msgid "Is Follower"
+msgstr "متابع"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan____last_update
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__write_uid
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__write_date
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_line__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "المرفق الرئيسي"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_has_error
+msgid "Message Delivery error"
+msgstr "خطأ في تسليم الرسائل"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_ids
+msgid "Messages"
+msgstr "الرسائل"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "الموعد النهائي لنشاطي"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "حدث التقويم للنشاط التالي"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "الموعد النهائي للنشاط التالي"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__activity_summary
+msgid "Next Activity Summary"
+msgstr "ملخص النشاط التالي"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__activity_type_id
+msgid "Next Activity Type"
+msgstr "نوع النشاط التالي"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_needaction_counter
+msgid "Number of Actions"
+msgstr "عدد الإجراءات المطلوبة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_has_error_counter
+msgid "Number of errors"
+msgstr "عدد أخطاء التسليم"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "عدد الرسائل التي تتطلب إجراء"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "عدد الرسائل التي تعذر تسليمها"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__message_unread_counter
+msgid "Number of unread messages"
+msgstr "عدد الرسائل غير المقروءة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__activity_user_id
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_approval_line__approver_id
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_workflow_step__approver_id
+msgid "Responsible User"
+msgstr "المستخدم المسؤول"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "خطأ في تسليم الرسائل النصية"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"الحالة حسب الأنشطة\n"
+"متأخر: تجاوز النشاط تاريخ الاستحقاق\n"
+"اليوم: تاريخ النشاط هو اليوم\n"
+"مخطط: أنشطة مستقبلية."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "نوع استثناء النشاط الموجود في السجل."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_unread
+msgid "Unread Messages"
+msgstr "الرسائل غير المقروءة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "عداد الرسائل غير المقروءة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__website_message_ids
+msgid "Website Messages"
+msgstr "رسائل الموقع"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_loan__website_message_ids
+msgid "Website communication history"
+msgstr "سجل مراسلات الموقع"
+
+#. module: ohrms_loan
+#: model:ir.model,name:ohrms_loan.model_hr_loan_workflow
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_workflow_view_form
+msgid "Loan Approval Workflow"
+msgstr "سير موافقات السلف"
+
+#. module: ohrms_loan
+#: model:ir.model,name:ohrms_loan.model_hr_loan_workflow_step
+msgid "Loan Approval Workflow Step"
+msgstr "مرحلة سير موافقات السلف"
+
+#. module: ohrms_loan
+#: model:ir.model,name:ohrms_loan.model_hr_loan_approval_line
+msgid "Loan Approval History"
+msgstr "سجل موافقات السلفة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_workflow__name
+msgid "Workflow Name"
+msgstr "اسم سير الموافقات"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_workflow__step_ids
+msgid "Approval Steps"
+msgstr "مراحل الموافقة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__workflow_id
+msgid "Approval Workflow"
+msgstr "سير الموافقات"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__approval_line_ids
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_approver_view_form
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Approval History"
+msgstr "سجل الموافقات"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_employee_view_form
+msgid "Approval Progress"
+msgstr "تقدم الموافقات"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan_approval_line__step_type__approval
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan_workflow_step__step_type__approval
+msgid "Approval"
+msgstr "موافقة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_approval_line__name
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_workflow_step__name
+msgid "Step Name"
+msgstr "اسم المرحلة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_approval_line__step_type
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_workflow_step__step_type
+msgid "Step Type"
+msgstr "نوع المرحلة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_approval_line__action_by_id
+msgid "Action By"
+msgstr "منفذ الإجراء"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_approval_line__action_date
+msgid "Action Date"
+msgstr "تاريخ الإجراء"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan_approval_line__sequence
+msgid "Sequence"
+msgstr "التسلسل"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan_approval_line__status__pending
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan_approval_line__status__waiting
+msgid "Waiting for Action"
+msgstr "بانتظار الإجراء"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan_approval_line__status__rejected
+msgid "Rejected"
+msgstr "مرفوض"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan_approval_line__status__cancelled
+msgid "Cancelled"
+msgstr "ملغي"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan__state__waiting_approval_1
+msgid "In Approval"
+msgstr "قيد الموافقات"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:0
+#: model:ir.model.fields.selection,name:ohrms_loan.selection__hr_loan__state__waiting_approval_2
+msgid "Legacy Accounting Approval"
+msgstr "بانتظار موافقة محاسبية سابقة"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Current Approval"
+msgstr "الموافقة الحالية"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__current_step_name
+msgid "Current Approval Stage"
+msgstr "مرحلة الموافقة الحالية"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__current_approver_id
+msgid "Current Responsible User"
+msgstr "المسؤول الحالي"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__current_step_type
+msgid "Current Step Type"
+msgstr "نوع المرحلة الحالية"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_loan__rejection_reason
+msgid "Rejection Reason"
+msgstr "سبب الرفض"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_employee_view_form
+msgid "My Loan Request"
+msgstr "طلب السلفة الخاص بي"
+
+#. module: ohrms_loan
+#: model:ir.actions.act_window,name:ohrms_loan.hr_loan_action
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_employee_view_tree
+msgid "My Loan Requests"
+msgstr "طلبات السلف الخاصة بي"
+
+#. module: ohrms_loan
+#: model:ir.actions.act_window,name:ohrms_loan.hr_loan_approval_action
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_approver_view_tree
+msgid "Loan Requests Awaiting My Action"
+msgstr "طلبات السلف بانتظار إجرائي"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_search
+msgid "Awaiting My Action"
+msgstr "بانتظار إجرائي"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_employee_view_form
+msgid "Request Tracking"
+msgstr "متابعة الطلب"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_approver_view_form
+msgid "Required Action"
+msgstr "الإجراء المطلوب"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_employee_view_form
+msgid "Approved Installment Schedule"
+msgstr "جدول الأقساط المعتمد"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_employee_view_form
+msgid "Submit Request"
+msgstr "إرسال الطلب"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_approver_view_form
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Approve Current Stage"
+msgstr "اعتماد المرحلة الحالية"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_approver_view_form
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Reject Current Stage"
+msgstr "رفض المرحلة الحالية"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Recalculate Installments"
+msgstr "إعادة احتساب الأقساط"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.hr_loan_view_form
+msgid "Reset to Draft"
+msgstr "إعادة إلى مسودة"
+
+#. module: ohrms_loan
+#: model:ir.ui.menu,name:ohrms_loan.hr_loan_menu_category
+msgid "Employee Advances"
+msgstr "السلف"
+
+#. module: ohrms_loan
+#: model:ir.ui.menu,name:ohrms_loan.hr_loan_approval_menu
+msgid "Approvals"
+msgstr "الموافقات"
+
+#. module: ohrms_loan
+#: model:ir.actions.act_window,name:ohrms_loan.hr_loan_management_action
+msgid "Loan Management"
+msgstr "إدارة السلف"
+
+#. module: ohrms_loan
+#: model:ir.ui.menu,name:ohrms_loan.hr_loan_management_menu
+msgid "Management"
+msgstr "الإدارة"
+
+#. module: ohrms_loan
+#: model:ir.actions.act_window,name:ohrms_loan.hr_loan_workflow_action
+msgid "Loan Approval Workflows"
+msgstr "مسارات موافقات السلف"
+
+#. module: ohrms_loan
+#: model:ir.ui.menu,name:ohrms_loan.hr_loan_workflow_menu
+msgid "Approval Workflows"
+msgstr "مسارات الموافقات"
+
+#. module: ohrms_loan
+#: model:res.groups,name:ohrms_loan.group_loan_approver
+msgid "Loan Workflow Approver"
+msgstr "مسؤول موافقة السلف"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:37
+msgid "Only one active loan workflow is allowed per company."
+msgstr "يسمح بمسار موافقات نشط واحد فقط للسلف لكل شركة."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:72
+msgid ""
+"The responsible user for step '%(step)s' must have access to company "
+"'%(company)s'."
+msgstr ""
+"يجب أن تكون لدى المستخدم المسؤول عن المرحلة «%(step)s» صلاحية الوصول إلى "
+"الشركة «%(company)s»."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:306
+msgid "The number of installments must be greater than zero."
+msgstr "يجب أن يكون عدد الأقساط أكبر من صفر."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:309
+msgid "The loan amount must be greater than zero."
+msgstr "يجب أن يكون مبلغ السلفة أكبر من صفر."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:326
+msgid "Your user must be linked to an employee before requesting a loan."
+msgstr "يجب ربط مستخدمك بموظف قبل طلب السلفة."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:329
+msgid "You can only create a loan request for yourself."
+msgstr "يمكنك إنشاء طلب سلفة لنفسك فقط."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:655
+msgid "You can only request a loan for yourself."
+msgstr "يمكنك طلب سلفة لنفسك فقط."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:383
+msgid "You can only manage your own loan requests."
+msgstr "يمكنك إدارة طلبات السلف الخاصة بك فقط."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:393
+msgid "No active loan approval workflow is configured for company '%s'."
+msgstr "لا يوجد مسار موافقات سلف نشط ومعد للشركة «%s»."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:404
+msgid "Only draft loan requests can be submitted."
+msgstr "يمكن إرسال طلبات السلف التي بحالة مسودة فقط."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:495
+msgid "This loan is not waiting for your action."
+msgstr "طلب السلفة هذا ليس بانتظار إجراء منك."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:550
+msgid "Enter a rejection reason before rejecting the loan."
+msgstr "أدخل سبب الرفض قبل رفض طلب السلفة."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:579
+msgid "Only draft loan requests can be cancelled."
+msgstr "يمكن إلغاء طلبات السلف التي بحالة مسودة فقط."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:586
+msgid "Only loan administrators can reset a request to draft."
+msgstr "يمكن لمسؤولي السلف فقط إعادة الطلب إلى مسودة."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:596
+msgid ""
+"Only pending, refused, or cancelled loan requests can be reset to draft."
+msgstr "يمكن إعادة طلبات السلف المعلقة أو المرفوضة أو الملغاة فقط إلى مسودة."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:629
+msgid "Workflow fields can only be changed through loan actions."
+msgstr "لا يمكن تغيير حقول سير العمل إلا من خلال إجراءات طلب السلفة."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:647
+msgid "A submitted loan request cannot be modified."
+msgstr "لا يمكن تعديل طلب السلفة بعد إرساله."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:660
+msgid "Approvers can only enter a rejection reason from this screen."
+msgstr "يمكن للموافق من هذه الشاشة إدخال سبب الرفض فقط."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:666
+msgid "You are not allowed to modify this loan request."
+msgstr "لا تملك صلاحية تعديل طلب السلفة هذا."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:674
+msgid "Only draft or cancelled loan requests can be deleted."
+msgstr "يمكن حذف طلبات السلف التي بحالة مسودة أو ملغاة فقط."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:353
+msgid "Only loan administrators can calculate installments."
+msgstr "يمكن لمسؤولي السلف فقط احتساب الأقساط."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:360
+msgid "Approved loan installments cannot be recalculated."
+msgstr "لا يمكن إعادة احتساب أقساط سلفة معتمدة."
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_rule_company_v2
+msgid "Loan requests: allowed companies"
+msgstr "طلبات السلف: الشركات المسموح بها"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_rule_employee_v2
+msgid "Loan requests: employee own records"
+msgstr "طلبات السلف: طلبات الموظف الخاصة"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_rule_approver
+msgid "Loan requests: assigned approver records"
+msgstr "طلبات السلف: الطلبات المسندة للموافق"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_rule_hr
+msgid "Loan requests: HR allowed companies"
+msgstr "طلبات السلف: شركات الموارد البشرية المسموح بها"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_line_rule_company
+msgid "Loan installments: allowed companies"
+msgstr "أقساط السلف: الشركات المسموح بها"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_line_rule_employee
+msgid "Loan installments: employee own records"
+msgstr "أقساط السلف: أقساط الموظف الخاصة"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_line_rule_approver
+msgid "Loan installments: assigned approver records"
+msgstr "أقساط السلف: الطلبات المسندة للموافق"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_line_rule_hr
+msgid "Loan installments: HR allowed companies"
+msgstr "أقساط السلف: شركات الموارد البشرية المسموح بها"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_approval_line_rule_company
+msgid "Loan approval history: allowed companies"
+msgstr "سجل موافقات السلف: الشركات المسموح بها"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_approval_line_rule_employee
+msgid "Loan approval history: employee own records"
+msgstr "سجل موافقات السلف: طلبات الموظف الخاصة"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_approval_line_rule_approver
+msgid "Loan approval history: assigned approver records"
+msgstr "سجل موافقات السلف: الطلبات المسندة للموافق"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_approval_line_rule_hr
+msgid "Loan approval history: HR allowed companies"
+msgstr "سجل موافقات السلف: شركات الموارد البشرية المسموح بها"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_workflow_rule_company
+msgid "Loan workflows: allowed companies"
+msgstr "مسارات موافقات السلف: الشركات المسموح بها"
+
+#. module: ohrms_loan
+#: model:ir.rule,name:ohrms_loan.hr_loan_workflow_step_rule_company
+msgid "Loan workflow steps: allowed companies"
+msgstr "مراحل مسارات السلف: الشركات المسموح بها"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:665
+msgid ""
+"Employees can only change the requested amount, installment count, and "
+"payment start date."
+msgstr ""
+"يمكن للموظف تعديل مبلغ السلفة المطلوب وعدد الأقساط وتاريخ بدء السداد فقط."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_payslip__loan_currency_id
+msgid "Loan Currency"
+msgstr "عملة السلفة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_payslip__loan_due_amount
+msgid "Due Loan Installments"
+msgstr "المبلغ المستحق من السلفة"
+
+#. module: ohrms_loan
+#: model:ir.model.fields,help:ohrms_loan.field_hr_payslip__loan_due_amount
+msgid "Total unpaid approved loan installments due within this payslip period."
+msgstr "إجمالي أقساط السلف المعتمدة وغير المسددة والمستحقة خلال فترة مسير الراتب."
+
+#. module: ohrms_loan
+#: model:ir.model.fields,field_description:ohrms_loan.field_hr_payslip__loan_due_count
+msgid "Due Installment Count"
+msgstr "عدد الأقساط المستحقة"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.view_hr_payslip_form
+msgid "Employee Loan Installments Due in This Period"
+msgstr "أقساط سلف الموظف المستحقة خلال هذه الفترة"
+
+#. module: ohrms_loan
+#: model_terms:ir.ui.view,arch_db:ohrms_loan.view_hr_payslip_form
+msgid "Refresh Due Loan Installments"
+msgstr "تحديث أقساط السلف المستحقة"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_payslip.py:133
+msgid "Loan installments can only be refreshed on draft payslips."
+msgstr "يمكن تحديث أقساط السلف في مسيرات الرواتب المسودة فقط."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_payslip.py:141
+msgid "Loan installments updated"
+msgstr "تم تحديث أقساط السلف"
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_payslip.py:143
+msgid "The due loan amount for this payslip period is %(amount).2f."
+msgstr "مبلغ السلف المستحق خلال فترة مسير الراتب هو %(amount).2f."
+
+#. module: ohrms_loan
+#: code:addons/ohrms_loan/models/hr_loan.py:350
+msgid ""
+"Employee %(employee)s has an unpaid approved loan %(loan)s. A new loan "
+"request is allowed from %(date)s, six calendar months after the previous "
+"loan request date."
+msgstr ""
+"لدى الموظف %(employee)s سلفة معتمدة غير مسددة برقم %(loan)s. يُسمح بطلب "
+"سلفة جديدة ابتداءً من %(date)s، بعد اكتمال ستة أشهر تقويمية من تاريخ طلب "
+"السلفة السابقة."

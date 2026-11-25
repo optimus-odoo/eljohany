@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_product_audit_viewer" model="res.groups">
+        <field name="name">View Product Change Log</field>
+        <field name="category_id" ref="base.module_category_inventory"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">Users in this group can view the immutable product change log.</field>
+    </record>
+
+    <record id="rule_product_audit_company" model="ir.rule">
+        <field name="name">Product change log: allowed companies</field>
+        <field name="model_id" ref="model_eljohany_product_audit_log"/>
+        <field name="groups" eval="[(4, ref('group_product_audit_viewer'))]"/>
+        <field name="domain_force">
+            ['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]
+        </field>
+    </record>
+</odoo>

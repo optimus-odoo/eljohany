@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_warehouse_purchase_report" model="report.paperformat">
+        <field name="name">Warehouse Movement Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">25</field>
+        <field name="margin_bottom">12</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">18</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_warehouse_purchase_report_pdf" model="ir.actions.report">
+        <field name="name">Warehouse Movement by Period</field>
+        <field name="model">warehouse.purchase.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">warehouse_purchase_period_report.report_warehouse_purchase_document</field>
+        <field name="report_file">warehouse_purchase_period_report.report_warehouse_purchase_document</field>
+        <field name="paperformat_id" ref="paperformat_warehouse_purchase_report"/>
+        <field name="print_report_name">'Warehouse_Movement_%s_%s' % (object.date_from, object.date_to)</field>
+        <field name="groups_id" eval="[(4, ref('stock.group_stock_manager'))]"/>
+    </record>
+</odoo>

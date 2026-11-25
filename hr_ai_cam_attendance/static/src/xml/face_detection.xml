@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="hr_ai_cam_attendance.FaceDetectionTemplate" owl="1">
+        <div class="popup-overlay">
+            <div class="popup-container position-relative">
+                <button class="close-button btn btn-danger position-absolute" t-on-click="closePopup">
+                    <i class="fa fa-times"></i> Close
+                </button>
+                <h1 class="popup-header">Face Scanning</h1>
+                <div class="popup-video-wrapper">
+                    <video id="videoElement"   muted="true" autoplay="true" playsinline="true" class="w-100 h-100"/>
+<!--                    <video id="videoElement"></video>-->
+                    <canvas id="overlayCanvas"></canvas>
+                </div>
+                <button class="btn btn-primary scan-button" t-on-click="startVideoStream">
+                    <i class="fa fa-camera"></i> Tap to scan
+                </button>
+            </div>
+        </div>
+    </t>
+
+</templates>

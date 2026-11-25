@@ -1,0 +1,10 @@
+<odoo>
+<record id="ir_cron_expiry_notifications" model="ir.cron">
+ <field name="name">إدارة السجلات: تنبيهات 90/60/30 يوم</field>
+ <field name="model_id" ref="model_crm_expiry_service"/>
+ <field name="state">code</field>
+ <field name="code">model.cron_send_expiry_notifications()</field>
+ <field name="interval_number">1</field><field name="interval_type">days</field>
+ <field name="numbercall">-1</field><field name="active">True</field>
+</record>
+</odoo>

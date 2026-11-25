@@ -1,0 +1,600 @@
+# Translation of Odoo Server.
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "This is a transparent operational baseline based on completed customer deliveries. Low-confidence products require more history before advanced forecasting."
+msgstr "هذا خط أساس تشغيلي واضح يعتمد على تسليمات العملاء المنجزة. تحتاج المنتجات منخفضة الثقة إلى سجل تاريخي أطول قبل تطبيق تنبؤ متقدم."
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Critical"
+msgstr "حرج"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "High"
+msgstr "مرتفع"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Medium"
+msgstr "متوسط"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Low"
+msgstr "منخفض"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Posted income account balances minus posted expense account balances."
+msgstr "أرصدة حسابات الإيرادات المرحلة مطروحًا منها أرصدة حسابات المصروفات المرحلة."
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Unreconciled posted receivable and payable journal items."
+msgstr "بنود القيود المرحلة غير المسوّاة في حسابات الذمم المدينة والدائنة."
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Confirmed sales orders"
+msgstr "أوامر البيع المؤكدة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Orders confirmed in the selected period"
+msgstr "الأوامر المؤكدة خلال الفترة المحددة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "The selected period contains too many sales orders for safe live value analysis. The order count remains exact."
+msgstr "تحتوي الفترة المحددة على عدد كبير من أوامر البيع لا يسمح بتحليل القيم مباشرة بأمان. يظل عدد الأوامر دقيقًا."
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "No analytics warehouse is configured for this user."
+msgstr "لم يتم إعداد مستودع تحليلي لهذا المستخدم."
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Accounting revenue"
+msgstr "الإيرادات المحاسبية"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Accounting expenses"
+msgstr "المصروفات المحاسبية"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Accounting period result"
+msgstr "نتيجة الفترة المحاسبية"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Open receivables"
+msgstr "الذمم المدينة المفتوحة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Open payables"
+msgstr "الذمم الدائنة المفتوحة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Verified financial summary by company"
+msgstr "الملخص المالي الموثق حسب الشركة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Converted to company currency on each order date"
+msgstr "محول إلى عملة الشركة وفق تاريخ كل أمر"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Confirmed sales by company"
+msgstr "المبيعات المؤكدة حسب الشركة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Top customers by confirmed untaxed sales"
+msgstr "أعلى العملاء حسب المبيعات المؤكدة قبل الضريبة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Products with stock or customer movement"
+msgstr "المنتجات ذات الرصيد أو حركة العملاء"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Distinct products in the selected warehouse scope"
+msgstr "المنتجات المميزة ضمن نطاق المستودعات المحدد"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Products delivered to customers"
+msgstr "المنتجات المسلّمة للعملاء"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Completed customer deliveries in the selected period"
+msgstr "تسليمات العملاء المنجزة خلال الفترة المحددة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Product movement and current availability"
+msgstr "حركة المنتجات والتوفر الحالي"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Without Department"
+msgstr "دون إدارة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Active employees"
+msgstr "الموظفون النشطون"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Employees active in the permitted companies"
+msgstr "الموظفون النشطون في الشركات المصرح بها"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Departments with active employees"
+msgstr "الإدارات التي تضم موظفين نشطين"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Current organizational distribution"
+msgstr "التوزيع التنظيمي الحالي"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Recorded attendance hours"
+msgstr "ساعات الحضور المسجلة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Attendance records beginning in the selected period"
+msgstr "سجلات الحضور التي بدأت خلال الفترة المحددة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Approved leave requests"
+msgstr "طلبات الإجازة المعتمدة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Approved leave requests overlapping the selected period"
+msgstr "طلبات الإجازة المعتمدة المتداخلة مع الفترة المحددة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Active employees by department"
+msgstr "الموظفون النشطون حسب الإدارة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Open manufacturing orders"
+msgstr "أوامر التصنيع المفتوحة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Manufacturing orders not done or cancelled"
+msgstr "أوامر التصنيع غير المنجزة وغير الملغاة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Overdue manufacturing orders"
+msgstr "أوامر التصنيع المتأخرة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Open orders past their deadline"
+msgstr "الأوامر المفتوحة التي تجاوزت موعدها النهائي"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Completed manufacturing orders"
+msgstr "أوامر التصنيع المنجزة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Orders completed in the selected period"
+msgstr "الأوامر المنجزة خلال الفترة المحددة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Manufacturing orders by status"
+msgstr "أوامر التصنيع حسب الحالة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Products analyzed"
+msgstr "المنتجات التي تم تحليلها"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Products with completed customer demand in the selected history"
+msgstr "المنتجات ذات طلب عملاء منجز ضمن السجل المحدد"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Potential shortages within 30 days"
+msgstr "حالات النقص المحتملة خلال 30 يومًا"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Baseline demand exceeds currently available quantity"
+msgstr "الطلب وفق خط الأساس يتجاوز الكمية المتاحة حاليًا"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Low-confidence baselines"
+msgstr "خطوط الأساس منخفضة الثقة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Insufficient history or completed movement count"
+msgstr "السجل التاريخي أو عدد الحركات المنجزة غير كافٍ"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Thirty-day demand and availability baseline"
+msgstr "خط أساس الطلب والتوفر لثلاثين يومًا"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Negative stock positions"
+msgstr "مواضع المخزون السالب"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Review the related stock moves and inventory controls."
+msgstr "راجع حركات المخزون المرتبطة وضوابط إدارة المخزون."
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Overdue customer invoices"
+msgstr "فواتير العملاء المتأخرة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Prioritize collection and validate disputed balances."
+msgstr "أعط الأولوية للتحصيل وتحقق من الأرصدة محل الاعتراض."
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Overdue purchase receipts"
+msgstr "استلامات المشتريات المتأخرة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Escalate overdue receipts with the responsible suppliers."
+msgstr "صعّد متابعة الاستلامات المتأخرة مع الموردين المسؤولين."
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Review material availability and production bottlenecks."
+msgstr "راجع توفر المواد واختناقات الإنتاج."
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Verified active risks"
+msgstr "المخاطر النشطة الموثقة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Rule-based exceptions supported by current Odoo records"
+msgstr "استثناءات مبنية على قواعد وتدعمها سجلات Odoo الحالية"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Critical and high risks"
+msgstr "المخاطر الحرجة والمرتفعة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Risks requiring priority review"
+msgstr "المخاطر التي تتطلب مراجعة ذات أولوية"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Executive risk register"
+msgstr "سجل المخاطر التنفيذي"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Top five verified risks"
+msgstr "أهم خمس مخاطر موثقة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Posted journal items in company currency"
+msgstr "بنود القيود المرحلة بعملة الشركة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Confirmed untaxed sales"
+msgstr "المبيعات المؤكدة قبل الضريبة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Company"
+msgstr "الشركة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Currency"
+msgstr "العملة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Revenue"
+msgstr "الإيرادات"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Expenses"
+msgstr "المصروفات"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Period Result"
+msgstr "نتيجة الفترة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Receivables"
+msgstr "الذمم المدينة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Payables"
+msgstr "الذمم الدائنة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Untaxed Value"
+msgstr "القيمة قبل الضريبة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Customer"
+msgstr "العميل"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Value"
+msgstr "القيمة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Product"
+msgstr "المنتج"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Category"
+msgstr "الفئة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Delivered"
+msgstr "المسلّم"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Returned"
+msgstr "المرتجع"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Net Sales Quantity"
+msgstr "صافي كمية المبيعات"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "On Hand"
+msgstr "الكمية الحالية"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Available"
+msgstr "المتاح"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Unit"
+msgstr "الوحدة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Department"
+msgstr "الإدارة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Employees"
+msgstr "الموظفون"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Status"
+msgstr "الحالة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Orders"
+msgstr "الأوامر"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Daily Demand"
+msgstr "الطلب اليومي"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "30-Day Demand"
+msgstr "طلب 30 يومًا"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Expected Shortage"
+msgstr "النقص المتوقع"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Days of Cover"
+msgstr "أيام التغطية"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Confidence"
+msgstr "مستوى الثقة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Severity"
+msgstr "الخطورة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Risk"
+msgstr "الخطر"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Affected Records"
+msgstr "السجلات المتأثرة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Recommended Action"
+msgstr "الإجراء المقترح"
+
+#. module: eljohany_executive_intelligence_extended
+#: model:ir.module.module,shortdesc:base.module_eljohany_executive_intelligence_extended
+msgid "Eljohany Extended Executive Intelligence"
+msgstr "الجهني — الذكاء التنفيذي الموسع"
+
+#. module: eljohany_executive_intelligence_extended
+#: model:ir.module.module,summary:base.module_eljohany_executive_intelligence_extended
+msgid "Verified finance, sales, product, HR, operations, forecast and risk intelligence"
+msgstr "تحليلات موثقة للمالية والمبيعات والمنتجات والموارد البشرية والعمليات والتوقع والمخاطر"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Period result margin by company"
+msgstr "هامش نتيجة الفترة حسب الشركة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Period result divided by accounting revenue"
+msgstr "نتيجة الفترة مقسومة على الإيرادات المحاسبية"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Expenses as a share of revenue"
+msgstr "المصروفات كنسبة من الإيرادات"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Posted expense balances divided by posted revenue"
+msgstr "أرصدة المصروفات المرحلة مقسومة على الإيرادات المرحلة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Monthly confirmed sales order trend"
+msgstr "اتجاه أوامر المبيعات المؤكدة شهريًا"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Confirmed order count without mixing currencies"
+msgstr "عدد الأوامر المؤكدة دون خلط العملات"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Top customers by confirmed order count"
+msgstr "أعلى العملاء حسب عدد الأوامر المؤكدة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Geographic distribution of confirmed customer orders"
+msgstr "التوزيع الجغرافي لأوامر العملاء المؤكدة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Shown only for customers with verified coordinates"
+msgstr "يظهر فقط للعملاء الذين لديهم إحداثيات موثقة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Coordinates come from the commercial customer record; customers without coordinates are omitted."
+msgstr "تأتي الإحداثيات من سجل العميل التجاري، ويُستبعد العملاء الذين لا تتوفر لهم إحداثيات."
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Top products by net customer movement"
+msgstr "أعلى المنتجات حسب صافي حركة العملاء"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Quantities remain in each product unit of measure"
+msgstr "تبقى الكميات بوحدة قياس كل منتج"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Product activity heatmap by category"
+msgstr "الخريطة الحرارية لنشاط المنتجات حسب الفئة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Overdue share of open manufacturing orders"
+msgstr "نسبة أوامر التصنيع المفتوحة المتأخرة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Overdue open orders"
+msgstr "الأوامر المفتوحة المتأخرة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Available quantity versus 30-day baseline demand"
+msgstr "الكمية المتاحة مقابل الطلب الأساسي لثلاثين يومًا"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Available quantity versus 30-day demand"
+msgstr "الكمية المتاحة مقابل طلب ثلاثين يومًا"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Expected shortage heatmap"
+msgstr "الخريطة الحرارية للعجز المتوقع"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Higher intensity means a larger share of baseline demand is uncovered"
+msgstr "تعني الشدة الأعلى أن نسبة أكبر من الطلب الأساسي غير مغطاة"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Verified risk severity heatmap"
+msgstr "الخريطة الحرارية الموثقة لشدة المخاطر"
+
+#. module: eljohany_executive_intelligence_extended
+#: code:addons/eljohany_executive_intelligence_extended:1
+msgid "Critical and high risk share"
+msgstr "نسبة المخاطر الحرجة والعالية"
+

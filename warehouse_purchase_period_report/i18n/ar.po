@@ -1,0 +1,244 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* warehouse_purchase_period_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-23 00:00+0000\n"
+"PO-Revision-Date: 2026-11-23 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.actions.act_window,name:warehouse_purchase_period_report.action_warehouse_purchase_report_wizard
+#: model:ir.actions.report,name:warehouse_purchase_period_report.action_warehouse_purchase_report_pdf
+#: model:ir.module.module,shortdesc:base.module_warehouse_purchase_period_report
+#: model_terms:ir.ui.view,arch_db:warehouse_purchase_period_report.view_warehouse_purchase_report_wizard_form
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Warehouse Movement by Period"
+msgstr "حركة المستودعات خلال الفترة"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.ui.menu,name:warehouse_purchase_period_report.menu_warehouse_purchase_report
+msgid "Warehouse Period Movement Report"
+msgstr "تقرير حركة المستودعات خلال الفترة"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.module.module,summary:base.module_warehouse_purchase_period_report
+msgid "Closing quantity and opening-balance average cost by warehouse"
+msgstr "الكمية الختامية ومتوسط التكلفة المرتبط برصيد أول المدة حسب المستودع"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.actions.act_window,name:warehouse_purchase_period_report.action_warehouse_purchase_report_lines
+#: model_terms:ir.ui.view,arch_db:warehouse_purchase_period_report.view_warehouse_purchase_report_line_tree
+msgid "Warehouse Movement"
+msgstr "حركة المستودع"
+
+#. module: warehouse_purchase_period_report
+#. odoo-python
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+#, python-format
+msgid "Warehouse Movement: %(date_from)s - %(date_to)s"
+msgstr "حركة المستودعات: %(date_from)s - %(date_to)s"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_wizard__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_wizard__warehouse_ids
+msgid "Warehouses"
+msgstr "المستودعات"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_line__warehouse_id
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Warehouse"
+msgstr "المستودع"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_wizard__date_from
+msgid "Date From"
+msgstr "من تاريخ"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_wizard__date_to
+msgid "Date To"
+msgstr "إلى تاريخ"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_wizard__product_ids
+msgid "Products"
+msgstr "الأصناف"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_wizard__line_ids
+msgid "Report Lines"
+msgstr "سطور التقرير"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_wizard__xlsx_file
+msgid "Excel File"
+msgstr "ملف Excel"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_wizard__xlsx_filename
+msgid "Excel Filename"
+msgstr "اسم ملف Excel"
+
+#. module: warehouse_purchase_period_report
+#: model_terms:ir.ui.view,arch_db:warehouse_purchase_period_report.view_warehouse_purchase_report_wizard_form
+msgid "All storable products"
+msgstr "جميع الأصناف المخزنية"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,help:warehouse_purchase_period_report.field_warehouse_purchase_report_wizard__product_ids
+msgid "Leave empty to include all storable products."
+msgstr "اتركه فارغًا لتضمين جميع الأصناف المخزنية."
+
+#. module: warehouse_purchase_period_report
+#: model_terms:ir.ui.view,arch_db:warehouse_purchase_period_report.view_warehouse_purchase_report_wizard_form
+msgid "Generate Report"
+msgstr "إنشاء التقرير"
+
+#. module: warehouse_purchase_period_report
+#: model_terms:ir.ui.view,arch_db:warehouse_purchase_period_report.view_warehouse_purchase_report_wizard_form
+msgid "Print PDF"
+msgstr "طباعة PDF"
+
+#. module: warehouse_purchase_period_report
+#: model_terms:ir.ui.view,arch_db:warehouse_purchase_period_report.view_warehouse_purchase_report_wizard_form
+msgid "Export Excel"
+msgstr "تصدير Excel"
+
+#. module: warehouse_purchase_period_report
+#: model_terms:ir.ui.view,arch_db:warehouse_purchase_period_report.view_warehouse_purchase_report_wizard_form
+msgid "Close"
+msgstr "إغلاق"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_line__uom_id
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Unit of Measure"
+msgstr "وحدة القياس"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_line__period_quantity
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Quantity"
+msgstr "الكمية"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_line__average_cost
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Average Cost"
+msgstr "متوسط التكلفة"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_line__total_value
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Total Value"
+msgstr "الإجمالي"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_wizard__total_value
+#: model_terms:ir.ui.view,arch_db:warehouse_purchase_period_report.view_warehouse_purchase_report_line_tree
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Grand Total"
+msgstr "المحصلة النهائية"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_line__estimated_cost
+msgid "Estimated Cost"
+msgstr "تكلفة تقديرية"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_wizard__contains_estimated_cost
+msgid "Contains Estimated Cost"
+msgstr "تتضمن تكلفة تقديرية"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields,field_description:warehouse_purchase_period_report.field_warehouse_purchase_report_line__cost_source
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Cost Status"
+msgstr "حالة التكلفة"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields.selection,name:warehouse_purchase_period_report.selection__warehouse_purchase_report_line__cost_source__estimated
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Estimated"
+msgstr "تتضمن تقديرًا"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields.selection,name:warehouse_purchase_period_report.selection__warehouse_purchase_report_line__cost_source__inventory_valuation
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Inventory Valuation"
+msgstr "تقييم مخزني"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields.selection,name:warehouse_purchase_period_report.selection__warehouse_purchase_report_line__cost_source__purchase_order
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Purchase Order"
+msgstr "سعر أمر الشراء"
+
+#. module: warehouse_purchase_period_report
+#: model:ir.model.fields.selection,name:warehouse_purchase_period_report.selection__warehouse_purchase_report_line__cost_source__mixed
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Mixed Sources"
+msgstr "مصادر تكلفة متعددة"
+
+#. module: warehouse_purchase_period_report
+#. odoo-python
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Period"
+msgstr "الفترة"
+
+#. module: warehouse_purchase_period_report
+#. odoo-python
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Date From must be before or equal to Date To."
+msgstr "يجب أن يكون تاريخ البداية قبل تاريخ النهاية أو مساويًا له."
+
+#. module: warehouse_purchase_period_report
+#. odoo-python
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "All selected warehouses must belong to the selected company."
+msgstr "يجب أن تتبع جميع المستودعات المحددة للشركة المختارة."
+
+#. module: warehouse_purchase_period_report
+#. odoo-python
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "All selected products must belong to the selected company or be shared."
+msgstr "يجب أن تتبع جميع الأصناف المحددة للشركة المختارة أو تكون أصنافًا مشتركة."
+
+#. module: warehouse_purchase_period_report
+#. odoo-python
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "You are not allowed to report on the selected company."
+msgstr "لا تملك صلاحية إعداد تقرير للشركة المحددة."
+
+#. module: warehouse_purchase_period_report
+#. odoo-python
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "Select at least one warehouse."
+msgstr "اختر مستودعًا واحدًا على الأقل."
+
+#. module: warehouse_purchase_period_report
+#. odoo-python
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "No internal locations were found for the selected warehouses."
+msgstr "لم يتم العثور على مواقع داخلية للمستودعات المحددة."
+
+#. module: warehouse_purchase_period_report
+#. odoo-python
+#: code:addons/warehouse_purchase_period_report/models/warehouse_purchase_report.py:0
+msgid "openpyxl is not available on the server."
+msgstr "مكتبة openpyxl غير متاحة على الخادم."

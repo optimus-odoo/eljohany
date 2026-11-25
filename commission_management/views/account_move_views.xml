@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_commission_management" model="ir.ui.view">
+        <field name="name">account.move.form.commission.management</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_generate_commission_lines"
+                        string="Calculate Commissions"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="move_type not in ('out_invoice', 'out_refund') or state != 'posted'"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_commission_lines"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-percent"
+                        invisible="commission_line_count == 0">
+                    <field name="commission_line_count" widget="statinfo" string="Commissions"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_line_tree_receipt_status" model="ir.ui.view">
+        <field name="name">account.move.line.tree.receipt.status</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="purchase_order_id" optional="hide"/>
+                <field name="receipt_ids" widget="many2many_tags" optional="hide"/>
+                <field name="receipt_status"
+                       widget="badge"
+                       optional="show"
+                       decoration-info="receipt_status == 'waiting'"
+                       decoration-warning="receipt_status in ('ready', 'partially_received')"
+                       decoration-success="receipt_status == 'received'"
+                       decoration-danger="receipt_status == 'cancelled'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

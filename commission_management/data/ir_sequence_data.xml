@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_commission_line" model="ir.sequence">
+        <field name="name">Commission Line</field>
+        <field name="code">commission.line</field>
+        <field name="prefix">COML/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_commission_statement" model="ir.sequence">
+        <field name="name">Commission Statement</field>
+        <field name="code">commission.statement</field>
+        <field name="prefix">COMS/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="action_server_generate_invoice_commissions" model="ir.actions.server">
+        <field name="name">Generate Commissions</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">records.with_context(manual_commission_generation=True).action_generate_commission_lines()</field>
+    </record>
+
+    <record id="ir_cron_generate_paid_invoice_commissions" model="ir.cron">
+        <field name="name">Generate Paid Invoice Commissions</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_generate_paid_invoice_commissions()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

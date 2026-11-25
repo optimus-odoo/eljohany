@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.hn.account.customizations</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="40"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='account']/block[@id='invoicing_settings']" position="inside">
+
+                <setting id="setting_custom_invoice_notes" string="Custom Invoice Notes"
+                        help="These notes will appear at the bottom of custom invoice printouts.">
+
+                    <div class="content-group mt16">
+                        <field name="custom_invoice_alignment"/>
+                        <field name="custom_invoice_html_note" class="w-100 oe_inline" widget="html" options="{'height': 300}"
+                               placeholder="Write notes to display at the bottom of custom invoices..."/>
+                    </div>
+
+                </setting>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

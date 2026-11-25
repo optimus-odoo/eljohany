@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="work_injury_view_tree" model="ir.ui.view">
+        <field name="name">hr.work.injury.report.tree</field>
+        <field name="model">hr.work.injury.report</field>
+        <field name="arch" type="xml">
+            <tree string="Work Injury Reports" decoration-danger="severity in ('serious', 'fatal')">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="company_id" optional="hide"/>
+                <field name="branch_id"/>
+                <field name="accident_datetime"/>
+                <field name="accident_type"/>
+                <field name="severity" widget="badge"/>
+                <field name="gosi_reported" optional="show"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="work_injury_view_form" model="ir.ui.view">
+        <field name="name">hr.work.injury.report.form</field>
+        <field name="model">hr.work.injury.report</field>
+        <field name="arch" type="xml">
+            <form string="Work Injury or Occupational Accident Report">
+                <header>
+                    <button name="action_submit" type="object" string="Submit" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_start_investigation" type="object" string="Start Investigation" class="oe_highlight" invisible="state != 'submitted'" groups="eljohany_employee_forms.group_employee_forms_manager"/>
+                    <button name="action_close" type="object" string="Close Report" class="oe_highlight" invisible="state != 'investigation'" groups="eljohany_employee_forms.group_employee_forms_manager"/>
+                    <button name="action_reject" type="object" string="Reject" invisible="state not in ('submitted', 'investigation')" groups="eljohany_employee_forms.group_employee_forms_manager"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state not in ('draft', 'submitted')"/>
+                    <button name="action_reset_to_draft" type="object" string="Reset to Draft" invisible="state not in ('rejected', 'cancelled')" groups="eljohany_employee_forms.group_employee_forms_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,investigation,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group string="Employee and Organization">
+                            <field name="employee_id" readonly="state != 'draft'"/>
+                            <field name="company_id" readonly="state != 'draft'"/>
+                            <field name="branch_id" readonly="state != 'draft'" options="{'no_create': True}"/>
+                            <field name="department_id" readonly="state != 'draft'"/>
+                            <field name="job_id" readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Accident Details">
+                            <field name="accident_datetime" readonly="state != 'draft'"/>
+                            <field name="accident_location" readonly="state != 'draft'"/>
+                            <field name="accident_type" readonly="state != 'draft'"/>
+                            <field name="severity" readonly="state != 'draft'"/>
+                            <field name="injured_body_part" readonly="state != 'draft'"/>
+                            <field name="absence_days" readonly="state not in ('draft', 'investigation')"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Report">
+                            <group>
+                                <field name="description" readonly="state != 'draft'" placeholder="Describe what happened, how it happened, and the resulting injury..."/>
+                                <field name="witness_names" readonly="state != 'draft'"/>
+                                <field name="immediate_action" readonly="state != 'draft'"/>
+                                <field name="medical_provider" readonly="state not in ('draft', 'investigation')"/>
+                            </group>
+                        </page>
+                        <page string="GOSI Notification">
+                            <group>
+                                <field name="gosi_reported" readonly="state not in ('investigation', 'closed')"/>
+                                <field name="gosi_report_number" readonly="state not in ('investigation', 'closed')" invisible="not gosi_reported"/>
+                                <field name="gosi_report_date" readonly="state not in ('investigation', 'closed')" invisible="not gosi_reported"/>
+                            </group>
+                        </page>
+                        <page string="Investigation" groups="eljohany_employee_forms.group_employee_forms_manager">
+                            <group>
+                                <field name="investigation_result" readonly="state not in ('investigation', 'closed')"/>
+                                <field name="root_cause" readonly="state not in ('investigation', 'closed')"/>
+                                <field name="corrective_actions" readonly="state not in ('investigation', 'closed')"/>
+                                <field name="rejection_reason" invisible="state not in ('submitted', 'investigation', 'rejected')" readonly="state == 'rejected'"/>
+                            </group>
+                        </page>
+                        <page string="Attachments">
+                            <field name="attachment_ids" widget="many2many_binary" readonly="state == 'closed'"/>
+                        </page>
+                    </notebook>
+                    <group invisible="state != 'closed'">
+                        <field name="closed_by"/>
+                        <field name="closed_at"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="work_injury_view_search" model="ir.ui.view">
+        <field name="name">hr.work.injury.report.search</field>
+        <field name="model">hr.work.injury.report</field>
+        <field name="arch" type="xml">
+            <search string="Work Injury Reports">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="company_id" invisible="1"/>
+                <field name="branch_id"/>
+                <filter name="my_reports" string="My Reports" domain="[('employee_id.user_id', '=', uid)]"/>
+                <filter name="open_reports" string="Open Reports" domain="[('state', 'in', ('submitted', 'investigation'))]"/>
+                <separator/>
+                <filter name="group_branch" string="Branch" context="{'group_by': 'branch_id'}"/>
+                <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="work_injury_action" model="ir.actions.act_window">
+        <field name="name">Work Injury Reports</field>
+        <field name="res_model">hr.work.injury.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="work_injury_view_search"/>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_user'))]"/>
+        <field name="help" type="html"><p class="o_view_nocontent_smiling_face">Create a work injury or occupational accident report.</p></field>
+    </record>
+</odoo>

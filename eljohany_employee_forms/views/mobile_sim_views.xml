@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mobile_sim_category_view_tree" model="ir.ui.view">
+        <field name="name">hr.mobile.sim.category.tree</field>
+        <field name="model">hr.mobile.sim.category</field>
+        <field name="arch" type="xml">
+            <tree string="فئات شرائح الجوال">
+                <field name="name"/>
+                <field name="company_id" optional="hide"/>
+                <field name="monthly_price" sum="إجمالي أسعار الفئات"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mobile_sim_category_view_form" model="ir.ui.view">
+        <field name="name">hr.mobile.sim.category.form</field>
+        <field name="model">hr.mobile.sim.category</field>
+        <field name="arch" type="xml">
+            <form string="فئة شريحة جوال">
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <field name="company_id"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="monthly_price"/>
+                        <field name="active"/>
+                    </group>
+                    <group><field name="description"/></group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mobile_sim_category_action" model="ir.actions.act_window">
+        <field name="name">فئات الشرائح</field>
+        <field name="res_model">hr.mobile.sim.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+
+    <record id="mobile_sim_view_tree" model="ir.ui.view">
+        <field name="name">hr.mobile.sim.tree</field>
+        <field name="model">hr.mobile.sim</field>
+        <field name="arch" type="xml">
+            <tree string="ملف شرائح الجوال" decoration-warning="status == 'suspended'" decoration-danger="status in ('lost', 'closed')">
+                <field name="mobile_number"/>
+                <field name="serial_number" optional="show"/>
+                <field name="employee_id"/>
+                <field name="category_id"/>
+                <field name="monthly_price" sum="إجمالي الاشتراكات الشهرية"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="carrier" optional="show"/>
+                <field name="company_id" optional="hide"/>
+                <field name="status" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mobile_sim_view_form" model="ir.ui.view">
+        <field name="name">hr.mobile.sim.form</field>
+        <field name="model">hr.mobile.sim</field>
+        <field name="arch" type="xml">
+            <form string="شريحة جوال">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_handovers" type="object" class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="handover_count" widget="statinfo" string="نماذج الاستلام"/>
+                        </button>
+                    </div>
+                    <div class="oe_title"><h1><field name="mobile_number"/></h1></div>
+                    <group>
+                        <group string="بيانات الشريحة">
+                            <field name="company_id"/>
+                            <field name="serial_number"/>
+                            <field name="category_id"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="monthly_price"/>
+                            <field name="carrier"/>
+                            <field name="activation_date"/>
+                        </group>
+                        <group string="التخصيص والحالة">
+                            <field name="employee_id"/>
+                            <field name="status"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group><field name="notes"/></group>
+                </sheet>
+                <div class="oe_chatter"><field name="message_follower_ids"/><field name="activity_ids"/><field name="message_ids"/></div>
+            </form>
+        </field>
+    </record>
+
+    <record id="mobile_sim_view_search" model="ir.ui.view">
+        <field name="name">hr.mobile.sim.search</field>
+        <field name="model">hr.mobile.sim</field>
+        <field name="arch" type="xml">
+            <search string="البحث في شرائح الجوال">
+                <field name="mobile_number"/>
+                <field name="serial_number"/>
+                <field name="employee_id"/>
+                <field name="category_id"/>
+                <filter name="available" string="المتاحة" domain="[('status', '=', 'available')]"/>
+                <filter name="assigned" string="المسلمة" domain="[('status', '=', 'assigned')]"/>
+                <separator/>
+                <filter name="group_category" string="الفئة" context="{'group_by': 'category_id'}"/>
+                <filter name="group_holder" string="حامل الشريحة" context="{'group_by': 'employee_id'}"/>
+                <filter name="group_status" string="الحالة" context="{'group_by': 'status'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mobile_sim_action" model="ir.actions.act_window">
+        <field name="name">ملف شرائح الجوال</field>
+        <field name="res_model">hr.mobile.sim</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="mobile_sim_view_search"/>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+
+    <record id="mobile_sim_handover_view_tree" model="ir.ui.view">
+        <field name="name">hr.mobile.sim.handover.tree</field>
+        <field name="model">hr.mobile.sim.handover</field>
+        <field name="arch" type="xml">
+            <tree string="نماذج استلام الشرائح">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="sim_id"/>
+                <field name="branch_id"/>
+                <field name="handover_date"/>
+                <field name="return_date" optional="show"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mobile_sim_handover_view_form" model="ir.ui.view">
+        <field name="name">hr.mobile.sim.handover.form</field>
+        <field name="model">hr.mobile.sim.handover</field>
+        <field name="arch" type="xml">
+            <form string="نموذج استلام شريحة إلكترونية">
+                <header>
+                    <button name="action_submit" type="object" string="إرسال للاعتماد" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="اعتماد التسليم" class="oe_highlight" invisible="state != 'submitted'"/>
+                    <button name="action_mark_returned" type="object" string="تسجيل إعادة الشريحة" class="oe_highlight" invisible="state != 'approved'"/>
+                    <button name="action_reject" type="object" string="رفض" invisible="state != 'submitted'"/>
+                    <button name="action_cancel" type="object" string="إلغاء" invisible="state not in ('draft', 'submitted')"/>
+                    <button name="action_reset_to_draft" type="object" string="إعادة إلى مسودة" invisible="state not in ('rejected', 'cancelled')"/>
+                    <button name="action_print" type="object" string="طباعة النموذج" invisible="state not in ('approved', 'returned')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,returned"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group string="بيانات المستلم">
+                            <field name="employee_id" readonly="state != 'draft'"/>
+                            <field name="company_id" readonly="state != 'draft'"/>
+                            <field name="branch_id" readonly="state != 'draft'"/>
+                            <field name="handover_date" readonly="state != 'draft'"/>
+                        </group>
+                        <group string="بيانات الشريحة">
+                            <field name="sim_id" readonly="state != 'draft'"/>
+                            <field name="purpose" readonly="state != 'draft'"/>
+                            <field name="document_date" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="إقرار المستلم"><field name="acknowledgement" readonly="state != 'draft'"/></page>
+                        <page string="إعادة الشريحة">
+                            <group><field name="return_date" readonly="state != 'approved'"/><field name="return_notes" readonly="state != 'approved'"/></group>
+                        </page>
+                        <page string="الاعتماد">
+                            <group>
+                                <field name="submitted_by"/><field name="submitted_at"/>
+                                <field name="approved_by"/><field name="approved_at"/>
+                                <field name="rejection_reason" invisible="state not in ('submitted', 'rejected')" readonly="state == 'rejected'"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter"><field name="message_follower_ids"/><field name="activity_ids"/><field name="message_ids"/></div>
+            </form>
+        </field>
+    </record>
+
+    <record id="mobile_sim_handover_action" model="ir.actions.act_window">
+        <field name="name">استلام الشرائح الإلكترونية</field>
+        <field name="res_model">hr.mobile.sim.handover</field>
+        <field name="view_mode">tree,form</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+</odoo>

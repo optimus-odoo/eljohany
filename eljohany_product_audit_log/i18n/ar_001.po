@@ -1,0 +1,164 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * eljohany_product_audit_log
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: eljohany_product_audit_log
+#: model:ir.module.module,shortdesc:base.module_eljohany_product_audit_log
+msgid "Eljohany Product Audit Log"
+msgstr "سجل الجهني لتدقيق تغييرات المنتجات"
+
+#. module: eljohany_product_audit_log
+#: model:ir.module.module,summary:base.module_eljohany_product_audit_log
+msgid "Immutable, permission-controlled audit trail for product changes"
+msgstr "سجل تدقيق محمي لتغييرات المنتجات مع صلاحية عرض مستقلة"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_product_template__change_log_ids
+#: model_terms:ir.ui.view,arch_db:eljohany_product_audit_log.product_product_form_product_audit_log
+#: model_terms:ir.ui.view,arch_db:eljohany_product_audit_log.product_template_form_product_audit_log
+msgid "Change Log"
+msgstr "سجل التغييرات"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model,name:eljohany_product_audit_log.model_eljohany_product_audit_log
+msgid "Product Change Log"
+msgstr "سجل تغييرات المنتج"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_product_product__variant_change_log_ids
+msgid "Variant Change Log"
+msgstr "سجل تغييرات المتغير"
+
+#. module: eljohany_product_audit_log
+#: model:res.groups,name:eljohany_product_audit_log.group_product_audit_viewer
+msgid "View Product Change Log"
+msgstr "عرض سجل تغييرات المنتجات"
+
+#. module: eljohany_product_audit_log
+#: model:res.groups,comment:eljohany_product_audit_log.group_product_audit_viewer
+msgid "Users in this group can view the immutable product change log."
+msgstr "يمكن للمستخدمين في هذه المجموعة عرض سجل تغييرات المنتجات المحمي من التعديل والحذف."
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__product_tmpl_id
+msgid "Product"
+msgstr "المنتج"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__product_id
+msgid "Variant"
+msgstr "متغير المنتج"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__target_model
+msgid "Changed On"
+msgstr "تم التعديل على"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields.selection,name:eljohany_product_audit_log.selection__eljohany_product_audit_log__target_model__product_template
+msgid "Product Template"
+msgstr "قالب المنتج"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields.selection,name:eljohany_product_audit_log.selection__eljohany_product_audit_log__target_model__product_product
+msgid "Product Variant"
+msgstr "متغير المنتج"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__target_name
+msgid "Record"
+msgstr "السجل"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__target_res_id
+msgid "Record ID"
+msgstr "معرّف السجل"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__field_name
+msgid "Technical Field"
+msgstr "الحقل الفني"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__field_display_name
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__field_label
+msgid "Changed Field"
+msgstr "الحقل المعدّل"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__old_value
+msgid "Previous Value"
+msgstr "القيمة السابقة"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__new_value
+msgid "New Value"
+msgstr "القيمة الجديدة"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__changed_by_id
+msgid "Changed By"
+msgstr "تم التعديل بواسطة"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__changed_on
+msgid "Change Date"
+msgstr "تاريخ التعديل"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__operation_id
+msgid "Operation Reference"
+msgstr "مرجع العملية"
+
+#. module: eljohany_product_audit_log
+#: model:ir.model.fields,field_description:eljohany_product_audit_log.field_eljohany_product_audit_log__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: eljohany_product_audit_log
+#: code:addons/eljohany_product_audit_log/models/audit_utils.py:0
+msgid "Yes"
+msgstr "نعم"
+
+#. module: eljohany_product_audit_log
+#: code:addons/eljohany_product_audit_log/models/audit_utils.py:0
+msgid "No"
+msgstr "لا"
+
+#. module: eljohany_product_audit_log
+#: code:addons/eljohany_product_audit_log/models/audit_utils.py:0
+msgid "File set"
+msgstr "تم تعيين ملف"
+
+#. module: eljohany_product_audit_log
+#: code:addons/eljohany_product_audit_log/models/audit_utils.py:0
+msgid "No file"
+msgstr "لا يوجد ملف"
+
+#. module: eljohany_product_audit_log
+#: code:addons/eljohany_product_audit_log/models/product_audit_log.py:0
+msgid "Product change log entries can only be created automatically."
+msgstr "لا يمكن إنشاء سجلات تغييرات المنتجات إلا تلقائيًا."
+
+#. module: eljohany_product_audit_log
+#: code:addons/eljohany_product_audit_log/models/product_audit_log.py:0
+msgid "Product change log entries are immutable."
+msgstr "سجلات تغييرات المنتجات محمية من التعديل."
+
+#. module: eljohany_product_audit_log
+#: code:addons/eljohany_product_audit_log/models/product_audit_log.py:0
+msgid "Product change log entries cannot be deleted."
+msgstr "لا يمكن حذف سجلات تغييرات المنتجات."
+
+#. module: eljohany_product_audit_log
+#: model:ir.rule,name:eljohany_product_audit_log.rule_product_audit_company
+msgid "Product change log: allowed companies"
+msgstr "سجل تغييرات المنتجات: الشركات المسموح بها"

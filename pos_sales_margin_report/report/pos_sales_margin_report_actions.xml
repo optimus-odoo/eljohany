@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_pos_sales_margin_report" model="report.paperformat">
+        <field name="name">POS Sales and Margin Report - A4 Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">18</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">8</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_pos_sales_margin_report_pdf" model="ir.actions.report">
+        <field name="name">POS Sales and Margin Report</field>
+        <field name="model">pos.sales.margin.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pos_sales_margin_report.pos_sales_margin_report_pdf</field>
+        <field name="report_file">pos_sales_margin_report.pos_sales_margin_report_pdf</field>
+        <field name="paperformat_id" ref="paperformat_pos_sales_margin_report"/>
+        <field name="print_report_name">'POS_Sales_Margin_%s_%s' % (object.date_from.strftime('%Y%m%d_%H%M%S'), object.date_to.strftime('%Y%m%d_%H%M%S'))</field>
+    </record>
+</odoo>

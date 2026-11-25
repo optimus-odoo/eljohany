@@ -1,0 +1,26 @@
+<odoo>
+    <!-- Employee Custodies: the only active entry point is under the secured
+         standalone Forms menu. -->
+    <menuitem id="menu_hr_custody_main" name="Custodies"
+              parent="ohrms_loan.employee_forms_menu_root"
+              sequence="20"
+              groups="hr_custody.group_employee_custody_forms_access"/>
+    <menuitem id="menu_hr_custody" name="Custodies" parent="hr_custody.menu_hr_custody_main"
+              action="action_hr_custodies" sequence="1"
+              groups="hr_custody.group_employee_custody_forms_access"/>
+    <menuitem id="menu_hr_custody_lines_to_disbursement" name="To Disbursement" parent="hr_custody.menu_hr_custody_main"
+              action="action_hr_custody_lines_to_disbursement" sequence="2"
+              groups="hr_custody.group_employee_custody_forms_access"/>
+    <menuitem id="menu_hr_custody_lines_to_return" name="To Return" parent="hr_custody.menu_hr_custody_main"
+              action="action_hr_custody_lines_to_return" sequence="3"
+              groups="hr_custody.group_employee_custody_forms_access"/>
+
+    <!-- Retire the former duplicate entry points on module upgrade. -->
+    <record id="menu_payslip_hr_custody_main" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="menu_account_custody_main" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+</odoo>

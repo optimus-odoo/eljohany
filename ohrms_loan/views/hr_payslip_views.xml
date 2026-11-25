@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherited the hr_payslip form view to add 'loan_line_id' field within the 'input_line_ids' tree. -->
+    <record id="view_hr_payslip_form" model="ir.ui.view">
+        <field name="name">hr.payslip.view.form.inherit.ohrms.loan</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='input_line_ids']" position="before">
+                <group string="Employee Loan Installments Due in This Period">
+                    <field name="loan_due_amount" readonly="1"/>
+                    <field name="loan_due_count" readonly="1"/>
+                    <field name="loan_currency_id" invisible="1"/>
+                    <button name="action_refresh_loan_installments"
+                            type="object"
+                            string="Refresh Due Loan Installments"
+                            class="btn-secondary"
+                            invisible="state not in ('draft', 'verify')"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

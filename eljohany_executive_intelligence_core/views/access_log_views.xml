@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ei_access_log_tree" model="ir.ui.view">
+        <field name="name">executive.intelligence.access.log.tree</field>
+        <field name="model">executive.intelligence.access.log</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="change_date"/>
+                <field name="target_user_id"/>
+                <field name="changed_by_id"/>
+                <field name="operation"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ei_access_log_form" model="ir.ui.view">
+        <field name="name">executive.intelligence.access.log.form</field>
+        <field name="model">executive.intelligence.access.log</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <field name="change_date"/>
+                        <field name="target_user_id"/>
+                        <field name="changed_by_id"/>
+                        <field name="operation"/>
+                    </group>
+                    <group string="Configuration Snapshot">
+                        <field name="previous_configuration"/>
+                        <field name="new_configuration"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ei_access_logs" model="ir.actions.act_window">
+        <field name="name">Access Change Log</field>
+        <field name="res_model">executive.intelligence.access.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

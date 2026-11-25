@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- العروض الوظيفية -->
+    <record id="job_offer_view_tree" model="ir.ui.view">
+        <field name="name">hr.job.offer.tree</field>
+        <field name="model">hr.job.offer</field>
+        <field name="arch" type="xml">
+            <tree string="العروض الوظيفية">
+                <field name="name"/>
+                <field name="candidate_name"/>
+                <field name="job_id"/>
+                <field name="branch_id"/>
+                <field name="expected_joining_date"/>
+                <field name="monthly_total" sum="إجمالي الرواتب الشهرية"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="job_offer_view_form" model="ir.ui.view">
+        <field name="name">hr.job.offer.form</field>
+        <field name="model">hr.job.offer</field>
+        <field name="arch" type="xml">
+            <form string="عرض وظيفي">
+                <header>
+                    <button name="action_submit" type="object" string="إرسال للاعتماد" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="اعتماد العرض" class="oe_highlight" invisible="state != 'submitted'"/>
+                    <button name="action_reject" type="object" string="رفض" invisible="state != 'submitted'"/>
+                    <button name="action_cancel" type="object" string="إلغاء" invisible="state not in ('draft', 'submitted')"/>
+                    <button name="action_reset_to_draft" type="object" string="إعادة إلى مسودة" invisible="state not in ('rejected', 'cancelled')"/>
+                    <button name="action_print" type="object" string="طباعة العرض" class="btn-secondary" invisible="state != 'approved'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group string="بيانات المرشح">
+                            <field name="candidate_name" readonly="state != 'draft'"/>
+                            <field name="candidate_id_number" readonly="state != 'draft'"/>
+                            <field name="candidate_phone" readonly="state != 'draft'"/>
+                            <field name="candidate_email" readonly="state != 'draft'"/>
+                            <field name="employee_id" readonly="state != 'draft'"/>
+                        </group>
+                        <group string="بيانات العرض">
+                            <field name="company_id" readonly="state != 'draft'"/>
+                            <field name="branch_id" readonly="state != 'draft'"/>
+                            <field name="department_id" readonly="state != 'draft'"/>
+                            <field name="job_id" readonly="state != 'draft'"/>
+                            <field name="work_location" readonly="state != 'draft'"/>
+                            <field name="document_date" readonly="state != 'draft'"/>
+                            <field name="offer_valid_until" readonly="state != 'draft'"/>
+                            <field name="expected_joining_date" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <group string="الأجر وشروط العمل">
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="basic_salary" readonly="state != 'draft'"/>
+                            <field name="recurring_allowance_total"/>
+                            <field name="monthly_total"/>
+                            <field name="one_time_allowance_total"/>
+                        </group>
+                        <group>
+                            <field name="contract_duration" readonly="state != 'draft'"/>
+                            <field name="probation_days" readonly="state != 'draft'"/>
+                            <field name="working_hours" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="البدلات والمزايا">
+                            <field name="allowance_ids" readonly="state != 'draft'">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="frequency"/>
+                                    <field name="amount" sum="الإجمالي"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                    <field name="notes" optional="show"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="الشروط والأحكام">
+                            <field name="terms" readonly="state != 'draft'"/>
+                        </page>
+                        <page string="الاعتماد">
+                            <group>
+                                <field name="submitted_by"/>
+                                <field name="submitted_at"/>
+                                <field name="approved_by"/>
+                                <field name="approved_at"/>
+                                <field name="rejection_reason" invisible="state not in ('submitted', 'rejected')" readonly="state == 'rejected'"/>
+                                <field name="cancellation_reason" invisible="state != 'cancelled'"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="job_offer_action" model="ir.actions.act_window">
+        <field name="name">العروض الوظيفية</field>
+        <field name="res_model">hr.job.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+        <field name="help" type="html"><p class="o_view_nocontent_smiling_face">أنشئ عرضًا وظيفيًا جديدًا ببدلات ديناميكية.</p></field>
+    </record>
+
+    <!-- مباشرة العمل -->
+    <record id="work_commencement_view_tree" model="ir.ui.view">
+        <field name="name">hr.work.commencement.tree</field>
+        <field name="model">hr.work.commencement</field>
+        <field name="arch" type="xml">
+            <tree string="نماذج مباشرة العمل">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="branch_id"/>
+                <field name="commencement_type"/>
+                <field name="commencement_date"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="work_commencement_view_form" model="ir.ui.view">
+        <field name="name">hr.work.commencement.form</field>
+        <field name="model">hr.work.commencement</field>
+        <field name="arch" type="xml">
+            <form string="نموذج مباشرة عمل">
+                <header>
+                    <button name="action_submit" type="object" string="إرسال للاعتماد" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="اعتماد المباشرة" class="oe_highlight" invisible="state != 'submitted'"/>
+                    <button name="action_reject" type="object" string="رفض" invisible="state != 'submitted'"/>
+                    <button name="action_cancel" type="object" string="إلغاء" invisible="state not in ('draft', 'submitted')"/>
+                    <button name="action_reset_to_draft" type="object" string="إعادة إلى مسودة" invisible="state not in ('rejected', 'cancelled')"/>
+                    <button name="action_print" type="object" string="طباعة النموذج" invisible="state != 'approved'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group string="بيانات الموظف">
+                            <field name="employee_id"/>
+                            <field name="company_id"/>
+                            <field name="branch_id"/>
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                            <field name="manager_id"/>
+                            <field name="employee_number"/>
+                        </group>
+                        <group string="بيانات المباشرة">
+                            <field name="commencement_type"/>
+                            <field name="commencement_date"/>
+                            <field name="leave_id" invisible="commencement_type != 'after_leave'"/>
+                            <field name="work_location"/>
+                            <field name="document_date"/>
+                        </group>
+                    </group>
+                    <group><field name="notes"/></group>
+                    <group string="الاعتماد">
+                        <field name="submitted_by"/>
+                        <field name="submitted_at"/>
+                        <field name="approved_by"/>
+                        <field name="approved_at"/>
+                        <field name="rejection_reason" invisible="state not in ('submitted', 'rejected')" readonly="state == 'rejected'"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter"><field name="message_follower_ids"/><field name="activity_ids"/><field name="message_ids"/></div>
+            </form>
+        </field>
+    </record>
+
+    <record id="work_commencement_action" model="ir.actions.act_window">
+        <field name="name">مباشرات العمل</field>
+        <field name="res_model">hr.work.commencement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+
+    <!-- استلام السيارات -->
+    <record id="vehicle_handover_view_tree" model="ir.ui.view">
+        <field name="name">hr.vehicle.handover.tree</field>
+        <field name="model">hr.vehicle.handover</field>
+        <field name="arch" type="xml">
+            <tree string="نماذج استلام السيارات">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="vehicle_id"/>
+                <field name="branch_id"/>
+                <field name="handover_date"/>
+                <field name="expected_return_date"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="vehicle_handover_view_form" model="ir.ui.view">
+        <field name="name">hr.vehicle.handover.form</field>
+        <field name="model">hr.vehicle.handover</field>
+        <field name="arch" type="xml">
+            <form string="نموذج استلام سيارة">
+                <header>
+                    <button name="action_submit" type="object" string="إرسال للاعتماد" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="اعتماد التسليم" class="oe_highlight" invisible="state != 'submitted'"/>
+                    <button name="action_mark_returned" type="object" string="تسجيل إعادة السيارة" class="oe_highlight" invisible="state != 'approved'"/>
+                    <button name="action_reject" type="object" string="رفض" invisible="state != 'submitted'"/>
+                    <button name="action_cancel" type="object" string="إلغاء" invisible="state not in ('draft', 'submitted')"/>
+                    <button name="action_reset_to_draft" type="object" string="إعادة إلى مسودة" invisible="state not in ('rejected', 'cancelled')"/>
+                    <button name="action_print" type="object" string="طباعة النموذج" invisible="state not in ('approved', 'returned')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,returned"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group string="الموظف والسيارة">
+                            <field name="employee_id" readonly="state != 'draft'"/>
+                            <field name="company_id" readonly="state != 'draft'"/>
+                            <field name="branch_id" readonly="state != 'draft'"/>
+                            <field name="vehicle_id" readonly="state != 'draft'"/>
+                            <field name="handover_date" readonly="state != 'draft'"/>
+                            <field name="expected_return_date" readonly="state != 'draft'"/>
+                        </group>
+                        <group string="حالة السيارة عند التسليم">
+                            <field name="odometer" readonly="state != 'draft'"/>
+                            <field name="fuel_level" readonly="state != 'draft'"/>
+                            <field name="keys_count" readonly="state != 'draft'"/>
+                            <field name="vehicle_condition" readonly="state != 'draft'"/>
+                            <field name="accessories" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="الإقرار والمسؤوليات"><field name="responsibility_terms" readonly="state != 'draft'"/></page>
+                        <page string="إعادة السيارة">
+                            <group>
+                                <field name="return_date" readonly="state != 'approved'"/>
+                                <field name="return_odometer" readonly="state != 'approved'"/>
+                                <field name="return_condition" readonly="state != 'approved'"/>
+                            </group>
+                        </page>
+                        <page string="الاعتماد">
+                            <group>
+                                <field name="submitted_by"/><field name="submitted_at"/>
+                                <field name="approved_by"/><field name="approved_at"/>
+                                <field name="rejection_reason" invisible="state not in ('submitted', 'rejected')" readonly="state == 'rejected'"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter"><field name="message_follower_ids"/><field name="activity_ids"/><field name="message_ids"/></div>
+            </form>
+        </field>
+    </record>
+
+    <record id="vehicle_handover_action" model="ir.actions.act_window">
+        <field name="name">استلام السيارات</field>
+        <field name="res_model">hr.vehicle.handover</field>
+        <field name="view_mode">tree,form</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+
+    <record id="fleet_vehicle_form_employee_handovers" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form.employee.handovers</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_employee_handovers"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-file-text-o"
+                        groups="eljohany_employee_forms.group_employee_forms_manager">
+                    <field name="employee_handover_count" widget="statinfo" string="نماذج الاستلام"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- تقارير معلومات الموظفين -->
+    <record id="employee_information_report_view_tree" model="ir.ui.view">
+        <field name="name">hr.employee.information.report.tree</field>
+        <field name="model">hr.employee.information.report</field>
+        <field name="arch" type="xml">
+            <tree string="تقارير معلومات الموظفين">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="branch_id"/>
+                <field name="purpose"/>
+                <field name="document_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="employee_information_report_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.information.report.form</field>
+        <field name="model">hr.employee.information.report</field>
+        <field name="arch" type="xml">
+            <form string="تقرير معلومات الموظف">
+                <header>
+                    <button name="action_print" type="object" string="طباعة التقرير" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group string="بيانات التقرير">
+                            <field name="employee_id"/>
+                            <field name="purpose"/>
+                            <field name="document_date"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="branch_id" readonly="1"/>
+                        </group>
+                        <group string="البيانات الوظيفية">
+                            <field name="identification_id"/>
+                            <field name="employee_number"/>
+                            <field name="nationality"/>
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                            <field name="manager_id"/>
+                            <field name="hire_date"/>
+                        </group>
+                    </group>
+                    <group string="معلومات الاتصال">
+                        <field name="work_email"/><field name="work_phone"/><field name="private_phone"/>
+                    </group>
+                    <group><field name="notes"/></group>
+                </sheet>
+                <div class="oe_chatter"><field name="message_follower_ids"/><field name="activity_ids"/><field name="message_ids"/></div>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_information_report_action" model="ir.actions.act_window">
+        <field name="name">تقارير معلومات الموظفين</field>
+        <field name="res_model">hr.employee.information.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+
+    <!-- إنذارات الموظفين -->
+    <record id="employee_warning_view_tree" model="ir.ui.view">
+        <field name="name">hr.employee.warning.tree</field>
+        <field name="model">hr.employee.warning</field>
+        <field name="arch" type="xml">
+            <tree string="إنذارات الموظفين" decoration-danger="warning_level == 'final'">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="branch_id"/>
+                <field name="warning_level" widget="badge"/>
+                <field name="subject"/>
+                <field name="warning_date"/>
+                <field name="penalty_type"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="employee_warning_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.warning.form</field>
+        <field name="model">hr.employee.warning</field>
+        <field name="arch" type="xml">
+            <form string="نموذج إنذار موظف">
+                <header>
+                    <button name="action_submit" type="object" string="إرسال للاعتماد" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="اعتماد الإنذار" class="oe_highlight" invisible="state != 'submitted'"/>
+                    <button name="action_reject" type="object" string="رفض" invisible="state != 'submitted'"/>
+                    <button name="action_cancel" type="object" string="إلغاء" invisible="state not in ('draft', 'submitted')"/>
+                    <button name="action_reset_to_draft" type="object" string="إعادة إلى مسودة" invisible="state not in ('rejected', 'cancelled')"/>
+                    <button name="action_print" type="object" string="طباعة الإنذار" invisible="state != 'approved'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group string="بيانات الموظف">
+                            <field name="employee_id" readonly="state != 'draft'"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="branch_id" readonly="1"/>
+                            <field name="identification_id"/>
+                            <field name="job_id"/>
+                            <field name="department_id"/>
+                        </group>
+                        <group string="بيانات الإنذار">
+                            <field name="warning_date" readonly="state != 'draft'"/>
+                            <field name="warning_level" readonly="state != 'draft'"/>
+                            <field name="violation_date" readonly="state != 'draft'"/>
+                            <field name="subject" readonly="state != 'draft'"/>
+                            <field name="response_deadline" readonly="state != 'draft'"/>
+                            <field name="delivery_date" readonly="state not in ('draft', 'approved')"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="المخالفة والجزاء">
+                            <group>
+                                <field name="details" readonly="state != 'draft'"/>
+                                <field name="penalty_type" readonly="state != 'draft'"/>
+                                <field name="penalty_description" readonly="state != 'draft'"/>
+                            </group>
+                        </page>
+                        <page string="رد الموظف"><field name="employee_response" readonly="state not in ('draft', 'approved')"/></page>
+                        <page string="الاعتماد">
+                            <group>
+                                <field name="submitted_by"/><field name="submitted_at"/>
+                                <field name="approved_by"/><field name="approved_at"/>
+                                <field name="rejection_reason" invisible="state not in ('submitted', 'rejected')" readonly="state == 'rejected'"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter"><field name="message_follower_ids"/><field name="activity_ids"/><field name="message_ids"/></div>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_warning_action" model="ir.actions.act_window">
+        <field name="name">إنذارات الموظفين</field>
+        <field name="res_model">hr.employee.warning</field>
+        <field name="view_mode">tree,form</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+</odoo>

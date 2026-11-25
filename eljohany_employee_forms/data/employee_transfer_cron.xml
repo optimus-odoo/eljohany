@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="ir_cron_apply_due_employee_transfers" model="ir.cron">
+        <field name="name">Employee Forms: Apply Due Employee Transfers</field>
+        <field name="model_id" ref="model_hr_employee_transfer"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_apply_due_transfers()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ei_access_profile_tree" model="ir.ui.view">
+        <field name="name">executive.intelligence.access.profile.tree</field>
+        <field name="model">executive.intelligence.access.profile</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="dashboard_ids" widget="many2many_tags"/>
+                <field name="company_ids" widget="many2many_tags"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ei_access_profile_form" model="ir.ui.view">
+        <field name="name">executive.intelligence.access.profile.form</field>
+        <field name="model">executive.intelligence.access.profile</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="active" invisible="1"/>
+                        <field name="company_ids" widget="many2many_tags"/>
+                        <field name="dashboard_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Sensitivity">
+                        <field name="financial_access"/>
+                        <field name="hr_access"/>
+                    </group>
+                    <group string="Actions">
+                        <field name="can_drilldown"/>
+                        <field name="can_export"/>
+                        <field name="can_forecast"/>
+                        <field name="can_manage_alerts"/>
+                        <field name="can_manage_kpis"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ei_access_profiles" model="ir.actions.act_window">
+        <field name="name">Access Profiles</field>
+        <field name="res_model">executive.intelligence.access.profile</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
+

@@ -1,0 +1,558 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_custody
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-12 00:00+0000\n"
+"PO-Revision-Date: 2026-11-12 00:00+0000\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0?0:n==1?1:n==2?2:n%100>=3 && n%100<=10?3:n%100>=11 && n%100<=99?4:5;\n"
+
+#. module: hr_custody
+#: model:ir.module.module,shortdesc:base.module_hr_custody
+msgid "Employee Custody Management"
+msgstr "إدارة عهد الموظفين"
+
+#. module: hr_custody
+#: model:ir.module.module,summary:base.module_hr_custody
+msgid "Manage employee custody requests and inventory handovers"
+msgstr "إدارة طلبات عهد الموظفين وعمليات صرفها وإرجاعها"
+
+#. module: hr_custody
+#: model:ir.module.module,description:base.module_hr_custody
+msgid "Create, approve, disburse, track, and return employee custody items."
+msgstr "إنشاء عهد الموظفين واعتمادها وصرفها ومتابعتها وإرجاعها."
+
+#. module: hr_custody
+#: model:ir.module.category,name:hr_custody.module_category_hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__custody_id
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_filter
+msgid "Custody"
+msgstr "العهدة"
+
+#. module: hr_custody
+#: model:ir.module.category,description:hr_custody.module_category_hr_custody
+msgid "User Custodies"
+msgstr "صلاحيات عهد الموظفين"
+
+#. module: hr_custody
+#: model:res.groups,name:hr_custody.group_hr_custody_user
+msgid "User"
+msgstr "مستخدم العهد"
+
+#. module: hr_custody
+#: model:res.groups,name:hr_custody.group_hr_custody_manager
+msgid "Administrator"
+msgstr "مدير العهد"
+
+#. module: hr_custody
+#: model:res.groups,name:hr_custody.group_employee_custody_forms_access
+msgid "Employee Custody Forms Access"
+msgstr "الوصول إلى نماذج عهد الموظفين"
+
+#. module: hr_custody
+#: model:res.groups,comment:hr_custody.group_employee_custody_forms_access
+msgid "Grants access to employee custody forms under the standalone Forms menu."
+msgstr "يمنح صلاحية الوصول إلى نماذج عهد الموظفين ضمن قائمة النماذج المستقلة."
+
+#. module: hr_custody
+#: model:ir.rule,name:hr_custody.hr_custody_request_user_rule
+msgid "Custodies User"
+msgstr "عهد المستخدم"
+
+#. module: hr_custody
+#: model:ir.rule,name:hr_custody.hr_custody_request_manager_rule
+msgid "Custodies Manager"
+msgstr "جميع العهد لمدير العهد"
+
+#. module: hr_custody
+#: model:ir.rule,name:hr_custody.hr_custody_request_officer_employee_rule
+msgid "Custodies Officer Employee"
+msgstr "عهد موظف الموارد البشرية"
+
+#. module: hr_custody
+#: model:ir.model,name:hr_custody.model_hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_activity
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_filter
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_graph
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_pivot
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_tree
+msgid "HR Custodies"
+msgstr "عهد الموظفين"
+
+#. module: hr_custody
+#: model:ir.actions.act_window,name:hr_custody.action_hr_custodies
+#: model:ir.ui.menu,name:hr_custody.menu_hr_custody
+#: model:ir.ui.menu,name:hr_custody.menu_hr_custody_main
+msgid "Custodies"
+msgstr "العهد"
+
+#. module: hr_custody
+#: model:ir.model,name:hr_custody.model_hr_custody_line
+msgid "Hr Custody Lines"
+msgstr "بنود عهد الموظفين"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_disbursement_readonly_tree
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_filter
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_return_readonly_tree
+msgid "HR Custodies Lines"
+msgstr "بنود عهد الموظفين"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_form
+msgid "HR Custody Lines"
+msgstr "بنود عهد الموظفين"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__name
+msgid "Number"
+msgstr "رقم العهدة"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__date
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_filter
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__employee_id
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__employee_id
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_filter
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_filter
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__user_employee_id
+msgid "User Employee"
+msgstr "مستخدم الموظف"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__department_id
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__department_id
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_filter
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_filter
+msgid "Department"
+msgstr "القسم"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__manager_id
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__manager_id
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_filter
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_filter
+msgid "Manager"
+msgstr "المدير المباشر"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__job_id
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__job_id
+msgid "Job Position"
+msgstr "المسمى الوظيفي"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_filter
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_filter
+msgid "Job"
+msgstr "الوظيفة"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__received_date
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_filter
+msgid "Received Date"
+msgstr "تاريخ الاستلام"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__description
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__name
+msgid "Description"
+msgstr "الوصف"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__state
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__state
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_filter
+msgid "Status"
+msgstr "الحالة"
+
+#. module: hr_custody
+#: model:ir.model.fields.selection,name:hr_custody.selection__hr_custody__state__draft
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: hr_custody
+#: model:ir.model.fields.selection,name:hr_custody.selection__hr_custody__state__validate
+#: model:mail.message.subtype,name:hr_custody.mt_hr_custody_validated
+msgid "Validated"
+msgstr "تم التحقق"
+
+#. module: hr_custody
+#: model:ir.model.fields.selection,name:hr_custody.selection__hr_custody__state__in_progress
+msgid "In Progress"
+msgstr "قيد الإجراء"
+
+#. module: hr_custody
+#: model:ir.model.fields.selection,name:hr_custody.selection__hr_custody__state__done
+msgid "Done"
+msgstr "مكتمل"
+
+#. module: hr_custody
+#: model:ir.model.fields.selection,name:hr_custody.selection__hr_custody__state__cancel
+#: model:mail.message.subtype,name:hr_custody.mt_hr_custody_canceled
+msgid "Canceled"
+msgstr "ملغي"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Cancelled"
+msgstr "ملغي"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__done_state
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__done_state
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_filter
+msgid "Done Status"
+msgstr "حالة الاعتماد"
+
+#. module: hr_custody
+#: model:ir.model.fields.selection,name:hr_custody.selection__hr_custody__done_state__approve
+#: model:mail.message.subtype,name:hr_custody.mt_hr_custody_approved
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Approved"
+msgstr "معتمد"
+
+#. module: hr_custody
+#: model:ir.model.fields.selection,name:hr_custody.selection__hr_custody__done_state__reject
+#: model:mail.message.subtype,name:hr_custody.mt_hr_custody_rejected
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Rejected"
+msgstr "مرفوض"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__line_ids
+#: model:ir.model.fields,field_description:hr_custody.field_approve_hr_custody__line_ids
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_approve_hr_custody_form
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Lines"
+msgstr "البنود"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__user_id
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__user_id
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_filter
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_filter
+msgid "Assigned To"
+msgstr "مسند إلى"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__cancel_reason
+msgid "Cancel Reason"
+msgstr "سبب الإلغاء"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__reject_reason
+msgid "Reject Reason"
+msgstr "سبب الرفض"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__pickings_count
+msgid "Pickings Count"
+msgstr "عدد عمليات المخزون"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody__full_return
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__full_return
+msgid "Full Return"
+msgstr "إرجاع كامل"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__product_id
+#: model:ir.model.fields,field_description:hr_custody.field_approve_hr_custody_line__product_id
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_filter
+msgid "Product"
+msgstr "الصنف"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__product_type
+msgid "Product Type"
+msgstr "نوع الصنف"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__scheduled_date
+msgid "Scheduled Date"
+msgstr "التاريخ المجدول"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__quantity
+#: model:ir.model.fields,field_description:hr_custody.field_approve_hr_custody_line__quantity
+msgid "Quantity"
+msgstr "الكمية"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__uom_id
+#: model:ir.model.fields,field_description:hr_custody.field_approve_hr_custody_line__uom_id
+msgid "Unit of Measure"
+msgstr "وحدة القياس"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__reason
+#: model:ir.model.fields,field_description:hr_custody.field_approve_hr_custody_line__reason
+#: model:ir.model.fields,field_description:hr_custody.field_cancel_reject_hr_custody__reason
+msgid "Reason"
+msgstr "السبب"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__inventory_state
+msgid "Inventory Status"
+msgstr "حالة المخزون"
+
+#. module: hr_custody
+#: model:ir.model.fields.selection,name:hr_custody.selection__hr_custody_line__inventory_state__disbursement
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_disbursement_readonly_tree
+msgid "Disbursement"
+msgstr "صرف العهدة"
+
+#. module: hr_custody
+#: model:ir.model.fields.selection,name:hr_custody.selection__hr_custody_line__inventory_state__return
+msgid "Return"
+msgstr "إرجاع"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Returned"
+msgstr "مُرجع"
+
+#. module: hr_custody
+#: code:addons/hr_custody/models/hr_custody.py:0
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__stock_picking_id
+msgid "Picking"
+msgstr "عملية المخزون"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_hr_custody_line__create_rfq_or_pr
+msgid "Create RFQ or PR"
+msgstr "إنشاء طلب عرض سعر أو طلب شراء"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_stock_move__custody_line_id
+msgid "Custody Line"
+msgstr "بند العهدة"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_res_config_settings__custody_picking_type_id
+msgid "Operation Type"
+msgstr "نوع العملية المخزنية"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_settings_form
+msgid "Operation Type when disbursement products from custodies"
+msgstr "نوع العملية المخزنية عند صرف أصناف العهد"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_settings_form
+msgid "allow employee to select Operation Type when disbursement products from custodies"
+msgstr "يحدد نوع العملية المخزنية المستخدم عند صرف أصناف العهد للموظفين"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_filter
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_line_filter
+msgid "Group By"
+msgstr "تجميع حسب"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Validate"
+msgstr "تحقق"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Confirm"
+msgstr "تأكيد"
+
+#. module: hr_custody
+#: model:ir.actions.act_window,name:hr_custody.action_approve_hr_custody_wizard
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_approve_hr_custody_form
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Approve"
+msgstr "اعتماد"
+
+#. module: hr_custody
+#: model:ir.actions.act_window,name:hr_custody.action_reject_hr_custody_wizard
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Reject"
+msgstr "رفض"
+
+#. module: hr_custody
+#: model:ir.actions.act_window,name:hr_custody.action_cancel_hr_custody_wizard
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_approve_hr_custody_form
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_cancel_reject_hr_custody_form
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_cancel_reject_hr_custody_form
+msgid "Save"
+msgstr "حفظ"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Send Email"
+msgstr "إرسال بريد إلكتروني"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Send SMS"
+msgstr "إرسال رسالة نصية"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Delivery"
+msgstr "عمليات التسليم"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_hr_custody_form
+msgid "Information"
+msgstr "بيانات العهدة"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_approve_hr_custody_form
+msgid "products"
+msgstr "الأصناف"
+
+#. module: hr_custody
+#: model:ir.model,name:hr_custody.model_approve_hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_approve_hr_custody_line__approve_hr_custody_id
+msgid "Approve HR Custody"
+msgstr "اعتماد عهدة الموظف"
+
+#. module: hr_custody
+#: model:ir.model,name:hr_custody.model_approve_hr_custody_line
+msgid "Approve HR Custody Lines"
+msgstr "بنود اعتماد عهدة الموظف"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_approve_hr_custody_form
+msgid "Approve HR Custody Wizard"
+msgstr "معالج اعتماد عهدة الموظف"
+
+#. module: hr_custody
+#: model:ir.model.fields,field_description:hr_custody.field_approve_hr_custody_line__custody_line_id
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_approve_hr_custody_form
+msgid "Line"
+msgstr "بند العهدة"
+
+#. module: hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_approve_hr_custody_form
+msgid "Name"
+msgstr "البيان"
+
+#. module: hr_custody
+#: model:ir.model,name:hr_custody.model_cancel_reject_hr_custody
+#: model_terms:ir.ui.view,arch_db:hr_custody.view_cancel_reject_hr_custody_form
+msgid "Cancel Or Reject HR Custody"
+msgstr "إلغاء عهدة الموظف أو رفضها"
+
+#. module: hr_custody
+#: model:ir.actions.act_window,name:hr_custody.action_hr_custody_lines_to_disbursement
+#: model:ir.ui.menu,name:hr_custody.menu_hr_custody_lines_to_disbursement
+msgid "To Disbursement"
+msgstr "بانتظار الصرف"
+
+#. module: hr_custody
+#: model:ir.actions.act_window,name:hr_custody.action_hr_custody_lines_to_return
+#: model:ir.ui.menu,name:hr_custody.menu_hr_custody_lines_to_return
+msgid "To Return"
+msgstr "بانتظار الإرجاع"
+
+#. module: hr_custody
+#: model_terms:ir.actions.act_window,help:hr_custody.action_hr_custodies
+msgid "Add a new Custody"
+msgstr "أنشئ عهدة موظف جديدة"
+
+#. module: hr_custody
+#: code:addons/hr_custody/models/hr_custody.py:0
+msgid "Compose Email"
+msgstr "إنشاء رسالة بريد إلكتروني"
+
+#. module: hr_custody
+#: code:addons/hr_custody/models/hr_custody.py:0
+msgid "You cannot delete custody or %s which is not draft"
+msgstr "لا يمكن حذف العهدة %s لأنها ليست في حالة مسودة."
+
+#. module: hr_custody
+#: code:addons/hr_custody/models/hr_custody.py:0
+msgid "Cannot validate custody without products"
+msgstr "لا يمكن التحقق من العهدة دون إضافة أصناف."
+
+#. module: hr_custody
+#: code:addons/hr_custody/models/hr_custody.py:0
+msgid "Quantity must be positive"
+msgstr "يجب أن تكون الكمية أكبر من صفر."
+
+#. module: hr_custody
+#: code:addons/hr_custody/models/hr_custody.py:0
+msgid "You must select operation type in settings"
+msgstr "يجب تحديد نوع العملية المخزنية في الإعدادات أولًا."
+
+#. module: hr_custody
+#: model:ir.sequence,name:hr_custody.sequence_hr_custody
+msgid "HR Custody Sequence"
+msgstr "تسلسل عهد الموظفين"
+
+#. module: hr_custody
+#: model:mail.message.subtype,name:hr_custody.mt_hr_custody_confirmed
+msgid "Confirmed"
+msgstr "مؤكد"
+
+#. module: hr_custody
+#: model:mail.message.subtype,description:hr_custody.mt_hr_custody_validated
+msgid "Custody has been validated"
+msgstr "تم التحقق من العهدة"
+
+#. module: hr_custody
+#: model:mail.message.subtype,description:hr_custody.mt_hr_custody_confirmed
+msgid "Custody has been confirmed"
+msgstr "تم تأكيد العهدة"
+
+#. module: hr_custody
+#: model:mail.message.subtype,description:hr_custody.mt_hr_custody_approved
+msgid "Custody has been approved"
+msgstr "تم اعتماد العهدة"
+
+#. module: hr_custody
+#: model:mail.message.subtype,description:hr_custody.mt_hr_custody_rejected
+msgid "Custody has been Rejected"
+msgstr "تم رفض العهدة"
+
+#. module: hr_custody
+#: model:mail.message.subtype,description:hr_custody.mt_hr_custody_canceled
+msgid "Custody has been canceled"
+msgstr "تم إلغاء العهدة"
+
+#. module: hr_custody
+#: code:addons/hr_custody/static/src/xml/qty_at_date_widget.xml:0
+msgid "Forecasted Stock"
+msgstr "المخزون المتوقع"
+
+#. module: hr_custody
+#: code:addons/hr_custody/static/src/xml/qty_at_date_widget.xml:0
+msgid "Available"
+msgstr "المتاح"
+
+#. module: hr_custody
+#: code:addons/hr_custody/static/src/xml/qty_at_date_widget.xml:0
+msgid "View Forecast"
+msgstr "عرض توقعات المخزون"

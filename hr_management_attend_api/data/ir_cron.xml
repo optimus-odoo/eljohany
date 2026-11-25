@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="ir_cron_cleanup_attendance_api_tokens" model="ir.cron">
+        <field name="name">Attendance API: Clean Expired Tokens</field>
+        <field name="model_id" ref="model_hr_attendance_api_token"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_cleanup_tokens()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="ir_cron_pull_external_attendance" model="ir.cron">
+        <field name="name">Attendance API: Pull External Attendance</field>
+        <field name="model_id" ref="model_hr_attendance_api_sync_service"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_pull_attendance()</field>
+        <field name="interval_number">15</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

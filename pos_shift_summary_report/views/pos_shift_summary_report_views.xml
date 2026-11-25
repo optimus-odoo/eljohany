@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_shift_summary_report_wizard_form" model="ir.ui.view">
+        <field name="name">pos.shift.summary.report.wizard.form</field>
+        <field name="model">pos.shift.summary.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="POS Shift Summary Report">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>POS Shift Summary Report</h1>
+                    </div>
+                    <group>
+                        <group>
+                            <!-- Keep an unrestricted technical occurrence because
+                                 pos_config_ids uses company_id in its domain. -->
+                            <field name="company_id" invisible="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="pos_config_ids"
+                                   widget="many2many_tags"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        Sales and payments use the exact selected time range. Final counted cash and difference are shown only when the selected period reaches the end of a closed shift.
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_print_report"
+                            string="Print Shift Report"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Close" special="cancel" class="btn-link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pos_shift_summary_report_wizard" model="ir.actions.act_window">
+        <field name="name">POS Shift Summary Report</field>
+        <field name="res_model">pos.shift.summary.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_pos_shift_summary_report"
+              name="POS Shift Summary Report"
+              parent="point_of_sale.menu_point_rep"
+              action="action_pos_shift_summary_report_wizard"
+              groups="point_of_sale.group_pos_manager"
+              sequence="31"/>
+</odoo>

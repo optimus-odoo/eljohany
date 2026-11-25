@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_eljohany_stock_aging_report_wizard_form" model="ir.ui.view">
+        <field name="name">eljohany.stock.aging.report.wizard.form</field>
+        <field name="model">eljohany.stock.aging.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Eljohany Stock Aging Report" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="branch_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="location_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="include_child_locations"/>
+                        </group>
+                        <group>
+                            <field name="date_from" readonly="1"/>
+                            <field name="date_to"/>
+                            <field name="product_categ_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="product_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button string="Export Excel" type="object" name="action_export_excel" class="btn-primary"/>
+                        <button string="Print PDF" type="object" name="action_print_pdf" class="btn-secondary"/>
+                        <button string="Close" class="btn-link" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_eljohany_stock_aging_report_wizard" model="ir.actions.act_window">
+        <field name="name">Eljohany Stock Aging Report</field>
+        <field name="res_model">eljohany.stock.aging.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_eljohany_stock_aging_report"
+              name="Eljohany Stock Aging Report"
+              parent="stock.menu_stock_warehouse_mgmt"
+              sequence="91"
+              action="action_eljohany_stock_aging_report_wizard"/>
+</odoo>

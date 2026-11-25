@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fleet_vehicle_view_form_inherit_eljohany_documents" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form.inherit.eljohany.documents</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_accidents" type="object" class="oe_stat_button" icon="fa-car">
+                    <field name="x_accident_count" string="Accidents" widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="//sheet/notebook" position="before">
+                <group string="Company Vehicle Details">
+                    <group>
+                        <field name="driver_id"/>
+                        <field name="x_driver_branch_id"/>
+                        <field name="x_vehicle_model"/>
+                        <field name="x_vehicle_type"/>
+                    </group>
+                    <group>
+                        <field name="x_serial_number"/>
+                        <field name="x_chassis_number"/>
+                        <field name="x_owner_id"/>
+                        <field name="x_vehicle_color"/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Official Documents" name="eljohany_official_documents">
+                    <group>
+                        <group>
+                            <field name="x_periodic_inspection_expiry_date"/>
+                            <field name="x_registration_expiry_date"/>
+                        </group>
+                        <group>
+                            <field name="x_operation_card_expiry_date"/>
+                            <field name="x_insurance_expiry_date"/>
+                        </group>
+                    </group>
+                    <group string="Vehicle Files">
+                        <field name="x_vehicle_attachment_ids" widget="many2many_binary" nolabel="1"/>
+                    </group>
+                </page>
+                <page string="Accidents" name="eljohany_accidents">
+                    <field name="x_accident_ids" context="{'default_vehicle_id': id, 'default_driver_id': driver_id}">
+                        <tree editable="bottom">
+                            <field name="accident_date"/>
+                            <field name="fault_percentage"/>
+                            <field name="driver_id"/>
+                            <field name="driver_details"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </tree>
+                        <form>
+                            <sheet>
+                                <group>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="vehicle_id"/>
+                                        <field name="accident_date"/>
+                                        <field name="fault_percentage"/>
+                                    </group>
+                                    <group>
+                                        <field name="driver_id"/>
+                                        <field name="driver_details"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="description"/>
+                                </group>
+                                <group string="Accident Files">
+                                    <field name="attachment_ids" widget="many2many_binary" nolabel="1"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_view_tree_inherit_eljohany_documents" model="ir.ui.view">
+        <field name="name">fleet.vehicle.tree.inherit.eljohany.documents</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="company_id" column_invisible="True"/>
+                <field name="x_periodic_inspection_expiry_date" optional="show"/>
+                <field name="x_registration_expiry_date" optional="show"/>
+                <field name="x_operation_card_expiry_date" optional="show"/>
+                <field name="x_insurance_expiry_date" optional="show"/>
+                <field name="x_driver_branch_id" optional="show"/>
+                <field name="x_serial_number" optional="hide"/>
+                <field name="x_chassis_number" optional="hide"/>
+                <field name="x_owner_id" optional="hide"/>
+                <field name="x_vehicle_color" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_view_search_inherit_eljohany_documents" model="ir.ui.view">
+        <field name="name">fleet.vehicle.search.inherit.eljohany.documents</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter string="Branch" name="group_by_driver_branch" context="{'group_by': 'x_driver_branch_id'}"/>
+                <filter string="Owner" name="group_by_vehicle_owner" context="{'group_by': 'x_owner_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

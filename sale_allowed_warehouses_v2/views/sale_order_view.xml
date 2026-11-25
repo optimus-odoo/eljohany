@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_form_allowed_warehouse_domain" model="ir.ui.view">
+        <field name="name">sale.order.form.allowed.warehouse.domain</field>
+        <field name="model">sale.order</field>
+
+        <!-- مهم جداً: الوراثة من sale_stock لأن warehouse_id موجود هناك -->
+        <field name="inherit_id" ref="sale.view_order_form"/>
+
+        <field name="arch" type="xml">
+
+            <!-- sale.order -->
+            <xpath expr="//field[@name='warehouse_id' and not(ancestor::field[@name='order_line'])]" position="after">
+                <field name="available_warehouse_ids" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='warehouse_id' and not(ancestor::field[@name='order_line'])]" position="attributes">
+                <attribute name="domain">[('id', 'in', available_warehouse_ids)]</attribute>
+            </xpath>
+
+
+
+        </field>
+    </record>
+
+
+</odoo>

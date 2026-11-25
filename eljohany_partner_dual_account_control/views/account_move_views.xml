@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_dual_account_control" model="ir.ui.view">
+        <field name="name">account.move.form.dual.account.control</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='due_date']" position="after">
+                <field name="expected_partner_account_id"
+                       readonly="1"
+                       options="{'no_create': True, 'no_open': True}"
+                       invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')"/>
+                <field name="partner_account_control_state"
+                       widget="badge"
+                       readonly="1"
+                       invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

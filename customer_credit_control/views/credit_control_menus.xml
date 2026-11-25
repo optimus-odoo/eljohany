@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_credit_control_root" name="إدارة ائتمان العملاء" sequence="90"/>
+    <menuitem id="menu_credit_dashboard"
+              name="لوحة التحكم"
+              parent="menu_credit_control_root"
+              action="action_customer_credit_dashboard"
+              sequence="1"/>
+</odoo>

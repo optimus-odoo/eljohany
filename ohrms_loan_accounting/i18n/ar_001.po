@@ -1,0 +1,350 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ohrms_loan_accounting
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-14 00:00+0000\n"
+"PO-Revision-Date: 2026-11-14 00:00+0000\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0?0:n==1?1:n==2?2:n%100>=3 && n%100<=10?3:n%100>=11 && n%100<=99?4:5;\n"
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:0
+#: model:ir.module.module,shortdesc:base.module_ohrms_loan_accounting
+msgid "Open HRMS Loan Accounting"
+msgstr "محاسبة سلف الموظفين"
+
+#. module: ohrms_loan_accounting
+#: model:ir.module.module,summary:base.module_ohrms_loan_accounting
+msgid "Create accounting entries for Open HRMS employee loans"
+msgstr "إنشاء القيود المحاسبية لسلف الموظفين وربطها بمسيرات الرواتب"
+
+#. module: ohrms_loan_accounting
+#: model:ir.module.module,description:base.module_ohrms_loan_accounting
+msgid ""
+"Create accounting entries for employee loan disbursements and installment "
+"payments."
+msgstr "إنشاء القيود المحاسبية لصرف سلف الموظفين وسداد أقساطها."
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,field_description:ohrms_loan_accounting.field_res_config_settings__loan_approve
+msgid "Approval from Accounting Department"
+msgstr "موافقة الإدارة المالية"
+
+#. module: ohrms_loan_accounting
+#: model_terms:ir.ui.view,arch_db:ohrms_loan_accounting.res_config_settings_view_form
+msgid "Loan Approval"
+msgstr "اعتماد السلف"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,help:ohrms_loan_accounting.field_res_config_settings__loan_approve
+#: model_terms:ir.ui.view,arch_db:ohrms_loan_accounting.res_config_settings_view_form
+msgid "Loan Approval from account manager"
+msgstr "اشتراط موافقة مدير الحسابات على طلب السلفة"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,field_description:ohrms_loan_accounting.field_hr_loan__employee_account_id
+msgid "Loan Account"
+msgstr "حساب السلف"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,help:ohrms_loan_accounting.field_hr_loan__employee_account_id
+msgid "Employee account"
+msgstr "الحساب المحاسبي للسلفة"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,field_description:ohrms_loan_accounting.field_hr_loan__treasury_account_id
+msgid "Treasury Account"
+msgstr "حساب الخزينة"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,help:ohrms_loan_accounting.field_hr_loan__treasury_account_id
+msgid "Treasury account for the loan"
+msgstr "حساب الخزينة المستخدم لصرف السلفة وتحصيلها"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,field_description:ohrms_loan_accounting.field_hr_loan__journal_id
+msgid "Accounting Journal"
+msgstr "دفتر اليومية"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,help:ohrms_loan_accounting.field_hr_loan__journal_id
+msgid "Journal for the loan"
+msgstr "دفتر اليومية المستخدم في قيود السلفة"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,field_description:ohrms_loan_accounting.field_account_move_line__loan_id
+msgid "Loan Id"
+msgstr "مرجع السلفة"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,help:ohrms_loan_accounting.field_account_move_line__loan_id
+msgid "Loan id on invoice line"
+msgstr "مرجع السلفة في بند القيد المحاسبي"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,field_description:ohrms_loan_accounting.field_hr_loan__state
+msgid "State"
+msgstr "الحالة"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,help:ohrms_loan_accounting.field_hr_loan__state
+msgid "State of the loan request"
+msgstr "حالة طلب السلفة"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields.selection,name:ohrms_loan_accounting.selection__hr_loan__state__draft
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields.selection,name:ohrms_loan_accounting.selection__hr_loan__state__waiting_approval_1
+msgid "Submitted"
+msgstr "مرسل للموافقة"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields.selection,name:ohrms_loan_accounting.selection__hr_loan__state__waiting_approval_2
+msgid "Waiting Approval"
+msgstr "بانتظار اعتماد الإدارة المالية"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields.selection,name:ohrms_loan_accounting.selection__hr_loan__state__approve
+msgid "Approved"
+msgstr "معتمد"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields.selection,name:ohrms_loan_accounting.selection__hr_loan__state__refuse
+msgid "Refused"
+msgstr "مرفوض"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields.selection,name:ohrms_loan_accounting.selection__hr_loan__state__cancel
+msgid "Canceled"
+msgstr "ملغي"
+
+#. module: ohrms_loan_accounting
+#: model_terms:ir.ui.view,arch_db:ohrms_loan_accounting.hr_loan_view_form
+msgid "Compute Installment"
+msgstr "احتساب الأقساط"
+
+#. module: ohrms_loan_accounting
+#: model_terms:ir.ui.view,arch_db:ohrms_loan_accounting.hr_loan_view_form
+msgid "Submit"
+msgstr "إرسال للموافقة"
+
+#. module: ohrms_loan_accounting
+#: model_terms:ir.ui.view,arch_db:ohrms_loan_accounting.hr_loan_view_form
+msgid "Approve"
+msgstr "اعتماد"
+
+#. module: ohrms_loan_accounting
+#: model_terms:ir.ui.view,arch_db:ohrms_loan_accounting.hr_loan_view_form
+msgid "Refuse"
+msgstr "رفض"
+
+#. module: ohrms_loan_accounting
+#: model_terms:ir.ui.view,arch_db:ohrms_loan_accounting.hr_loan_view_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model,name:ohrms_loan_accounting.model_hr_loan
+msgid "Loan Request"
+msgstr "طلب سلفة"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model,name:ohrms_loan_accounting.model_hr_loan_line
+msgid "Installment Line"
+msgstr "بند القسط"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model,name:ohrms_loan_accounting.model_hr_payslip
+msgid "Pay Slip"
+msgstr "مسير الراتب"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model,name:ohrms_loan_accounting.model_res_config_settings
+msgid "Config Settings"
+msgstr "إعدادات النظام"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model,name:ohrms_loan_accounting.model_account_move_line
+msgid "Journal Item"
+msgstr "بند القيد اليومي"
+
+#. module: ohrms_loan_accounting
+#: model:ir.rule,name:ohrms_loan_accounting.hr_loan_rule_manager
+msgid "Loan Forms Modification Accounts"
+msgstr "تعديل طلبات السلف للحسابات"
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:0
+msgid "You must define a contract for the employee."
+msgstr "يجب تعريف عقد للموظف قبل اعتماد السلفة."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:0
+msgid "You must compute the installments before approval."
+msgstr "يجب احتساب الأقساط قبل اعتماد السلفة."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:0
+msgid ""
+"You must select the loan account, treasury account, and journal before "
+"approval."
+msgstr "يجب تحديد حساب السلف وحساب الخزينة ودفتر اليومية قبل الاعتماد."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:0
+msgid "You must compute the loan installments before approval."
+msgstr "يجب احتساب أقساط السلفة قبل الاعتماد."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:0
+msgid "The loan request must be approved."
+msgstr "يجب اعتماد طلب السلفة أولًا."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:0
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:161
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:173
+#, python-format
+msgid "Loan for %s"
+msgstr "سلفة الموظف %s"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,field_description:ohrms_loan_accounting.field_hr_loan_line__payment_move_id
+msgid "Installment Journal Entry"
+msgstr "قيد سداد القسط"
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:245
+msgid "A journal entry already exists for this loan installment."
+msgstr "يوجد قيد محاسبي مسبق لقسط السلفة هذا."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_payslip.py:46
+msgid "Reversal of %s"
+msgstr "عكس القيد %s"
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:241
+msgid "Only an authorized payroll user can post loan installments."
+msgstr "يمكن فقط لمستخدم رواتب مخول ترحيل أقساط السلف."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:0
+#, python-format
+msgid "LOAN/%(employee)s/%(month)s"
+msgstr "سلفة/%(employee)s/%(month)s"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields.selection,name:ohrms_loan_accounting.selection__hr_loan_approval_line__step_type__accounting
+#: model:ir.model.fields.selection,name:ohrms_loan_accounting.selection__hr_loan_workflow_step__step_type__accounting
+msgid "Accounting and Journal Entry"
+msgstr "المحاسبة وإنشاء القيد"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,field_description:ohrms_loan_accounting.field_hr_loan__employee_account_id
+msgid "Debit Account"
+msgstr "الحساب المدين"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,field_description:ohrms_loan_accounting.field_hr_loan__treasury_account_id
+msgid "Credit Account"
+msgstr "الحساب الدائن"
+
+#. module: ohrms_loan_accounting
+#: model_terms:ir.ui.view,arch_db:ohrms_loan_accounting.hr_loan_management_view_accounting
+msgid "Loan Accounting"
+msgstr "محاسبة السلفة"
+
+#. module: ohrms_loan_accounting
+#: model_terms:ir.ui.view,arch_db:ohrms_loan_accounting.hr_loan_approver_view_accounting
+msgid "Required Accounting Details"
+msgstr "البيانات المحاسبية المطلوبة"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,field_description:ohrms_loan_accounting.field_hr_loan__loan_move_id
+msgid "Loan Journal Entry"
+msgstr "قيد صرف السلفة"
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,help:ohrms_loan_accounting.field_hr_loan__employee_account_id
+msgid ""
+"Receivable or employee loan account debited when the loan is disbursed."
+msgstr "حساب ذمم الموظف أو السلف الذي يكون مدينًا عند صرف السلفة."
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,help:ohrms_loan_accounting.field_hr_loan__treasury_account_id
+msgid "Treasury or bank account credited when the loan is disbursed."
+msgstr "حساب الخزينة أو البنك الذي يكون دائنًا عند صرف السلفة."
+
+#. module: ohrms_loan_accounting
+#: model:ir.model.fields,help:ohrms_loan_accounting.field_hr_loan__journal_id
+msgid "Journal used to post the loan disbursement."
+msgstr "دفتر اليومية المستخدم لترحيل قيد صرف السلفة."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:24
+msgid "A loan workflow can contain only one accounting step."
+msgstr "يمكن أن يحتوي مسار موافقات السلفة على مرحلة محاسبية واحدة فقط."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:103
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:43
+msgid "The accounting and journal entry step must be the final step."
+msgstr "يجب أن تكون مرحلة المحاسبة وإنشاء القيد هي المرحلة الأخيرة."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:33
+msgid ""
+"The user responsible for the accounting step must have accounting access."
+msgstr "يجب أن يملك المستخدم المسؤول عن المرحلة المحاسبية صلاحية المحاسبة."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:92
+msgid ""
+"The active workflow for company '%s' must contain one final accounting and "
+"journal entry step."
+msgstr ""
+"يجب أن يحتوي المسار النشط للشركة «%s» على مرحلة أخيرة واحدة للمحاسبة وإنشاء "
+"القيد."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:126
+msgid ""
+"Select the debit account, credit account, and journal before approving the "
+"accounting step."
+msgstr ""
+"حدد الحساب المدين والحساب الدائن ودفتر اليومية قبل اعتماد المرحلة المحاسبية."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:147
+msgid "A journal entry has already been created for this loan."
+msgstr "تم إنشاء قيد محاسبي لهذه السلفة مسبقًا."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:208
+msgid ""
+"Only the user assigned to the current accounting step can enter loan "
+"accounts."
+msgstr ""
+"يمكن فقط للمستخدم المسندة إليه المرحلة المحاسبية الحالية إدخال حسابات "
+"السلفة."
+
+#. module: ohrms_loan_accounting
+#: code:addons/ohrms_loan_accounting/models/hr_loan.py:231
+msgid "The loan journal is not configured."
+msgstr "لم يتم إعداد دفتر يومية السلفة."
+
+#. module: ohrms_loan_accounting
+#: model:ir.rule,name:ohrms_loan_accounting.hr_loan_rule_manager_v2
+msgid "Loan requests assigned to accounting approver"
+msgstr "طلبات السلف المسندة للموافق المحاسبي"

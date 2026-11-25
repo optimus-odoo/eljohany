@@ -1,0 +1,589 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#  * company_records_management
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-20 00:00+0000\n"
+"PO-Revision-Date: 2026-09-20 00:00+0300\n"
+"Last-Translator: Eljohany\n"
+"Language-Team: Arabic (Saudi Arabia)\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: company_records_management
+msgid "Company Records Management Enterprise"
+msgstr "إدارة سجلات الشركات"
+
+#. module: company_records_management
+msgid "Enterprise-grade company, branch, compliance and lease records management"
+msgstr "إدارة متكاملة لسجلات الشركات والفروع والامتثال وعقود الإيجار"
+
+#. module: company_records_management
+msgid "Manage company and branch records from one workspace with tabs, expiry summaries, and reports."
+msgstr "إدارة سجلات الشركات والفروع من مساحة عمل موحدة تشمل المستندات وملخصات الانتهاء والتقارير."
+
+#. module: company_records_management
+msgid "Company"
+msgstr "الشركة"
+
+#. module: company_records_management
+msgid "Company Partner"
+msgstr "شريك الشركة"
+
+#. module: company_records_management
+msgid "Company Branch"
+msgstr "فرع الشركة"
+
+#. module: company_records_management
+msgid "Company Records Audit"
+msgstr "تدقيق سجلات الشركات"
+
+#. module: company_records_management
+msgid "Company Records Audit Log"
+msgstr "سجل تدقيق سجلات الشركات"
+
+#. module: company_records_management
+msgid "Expirable Record"
+msgstr "سجل محدد الصلاحية"
+
+#. module: company_records_management
+msgid "Commercial Registration"
+msgstr "السجل التجاري"
+
+#. module: company_records_management
+msgid "Municipality License"
+msgstr "الرخصة البلدية"
+
+#. module: company_records_management
+msgid "National Address"
+msgstr "العنوان الوطني"
+
+#. module: company_records_management
+msgid "Electricity Meter"
+msgstr "عداد الكهرباء"
+
+#. module: company_records_management
+msgid "Civil Defense License"
+msgstr "رخصة الدفاع المدني"
+
+#. module: company_records_management
+msgid "Branch Bank Account"
+msgstr "الحساب البنكي للفرع"
+
+#. module: company_records_management
+msgid "Lease Contract"
+msgstr "عقد الإيجار"
+
+#. module: company_records_management
+msgid "Records Dashboard"
+msgstr "لوحة متابعة السجلات"
+
+#. module: company_records_management
+msgid "Expiry Notification"
+msgstr "إشعار انتهاء الصلاحية"
+
+#. module: company_records_management
+msgid "Expiry Service"
+msgstr "خدمة متابعة انتهاء الصلاحية"
+
+#. module: company_records_management
+msgid "Compliance Dashboard"
+msgstr "لوحة متابعة الامتثال"
+
+#. module: company_records_management
+msgid "Compliance Cron"
+msgstr "مهمة متابعة الامتثال المجدولة"
+
+#. module: company_records_management
+msgid "Records Approval Workflow"
+msgstr "مسار اعتماد السجلات"
+
+#. module: company_records_management
+msgid "Approval and Archive Workflow"
+msgstr "مسار الاعتماد والأرشفة"
+
+#. module: company_records_management
+msgid "Audit Mixin"
+msgstr "خصائص التدقيق"
+
+#. module: company_records_management
+msgid "Records XLSX Export"
+msgstr "تصدير السجلات إلى Excel"
+
+#. module: company_records_management
+msgid "English Name"
+msgstr "الاسم بالإنجليزية"
+
+#. module: company_records_management
+msgid "Name"
+msgstr "الاسم"
+
+#. module: company_records_management
+msgid "Company Type"
+msgstr "نوع الشركة"
+
+#. module: company_records_management
+msgid "State"
+msgstr "الحالة"
+
+#. module: company_records_management
+msgid "Partners"
+msgstr "الشركاء"
+
+#. module: company_records_management
+msgid "Branches"
+msgstr "الفروع"
+
+#. module: company_records_management
+msgid "Documents"
+msgstr "المستندات"
+
+#. module: company_records_management
+msgid "Note"
+msgstr "ملاحظات"
+
+#. module: company_records_management
+msgid "Active"
+msgstr "نشط"
+
+#. module: company_records_management
+msgid "Nationality"
+msgstr "الجنسية"
+
+#. module: company_records_management
+msgid "Identity Type"
+msgstr "نوع الهوية"
+
+#. module: company_records_management
+msgid "Identity No"
+msgstr "رقم الهوية"
+
+#. module: company_records_management
+msgid "Mobile"
+msgstr "رقم الجوال"
+
+#. module: company_records_management
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#. module: company_records_management
+msgid "Birth Date"
+msgstr "تاريخ الميلاد"
+
+#. module: company_records_management
+msgid "Ownership %"
+msgstr "نسبة الملكية %"
+
+#. module: company_records_management
+msgid "Share Value"
+msgstr "قيمة الحصة"
+
+#. module: company_records_management
+msgid "Currency"
+msgstr "العملة"
+
+#. module: company_records_management
+msgid "Start Date"
+msgstr "تاريخ البداية"
+
+#. module: company_records_management
+msgid "End Date"
+msgstr "تاريخ النهاية"
+
+#. module: company_records_management
+msgid "Code"
+msgstr "الرمز"
+
+#. module: company_records_management
+msgid "Manager"
+msgstr "المسؤول"
+
+#. module: company_records_management
+msgid "City"
+msgstr "المدينة"
+
+#. module: company_records_management
+msgid "Phone"
+msgstr "رقم الهاتف"
+
+#. module: company_records_management
+msgid "Commercial Registrations"
+msgstr "السجلات التجارية"
+
+#. module: company_records_management
+msgid "CR Number"
+msgstr "رقم السجل التجاري"
+
+#. module: company_records_management
+msgid "Unified Number"
+msgstr "الرقم الموحد"
+
+#. module: company_records_management
+msgid "Social Insurance No."
+msgstr "رقم التأمينات الاجتماعية"
+
+#. module: company_records_management
+msgid "Qiwa No."
+msgstr "رقم المنشأة في قوى"
+
+#. module: company_records_management
+msgid "Issue Date"
+msgstr "تاريخ الإصدار"
+
+#. module: company_records_management
+msgid "Expiration Date"
+msgstr "تاريخ الانتهاء"
+
+#. module: company_records_management
+msgid "Status"
+msgstr "حالة الصلاحية"
+
+#. module: company_records_management
+msgid "Days Remaining"
+msgstr "الأيام المتبقية"
+
+#. module: company_records_management
+msgid "License No."
+msgstr "رقم الرخصة"
+
+#. module: company_records_management
+msgid "Branch"
+msgstr "الفرع"
+
+#. module: company_records_management
+msgid "Owner Name"
+msgstr "اسم المالك"
+
+#. module: company_records_management
+msgid "Owner Identity No"
+msgstr "رقم هوية المالك"
+
+#. module: company_records_management
+msgid "Isic Code"
+msgstr "رمز النشاط الاقتصادي (ISIC)"
+
+#. module: company_records_management
+msgid "Isic Description"
+msgstr "وصف النشاط الاقتصادي"
+
+#. module: company_records_management
+msgid "Municipality"
+msgstr "البلدية"
+
+#. module: company_records_management
+msgid "Secretariat"
+msgstr "الأمانة"
+
+#. module: company_records_management
+msgid "District"
+msgstr "الحي"
+
+#. module: company_records_management
+msgid "Street"
+msgstr "الشارع"
+
+#. module: company_records_management
+msgid "Sign Type"
+msgstr "نوع اللوحة"
+
+#. module: company_records_management
+msgid "Sign Area"
+msgstr "مساحة اللوحة"
+
+#. module: company_records_management
+msgid "Shop Area"
+msgstr "مساحة المحل"
+
+#. module: company_records_management
+msgid "Company Name on Address"
+msgstr "اسم الشركة في العنوان الوطني"
+
+#. module: company_records_management
+msgid "Account No."
+msgstr "رقم الحساب"
+
+#. module: company_records_management
+msgid "Registration Date"
+msgstr "تاريخ التسجيل"
+
+#. module: company_records_management
+msgid "Short Address"
+msgstr "العنوان المختصر"
+
+#. module: company_records_management
+msgid "Building No"
+msgstr "رقم المبنى"
+
+#. module: company_records_management
+msgid "Secondary No"
+msgstr "الرقم الفرعي"
+
+#. module: company_records_management
+msgid "Postal Code"
+msgstr "الرمز البريدي"
+
+#. module: company_records_management
+msgid "Monthly Payment Day"
+msgstr "يوم السداد الشهري"
+
+#. module: company_records_management
+msgid "Service Start Date"
+msgstr "تاريخ بدء الخدمة"
+
+#. module: company_records_management
+msgid "Facility Classification"
+msgstr "تصنيف المنشأة"
+
+#. module: company_records_management
+msgid "Isic Activity"
+msgstr "النشاط الاقتصادي (ISIC)"
+
+#. module: company_records_management
+msgid "Classification No"
+msgstr "رقم التصنيف"
+
+#. module: company_records_management
+msgid "Activity Description"
+msgstr "وصف النشاط"
+
+#. module: company_records_management
+msgid "Account Name"
+msgstr "اسم الحساب"
+
+#. module: company_records_management
+msgid "Bank Name"
+msgstr "اسم البنك"
+
+#. module: company_records_management
+msgid "Account No"
+msgstr "رقم الحساب"
+
+#. module: company_records_management
+msgid "Iban"
+msgstr "رقم الآيبان"
+
+#. module: company_records_management
+msgid "Opening Date"
+msgstr "تاريخ فتح الحساب"
+
+#. module: company_records_management
+msgid "Closing Date"
+msgstr "تاريخ إغلاق الحساب"
+
+#. module: company_records_management
+msgid "Contract No."
+msgstr "رقم العقد"
+
+#. module: company_records_management
+msgid "Signing Date"
+msgstr "تاريخ توقيع العقد"
+
+#. module: company_records_management
+msgid "Lessor Name"
+msgstr "اسم المؤجر"
+
+#. module: company_records_management
+msgid "Lessor Unified No"
+msgstr "الرقم الموحد للمؤجر"
+
+#. module: company_records_management
+msgid "Lessor Cr No"
+msgstr "رقم السجل التجاري للمؤجر"
+
+#. module: company_records_management
+msgid "Lessor Cr Date"
+msgstr "تاريخ السجل التجاري للمؤجر"
+
+#. module: company_records_management
+msgid "Lessor Rep Name"
+msgstr "اسم ممثل المؤجر"
+
+#. module: company_records_management
+msgid "Lessor Rep Nationality"
+msgstr "جنسية ممثل المؤجر"
+
+#. module: company_records_management
+msgid "Lessor Rep Identity"
+msgstr "رقم هوية ممثل المؤجر"
+
+#. module: company_records_management
+msgid "Lessor Rep Mobile"
+msgstr "جوال ممثل المؤجر"
+
+#. module: company_records_management
+msgid "Lessor Rep Email"
+msgstr "البريد الإلكتروني لممثل المؤجر"
+
+#. module: company_records_management
+msgid "Lessor Rep Address"
+msgstr "عنوان ممثل المؤجر"
+
+#. module: company_records_management
+msgid "Tenant Name"
+msgstr "اسم المستأجر"
+
+#. module: company_records_management
+msgid "Tenant Nationality"
+msgstr "جنسية المستأجر"
+
+#. module: company_records_management
+msgid "Tenant Cr No"
+msgstr "رقم السجل التجاري للمستأجر"
+
+#. module: company_records_management
+msgid "Tenant Unified No"
+msgstr "الرقم الموحد للمستأجر"
+
+#. module: company_records_management
+msgid "Tenant Cr Date"
+msgstr "تاريخ السجل التجاري للمستأجر"
+
+#. module: company_records_management
+msgid "Tenant Rep Name"
+msgstr "اسم ممثل المستأجر"
+
+#. module: company_records_management
+msgid "Tenant Rep Nationality"
+msgstr "جنسية ممثل المستأجر"
+
+#. module: company_records_management
+msgid "Tenant Rep Identity"
+msgstr "رقم هوية ممثل المستأجر"
+
+#. module: company_records_management
+msgid "Tenant Rep Email"
+msgstr "البريد الإلكتروني لممثل المستأجر"
+
+#. module: company_records_management
+msgid "Tenant Rep Address"
+msgstr "عنوان ممثل المستأجر"
+
+#. module: company_records_management
+msgid "Unit Type"
+msgstr "نوع الوحدة"
+
+#. module: company_records_management
+msgid "Area"
+msgstr "المساحة"
+
+#. module: company_records_management
+msgid "Tax Total"
+msgstr "إجمالي الضريبة"
+
+#. module: company_records_management
+msgid "Rent Total Incl Tax"
+msgstr "إجمالي الإيجار شامل الضريبة"
+
+#. module: company_records_management
+msgid "Annual Tax"
+msgstr "الضريبة السنوية"
+
+#. module: company_records_management
+msgid "Annual Rent Incl Tax"
+msgstr "الإيجار السنوي شامل الضريبة"
+
+#. module: company_records_management
+msgid "Tax Rate"
+msgstr "نسبة الضريبة"
+
+#. module: company_records_management
+msgid "Approval State"
+msgstr "حالة الاعتماد"
+
+#. module: company_records_management
+msgid "Submitted By"
+msgstr "أرسله للاعتماد"
+
+#. module: company_records_management
+msgid "Submitted At"
+msgstr "تاريخ الإرسال للاعتماد"
+
+#. module: company_records_management
+msgid "Approved By"
+msgstr "اعتمده"
+
+#. module: company_records_management
+msgid "Approved At"
+msgstr "تاريخ الاعتماد"
+
+#. module: company_records_management
+msgid "Rejected By"
+msgstr "رفضه"
+
+#. module: company_records_management
+msgid "Rejection Reason"
+msgstr "سبب الرفض"
+
+#. module: company_records_management
+msgid "Workflow State"
+msgstr "حالة سير العمل"
+
+#. module: company_records_management
+msgid "Model Name"
+msgstr "اسم النموذج"
+
+#. module: company_records_management
+msgid "Record Model"
+msgstr "النموذج الفني للسجل"
+
+#. module: company_records_management
+msgid "Record"
+msgstr "السجل"
+
+#. module: company_records_management
+msgid "Record Name"
+msgstr "اسم السجل"
+
+#. module: company_records_management
+msgid "Action"
+msgstr "الإجراء"
+
+#. module: company_records_management
+msgid "Operation"
+msgstr "العملية"
+
+#. module: company_records_management
+msgid "User"
+msgstr "المستخدم"
+
+#. module: company_records_management
+msgid "Field Name"
+msgstr "اسم الحقل"
+
+#. module: company_records_management
+msgid "Old Value"
+msgstr "القيمة السابقة"
+
+#. module: company_records_management
+msgid "New Value"
+msgstr "القيمة الجديدة"
+
+#. module: company_records_management
+msgid "Created on"
+msgstr "تاريخ الإنشاء"
+
+#. module: company_records_management
+msgid "Expiry Date"
+msgstr "تاريخ الانتهاء"
+
+#. module: company_records_management
+msgid "Days Before"
+msgstr "عدد الأيام قبل الانتهاء"
+
+#. module: company_records_management
+msgid "Notification Type"
+msgstr "نوع الإشعار"
+
+#. module: company_records_management
+msgid "Record Expiry"
+msgstr "انتهاء صلاحية سجل"
+
+#. module: company_records_management
+msgid "Review expiring company record"
+msgstr "مراجعة سجل شركة أوشك على الانتهاء"

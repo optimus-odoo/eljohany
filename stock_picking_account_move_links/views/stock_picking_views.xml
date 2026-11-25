@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_account_move_links" model="ir.ui.view">
+        <field name="name">stock.picking.form.account.move.links</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook" position="inside">
+                <page name="account_move_links"
+                      string="القيود المحاسبية"
+                      groups="account.group_account_readonly">
+                    <group col="6">
+                        <field name="linked_account_move_count" readonly="1"/>
+                        <field name="valuation_account_move_count" readonly="1"/>
+                        <field name="commercial_account_move_count" readonly="1"/>
+                    </group>
+                    <field name="linked_account_move_ids"
+                           nolabel="1"
+                           readonly="1"
+                           context="{'stock_picking_link_id': id}"
+                           options="{'no_create': True, 'no_create_edit': True}">
+                        <tree string="القيود المحاسبية المرتبطة"
+                              create="0"
+                              edit="0"
+                              delete="0">
+                            <field name="name" string="رقم القيد"/>
+                            <field name="date" string="التاريخ"/>
+                            <field name="journal_id" string="اليومية"/>
+                            <field name="move_type" string="نوع القيد"/>
+                            <field name="stock_picking_link_source" string="مصدر الارتباط"/>
+                            <field name="ref" string="المرجع" optional="show"/>
+                            <field name="state" string="الحالة"/>
+                            <field name="stock_picking_debit_total"
+                                   string="إجمالي المدين"
+                                   sum="إجمالي المدين"/>
+                            <field name="stock_picking_credit_total"
+                                   string="إجمالي الدائن"
+                                   sum="إجمالي الدائن"/>
+                            <field name="company_currency_id" string="عملة الشركة"/>
+                            <field name="currency_id" string="عملة المستند" optional="hide"/>
+                            <button name="action_open_from_stock_picking"
+                                    type="object"
+                                    string="فتح"
+                                    icon="fa-external-link"/>
+                        </tree>
+                    </field>
+                    <div class="alert alert-info" role="alert" invisible="linked_account_move_count">
+                        لا توجد قيود محاسبية مرتبطة فعليًا بهذا الإذن حتى الآن.
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

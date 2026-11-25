@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="visit_root_menu" groups="sales_visits.group_visit_manager,sales_visits.group_visit_user"  name="Client Visits" web_icon="sales_visits,static/description/icon.png" sequence="0" >
+        <menuitem id="menu_view_partners" groups="sales_visits.group_visit_manager,sales_visits.group_visit_user" name="Clients" action="action_view_visit_partners" sequence="1" />
+        <menuitem id="menu_view_visits" groups="sales_visits.group_visit_manager,sales_visits.group_visit_user" name="Visits" action="action_open_visit"  sequence="5" />
+        <menuitem id="menu_view_visits_configurations" name="Configurations" groups="sales_visits.group_visit_manager"   sequence="100">
+                <menuitem id="visit_setting)_action_menu" name="Settings" action="action_visit_config" groups="hr_attendance.group_hr_attendance_manager" sequence="1" />
+                <menuitem id="visit_type_action_menu" name="Visit Type Options" action="visit_type_action" groups="hr_attendance.group_hr_attendance_manager" sequence="10" />
+        </menuitem>
+    </menuitem>
+
+</odoo>

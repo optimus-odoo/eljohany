@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_seller_copy">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="is_seller_copy" t-value="True"/>
+                <t t-call="invoice_internal_prints.invoice_internal_copy_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_invoice_warehouse_copy">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="is_seller_copy" t-value="False"/>
+                <t t-call="invoice_internal_prints.invoice_internal_copy_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="invoice_internal_copy_document">
+        <t t-set="company" t-value="o.company_id"/>
+        <t t-set="invoice_lines" t-value="o.invoice_line_ids.filtered(lambda line: line.display_type not in ('line_section', 'line_note'))"/>
+        <t t-call="web.basic_layout">
+            <div t-attf-class="page internal-copy-page #{'short-copy-page' if len(invoice_lines) &lt;= 4 else ('regular-copy-page' if len(invoice_lines) &lt;= 18 else 'dense-copy-page')} #{'seller-copy-page' if is_seller_copy else 'warehouse-copy-page'}">
+                <style>
+                    .internal-copy-page {
+                        color: #1f2933;
+                        font-family: "DejaVu Sans", Arial, sans-serif;
+                        font-size: 10.5px;
+                        line-height: 1.35;
+                        padding: 0 !important;
+                    }
+                    .internal-copy-page table {
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+                    .internal-copy-page .copy-header td {
+                        border-bottom: 2px solid #193b5a;
+                        padding: 4px 5px 7px;
+                        vertical-align: middle;
+                    }
+                    .internal-copy-page .company-logo {
+                        max-height: 48px;
+                        max-width: 145px;
+                    }
+                    .internal-copy-page .company-name {
+                        color: #193b5a;
+                        font-size: 13px;
+                        font-weight: 700;
+                    }
+                    .internal-copy-page .copy-title-ar {
+                        color: #193b5a;
+                        font-size: 19px;
+                        font-weight: 700;
+                        direction: rtl;
+                    }
+                    .internal-copy-page .copy-title-en {
+                        color: #526777;
+                        font-size: 11px;
+                        font-weight: 700;
+                        letter-spacing: .4px;
+                        text-transform: uppercase;
+                    }
+                    .internal-copy-page .internal-label {
+                        color: #6b7785;
+                        font-size: 9px;
+                        margin-top: 2px;
+                    }
+                    .internal-copy-page .meta-table {
+                        border: 1px solid #aebbc5;
+                        margin: 9px 0;
+                        table-layout: fixed;
+                    }
+                    .internal-copy-page .meta-table td {
+                        border: 1px solid #d8e0e6;
+                        padding: 5px 6px;
+                        vertical-align: top;
+                    }
+                    .internal-copy-page .meta-label {
+                        color: #526777;
+                        display: block;
+                        font-size: 8.5px;
+                        font-weight: 700;
+                        margin-bottom: 1px;
+                    }
+                    .internal-copy-page .meta-value {
+                        color: #111827;
+                        font-size: 10.5px;
+                        font-weight: 600;
+                    }
+                    .internal-copy-page .line-table {
+                        border: 1px solid #8fa1ae;
+                        table-layout: fixed;
+                    }
+                    .internal-copy-page .line-table thead {
+                        display: table-header-group;
+                    }
+                    .internal-copy-page .line-table tr {
+                        page-break-inside: avoid;
+                    }
+                    .internal-copy-page .line-table th {
+                        background: #193b5a;
+                        border: 1px solid #193b5a;
+                        color: #fff;
+                        font-size: 9px;
+                        padding: 4px 3px;
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+                    .internal-copy-page .line-table td {
+                        border: 1px solid #cbd5dc;
+                        padding: 5px 4px;
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+                    .internal-copy-page .line-table tbody tr:nth-child(even) td {
+                        background: #f5f8fa;
+                    }
+                    .internal-copy-page .line-description {
+                        direction: auto;
+                        overflow-wrap: anywhere;
+                        text-align: start !important;
+                    }
+                    .internal-copy-page .summary-table {
+                        margin-left: auto;
+                        margin-top: 8px;
+                        page-break-inside: avoid;
+                        width: 46%;
+                    }
+                    .internal-copy-page .summary-table td {
+                        border: 1px solid #cbd5dc;
+                        padding: 5px 7px;
+                    }
+                    .internal-copy-page .summary-table .total-row td {
+                        background: #193b5a;
+                        color: #fff;
+                        font-size: 11px;
+                        font-weight: 700;
+                    }
+                    .internal-copy-page .signature-table {
+                        margin-top: 12px;
+                        page-break-inside: avoid;
+                        table-layout: fixed;
+                    }
+                    .internal-copy-page .signature-table td {
+                        padding: 2px 12px;
+                        text-align: center;
+                    }
+                    .internal-copy-page .signature-line {
+                        border-top: 1px solid #8795a1;
+                        color: #526777;
+                        display: block;
+                        margin-top: 18px;
+                        padding-top: 5px;
+                    }
+                    .internal-copy-page .empty-lines {
+                        color: #6b7785;
+                        padding: 12px !important;
+                    }
+                    .internal-copy-page.short-copy-page {
+                        font-size: 11.5px;
+                        line-height: 1.45;
+                        min-height: 258mm;
+                        padding-bottom: 26mm !important;
+                        position: relative;
+                    }
+                    .internal-copy-page.short-copy-page .copy-header td {
+                        padding: 7px 7px 10px;
+                    }
+                    .internal-copy-page.short-copy-page .company-logo {
+                        max-height: 58px;
+                        max-width: 165px;
+                    }
+                    .internal-copy-page.short-copy-page .company-name {
+                        font-size: 14px;
+                    }
+                    .internal-copy-page.short-copy-page .copy-title-ar {
+                        font-size: 22px;
+                    }
+                    .internal-copy-page.short-copy-page .copy-title-en {
+                        font-size: 12px;
+                    }
+                    .internal-copy-page.short-copy-page .internal-label,
+                    .internal-copy-page.short-copy-page .meta-label {
+                        font-size: 9.5px;
+                    }
+                    .internal-copy-page.short-copy-page .meta-table {
+                        margin: 12px 0;
+                    }
+                    .internal-copy-page.short-copy-page .meta-table td {
+                        padding: 8px;
+                    }
+                    .internal-copy-page.short-copy-page .meta-value {
+                        font-size: 11.5px;
+                    }
+                    .internal-copy-page.short-copy-page .line-table th {
+                        font-size: 10px;
+                        padding: 7px 4px;
+                    }
+                    .internal-copy-page.short-copy-page .line-table tbody tr {
+                        height: 18mm;
+                    }
+                    .internal-copy-page.short-copy-page .line-table td {
+                        font-size: 11.5px;
+                        padding: 8px 5px;
+                    }
+                    .internal-copy-page.short-copy-page .line-table .filler-row td {
+                        background: #fff !important;
+                        padding: 0;
+                    }
+                    .internal-copy-page.short-copy-page .summary-table {
+                        margin-top: 12px;
+                        width: 52%;
+                    }
+                    .internal-copy-page.short-copy-page .summary-table td {
+                        font-size: 11.5px;
+                        padding: 7px 9px;
+                    }
+                    .internal-copy-page.short-copy-page .signature-table {
+                        bottom: 5mm;
+                        left: 0;
+                        margin: 0;
+                        position: absolute;
+                        right: 0;
+                    }
+                    .internal-copy-page.short-copy-page .signature-table td {
+                        font-size: 11px;
+                        padding: 3px 16px;
+                    }
+                    .internal-copy-page.short-copy-page .signature-line {
+                        margin-top: 24px;
+                        padding-top: 6px;
+                    }
+                    .internal-copy-page.dense-copy-page {
+                        font-size: 9.2px;
+                        line-height: 1.22;
+                    }
+                    .internal-copy-page.dense-copy-page .copy-header td {
+                        padding: 2px 4px 5px;
+                    }
+                    .internal-copy-page.dense-copy-page .company-logo {
+                        max-height: 40px;
+                    }
+                    .internal-copy-page.dense-copy-page .copy-title-ar {
+                        font-size: 16px;
+                    }
+                    .internal-copy-page.dense-copy-page .copy-title-en {
+                        font-size: 9.5px;
+                    }
+                    .internal-copy-page.dense-copy-page .meta-table {
+                        margin: 6px 0;
+                    }
+                    .internal-copy-page.dense-copy-page .meta-table td,
+                    .internal-copy-page.dense-copy-page .line-table td {
+                        padding: 3px;
+                    }
+                    .internal-copy-page.dense-copy-page .line-table th {
+                        font-size: 7.8px;
+                        padding: 3px;
+                    }
+                    .internal-copy-page.dense-copy-page .signature-table {
+                        margin-top: 5px;
+                    }
+                    .internal-copy-page.dense-copy-page .signature-line {
+                        margin-top: 10px;
+                        padding-top: 3px;
+                    }
+                </style>
+
+                <table class="copy-header">
+                    <tr>
+                        <td style="width: 28%; text-align: start;">
+                            <img t-if="company.logo" class="company-logo" t-att-src="image_data_uri(company.logo)" alt="Company Logo"/>
+                            <div t-if="not company.logo" class="company-name" t-field="company.name"/>
+                        </td>
+                        <td style="width: 44%; text-align: center;">
+                            <t t-if="is_seller_copy">
+                                <div class="copy-title-ar">نسخة البائع</div>
+                                <div class="copy-title-en">Seller Copy</div>
+                            </t>
+                            <t t-else="">
+                                <div class="copy-title-ar">نسخة أمين المستودع</div>
+                                <div class="copy-title-en">Warehouse Keeper Copy</div>
+                            </t>
+                            <div class="internal-label">نسخة داخلية | Internal Use</div>
+                        </td>
+                        <td style="width: 28%; text-align: end;">
+                            <div class="company-name" t-field="company.name"/>
+                            <div t-if="company.phone" t-field="company.phone"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="meta-table">
+                    <tr>
+                        <td style="width: 25%;">
+                            <span class="meta-label">رقم الفاتورة | Invoice No.</span>
+                            <span class="meta-value" t-field="o.name"/>
+                        </td>
+                        <td style="width: 25%;">
+                            <span class="meta-label">تاريخ الفاتورة | Invoice Date</span>
+                            <span class="meta-value" t-field="o.invoice_date"/>
+                        </td>
+                        <td style="width: 25%;">
+                            <span class="meta-label">مرجع المصدر | Source</span>
+                            <span class="meta-value" t-field="o.invoice_origin"/>
+                        </td>
+                        <td style="width: 25%;">
+                            <span class="meta-label">مرجع العميل | Customer Ref.</span>
+                            <span class="meta-value" t-field="o.ref"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <span class="meta-label">العميل | Customer</span>
+                            <span class="meta-value" t-field="o.partner_id.name"/>
+                            <t t-if="o.partner_id.ref">
+                                <span> - </span><span t-field="o.partner_id.ref"/>
+                            </t>
+                        </td>
+                        <td t-if="is_seller_copy">
+                            <span class="meta-label">البائع | Salesperson</span>
+                            <span class="meta-value" t-field="o.invoice_user_id.name"/>
+                        </td>
+                        <td t-if="is_seller_copy">
+                            <span class="meta-label">شروط الدفع | Payment Terms</span>
+                            <span class="meta-value" t-field="o.invoice_payment_term_id.name"/>
+                        </td>
+                        <td t-if="not is_seller_copy" colspan="2">
+                            <span class="meta-label">العنوان | Delivery Address</span>
+                            <span class="meta-value" t-esc="o.partner_id.contact_address or ''"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="line-table">
+                    <thead>
+                        <tr t-if="is_seller_copy">
+                            <th style="width: 4%;">م<br/>No.</th>
+                            <th style="width: 12%;">رقم الصنف<br/>Item Code</th>
+                            <th style="width: 31%;">وصف الصنف<br/>Description</th>
+                            <th style="width: 8%;">الوحدة<br/>UoM</th>
+                            <th style="width: 9%;">الكمية<br/>Qty</th>
+                            <th style="width: 13%;">سعر الوحدة<br/>Unit Price</th>
+                            <th style="width: 9%;">الخصم %<br/>Disc.</th>
+                            <th style="width: 14%;">الإجمالي<br/>Subtotal</th>
+                        </tr>
+                        <tr t-if="not is_seller_copy">
+                            <th style="width: 5%;">م<br/>No.</th>
+                            <th style="width: 17%;">رقم الصنف<br/>Item Code</th>
+                            <th style="width: 38%;">وصف الصنف<br/>Description</th>
+                            <th style="width: 18%;">المستودع<br/>Warehouse</th>
+                            <th style="width: 10%;">الوحدة<br/>UoM</th>
+                            <th style="width: 12%;">الكمية<br/>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="line_index" t-value="0"/>
+                        <t t-foreach="invoice_lines" t-as="line">
+                            <t t-set="line_index" t-value="line_index + 1"/>
+                            <tr t-if="is_seller_copy">
+                                <td t-esc="line_index"/>
+                                <td><span t-field="line.product_id.default_code"/></td>
+                                <td class="line-description"><span t-field="line.name"/></td>
+                                <td><span t-field="line.product_uom_id.name"/></td>
+                                <td><span t-field="line.quantity"/></td>
+                                <td><span t-field="line.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                <td><span t-field="line.discount"/></td>
+                                <td><span t-field="line.price_subtotal" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                            </tr>
+                            <tr t-if="not is_seller_copy">
+                                <td t-esc="line_index"/>
+                                <td><span t-field="line.product_id.default_code"/></td>
+                                <td class="line-description"><span t-field="line.name"/></td>
+                                <td><span t-field="line.stock_location_id.name"/></td>
+                                <td><span t-field="line.product_uom_id.name"/></td>
+                                <td><span t-field="line.quantity"/></td>
+                            </tr>
+                        </t>
+                        <tr t-if="invoice_lines and len(invoice_lines) &lt;= 4"
+                            class="filler-row"
+                            t-att-style="'height: %smm;' % (115 - (len(invoice_lines) * 18))">
+                            <td t-att-colspan="8 if is_seller_copy else 6">&#160;</td>
+                        </tr>
+                        <tr t-if="not invoice_lines">
+                            <td t-att-colspan="8 if is_seller_copy else 6" class="empty-lines">
+                                لا توجد أصناف لعرضها | No invoice items to display
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table t-if="is_seller_copy" class="summary-table">
+                    <tr>
+                        <td>الإجمالي قبل الضريبة | Untaxed</td>
+                        <td style="text-align: end;"><span t-field="o.amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                    </tr>
+                    <tr>
+                        <td>الضريبة | Tax</td>
+                        <td style="text-align: end;"><span t-field="o.amount_tax" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>الإجمالي | Total</td>
+                        <td style="text-align: end;"><span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                    </tr>
+                </table>
+
+                <table class="signature-table">
+                    <tr t-if="is_seller_copy">
+                        <td><span class="signature-line">البائع | Salesperson</span></td>
+                        <td><span class="signature-line">المراجع | Reviewed By</span></td>
+                        <td><span class="signature-line">المستلم | Received By</span></td>
+                    </tr>
+                    <tr t-if="not is_seller_copy">
+                        <td><span class="signature-line">جهز بواسطة | Prepared By</span></td>
+                        <td><span class="signature-line">صرف بواسطة | Released By</span></td>
+                        <td><span class="signature-line">المستلم | Received By</span></td>
+                    </tr>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_work_injury_report" model="ir.sequence">
+        <field name="name">Work Injury Report</field>
+        <field name="code">hr.work.injury.report</field>
+        <field name="prefix">INJ/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_overtime_assignment" model="ir.sequence">
+        <field name="name">Overtime Assignment</field>
+        <field name="code">hr.overtime.assignment</field>
+        <field name="prefix">OT/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_employee_transfer" model="ir.sequence">
+        <field name="name">Employee Transfer</field>
+        <field name="code">hr.employee.transfer</field>
+        <field name="prefix">TRF/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_job_offer" model="ir.sequence">
+        <field name="name">عرض وظيفي</field>
+        <field name="code">hr.job.offer</field>
+        <field name="prefix">JO/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_work_commencement" model="ir.sequence">
+        <field name="name">مباشرة عمل</field>
+        <field name="code">hr.work.commencement</field>
+        <field name="prefix">WC/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_vehicle_handover" model="ir.sequence">
+        <field name="name">استلام سيارة</field>
+        <field name="code">hr.vehicle.handover</field>
+        <field name="prefix">VH/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_mobile_sim_handover" model="ir.sequence">
+        <field name="name">استلام شريحة إلكترونية</field>
+        <field name="code">hr.mobile.sim.handover</field>
+        <field name="prefix">SIM/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_employee_information_report" model="ir.sequence">
+        <field name="name">تقرير معلومات موظف</field>
+        <field name="code">hr.employee.information.report</field>
+        <field name="prefix">EIR/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_employee_warning" model="ir.sequence">
+        <field name="name">إنذار موظف</field>
+        <field name="code">hr.employee.warning</field>
+        <field name="prefix">WRN/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_employee_forms_arabic" model="report.paperformat">
+        <field name="name">نماذج الموظفين العربية - A4</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">12</field>
+        <field name="margin_bottom">12</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_job_offer" model="ir.actions.report">
+        <field name="name">عرض وظيفي</field>
+        <field name="model">hr.job.offer</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eljohany_employee_forms.report_job_offer_document</field>
+        <field name="report_file">eljohany_employee_forms.report_job_offer_document</field>
+        <field name="paperformat_id" ref="eljohany_employee_forms.paperformat_employee_forms_arabic"/>
+        <field name="print_report_name">'Job_Offer_%s' % object.name</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="action_report_work_commencement" model="ir.actions.report">
+        <field name="name">نموذج مباشرة عمل</field>
+        <field name="model">hr.work.commencement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eljohany_employee_forms.report_work_commencement_document</field>
+        <field name="report_file">eljohany_employee_forms.report_work_commencement_document</field>
+        <field name="paperformat_id" ref="eljohany_employee_forms.paperformat_employee_forms_arabic"/>
+        <field name="print_report_name">'Work_Commencement_%s' % object.name</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="action_report_vehicle_handover" model="ir.actions.report">
+        <field name="name">نموذج استلام سيارة</field>
+        <field name="model">hr.vehicle.handover</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eljohany_employee_forms.report_vehicle_handover_document</field>
+        <field name="report_file">eljohany_employee_forms.report_vehicle_handover_document</field>
+        <field name="paperformat_id" ref="eljohany_employee_forms.paperformat_employee_forms_arabic"/>
+        <field name="print_report_name">'Vehicle_Handover_%s' % object.name</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="action_report_sim_handover" model="ir.actions.report">
+        <field name="name">نموذج استلام شريحة إلكترونية</field>
+        <field name="model">hr.mobile.sim.handover</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eljohany_employee_forms.report_sim_handover_document</field>
+        <field name="report_file">eljohany_employee_forms.report_sim_handover_document</field>
+        <field name="paperformat_id" ref="eljohany_employee_forms.paperformat_employee_forms_arabic"/>
+        <field name="print_report_name">'SIM_Handover_%s' % object.name</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="action_report_employee_information" model="ir.actions.report">
+        <field name="name">تقرير معلومات الموظف</field>
+        <field name="model">hr.employee.information.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eljohany_employee_forms.report_employee_information_document</field>
+        <field name="report_file">eljohany_employee_forms.report_employee_information_document</field>
+        <field name="paperformat_id" ref="eljohany_employee_forms.paperformat_employee_forms_arabic"/>
+        <field name="print_report_name">'Employee_Information_%s' % object.name</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="action_report_employee_warning" model="ir.actions.report">
+        <field name="name">نموذج إنذار موظف</field>
+        <field name="model">hr.employee.warning</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eljohany_employee_forms.report_employee_warning_document</field>
+        <field name="report_file">eljohany_employee_forms.report_employee_warning_document</field>
+        <field name="paperformat_id" ref="eljohany_employee_forms.paperformat_employee_forms_arabic"/>
+        <field name="print_report_name">'Employee_Warning_%s' % object.name</field>
+        <field name="groups_id" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+</odoo>

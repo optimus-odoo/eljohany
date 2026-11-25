@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_visit_type_manager,access_visit_type_manager,model_visit_type,sales_visits.group_visit_manager,1,1,1,1
+access_visit_type_user,access_visit_type_user,model_visit_type,sales_visits.group_visit_user,1,1,0,0
+access_visit_visit_manager,access_visit_visit_manager,model_visit_visit,sales_visits.group_visit_manager,1,1,1,1
+access_visit_visit_user,access_visit_visit_user,model_visit_visit,sales_visits.group_visit_user,1,1,1,0

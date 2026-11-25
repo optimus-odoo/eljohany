@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_api_credential_admin,Attendance API credential administrator,model_hr_attendance_api_credential,hr_management_attend_api.group_attendance_api_admin,1,0,0,0
+access_api_token_admin,Attendance API token administrator,model_hr_attendance_api_token,hr_management_attend_api.group_attendance_api_admin,1,0,0,0
+access_api_event_admin,Attendance API event administrator,model_hr_attendance_api_event,hr_management_attend_api.group_attendance_api_admin,1,0,0,0
+access_api_sync_log_admin,Attendance API synchronization log administrator,model_hr_attendance_api_sync_log,hr_management_attend_api.group_attendance_api_admin,1,0,0,0
+access_api_sync_log_system,Attendance API synchronization log system administrator,model_hr_attendance_api_sync_log,base.group_system,1,0,0,0

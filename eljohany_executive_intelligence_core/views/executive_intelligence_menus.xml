@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_executive_intelligence_center" model="ir.actions.client">
+        <field name="name">Executive Intelligence Center</field>
+        <field name="tag">eljohany_executive_intelligence.center</field>
+    </record>
+
+    <menuitem id="menu_ei_root" name="Executive Intelligence Center" sequence="3" groups="group_ei_user" web_icon="eljohany_executive_intelligence_core,static/description/icon.svg"/>
+    <menuitem id="menu_ei_center" name="Intelligence Center" parent="menu_ei_root" action="action_executive_intelligence_center" sequence="10" groups="group_ei_user"/>
+    <menuitem id="menu_ei_configuration" name="Configuration" parent="menu_ei_root" sequence="90" groups="group_ei_admin"/>
+    <menuitem id="menu_ei_access_profiles" name="Access Profiles" parent="menu_ei_configuration" action="action_ei_access_profiles" sequence="10" groups="group_ei_admin"/>
+    <menuitem id="menu_ei_access_logs" name="Access Change Log" parent="menu_ei_configuration" action="action_ei_access_logs" sequence="20" groups="group_ei_admin"/>
+</odoo>
+

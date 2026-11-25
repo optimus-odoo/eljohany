@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_attendance_tree_attendance_api" model="ir.ui.view">
+        <field name="name">hr.attendance.tree.attendance.api</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="api_branch_id" optional="show"/>
+                <field name="api_check_in_period" optional="hide"/>
+                <field name="api_check_out_period" optional="hide"/>
+                <field name="api_source" optional="hide"/>
+                <field name="api_external_id" optional="hide" groups="base.group_system"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_attendance_form_attendance_api" model="ir.ui.view">
+        <field name="name">hr.attendance.form.attendance.api</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Attendance API" groups="hr_management_attend_api.group_attendance_api_admin" invisible="not api_source">
+                    <group>
+                        <field name="api_source"/>
+                        <field name="api_external_id" readonly="1" groups="base.group_system"/>
+                        <field name="api_branch_id"/>
+                        <field name="api_check_in_period"/>
+                        <field name="api_check_in_accuracy"/>
+                        <field name="api_check_in_distance"/>
+                    </group>
+                    <group>
+                        <field name="api_check_out_period"/>
+                        <field name="api_check_out_accuracy"/>
+                        <field name="api_check_out_distance"/>
+                    </group>
+                    <field name="api_event_ids" readonly="1">
+                        <tree create="0" edit="0" delete="0">
+                            <field name="event_at"/>
+                            <field name="event_type"/>
+                            <field name="period"/>
+                            <field name="accuracy"/>
+                            <field name="distance"/>
+                            <field name="request_id"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

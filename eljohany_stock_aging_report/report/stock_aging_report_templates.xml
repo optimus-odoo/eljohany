@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="stock_aging_report_pdf">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="wizard"/>
+            <div class="page" dir="rtl">
+                <h2 style="text-align:center;">تقرير أعمار المخزون</h2>
+
+                <div style="margin: 8px 0;">
+                    <strong>الشركة:</strong>
+                    <span t-esc="doc.company_id.display_name"/>
+                    <t t-if="doc.branch_ids">
+                        |
+                        <strong>الفروع:</strong>
+                        <span t-esc="', '.join(doc.branch_ids.mapped('display_name'))"/>
+                    </t>
+                    |
+                    <strong>المواقع:</strong>
+                    <span t-esc="', '.join(doc.location_ids.mapped('display_name'))"/>
+                    |
+                    <strong>الفترة:</strong>
+                    <span t-esc="doc.date_from"/>
+                    <span> - </span>
+                    <span t-esc="doc.date_to"/>
+                </div>
+
+                <table class="table table-sm table-bordered" style="width:100%; font-size: 10px;">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;">الصنف</th>
+                            <th style="text-align:center;">التكلفة</th>
+                            <th style="text-align:center;">الكمية الحالية</th>
+                            <th style="text-align:center;">إجمالي التكلفة</th>
+                            <th style="text-align:center;">فئة المنتج</th>
+                            <th style="text-align:center;">الكمية المباعة خلال الفترة</th>
+                            <th style="text-align:center;">Invoiced Qty</th>
+                            <th style="text-align:center;">عمر الصنف في المخزون من ١ إلى ٣٠</th>
+                            <th style="text-align:center;">من ٣١ إلى ٦٠</th>
+                            <th style="text-align:center;">من ٦١ إلى ٩٠</th>
+                            <th style="text-align:center;">من ٩١ إلى ١٢٠</th>
+                            <th style="text-align:center;">من ١٢١ إلى ١٥٠</th>
+                            <th style="text-align:center;">من ١٥١ إلى ١٨٠</th>
+                            <th style="text-align:center;">من ١٨١ إلى ما لا نهاية</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="lines" t-as="line">
+                            <tr>
+                                <td style="text-align:right;"><t t-esc="line.get('product_name')"/></td>
+                                <td style="text-align:center;">
+                                    <t t-esc="formatLang(line.get('unit_cost') or 0.0, currency_obj=doc.company_id.currency_id)"/>
+                                </td>
+                                <td style="text-align:center;"><t t-esc="line.get('qty_on_hand')"/></td>
+                                <td style="text-align:center;">
+                                    <t t-esc="formatLang(line.get('total_cost') or 0.0, currency_obj=doc.company_id.currency_id)"/>
+                                </td>
+                                <td style="text-align:right;"><t t-esc="line.get('category_name')"/></td>
+                                <td style="text-align:center;"><t t-esc="line.get('sold_qty_period')"/></td>
+                                <td style="text-align:center;"><t t-esc="line.get('invoiced_qty_period')"/></td>
+                                <td style="text-align:center;"><t t-esc="line.get('age_1_30')"/></td>
+                                <td style="text-align:center;"><t t-esc="line.get('age_30_60')"/></td>
+                                <td style="text-align:center;"><t t-esc="line.get('age_60_90')"/></td>
+                                <td style="text-align:center;"><t t-esc="line.get('age_90_120')"/></td>
+                                <td style="text-align:center;"><t t-esc="line.get('age_120_150')"/></td>
+                                <td style="text-align:center;"><t t-esc="line.get('age_150_180')"/></td>
+                                <td style="text-align:center;"><t t-esc="line.get('age_180_plus')"/></td>
+                            </tr>
+                        </t>
+                        <t t-if="not lines">
+                            <tr>
+                                <td colspan="14" style="text-align:center;">لا توجد بيانات حسب الإعدادات المختارة</td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

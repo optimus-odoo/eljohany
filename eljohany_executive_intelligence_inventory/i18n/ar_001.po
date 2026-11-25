@@ -1,0 +1,158 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * eljohany_executive_intelligence_inventory
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_inventory.field_res_users__ei_warehouse_ids
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_inventory.field_executive_intelligence_access_profile__warehouse_ids
+msgid "Analytics Warehouses"
+msgstr "المستودعات المسموحة للتحليل"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Stock positions with quantity"
+msgstr "مواضع المخزون ذات الكمية"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Exact count of non-zero internal stock quants"
+msgstr "عدد دقيق لسجلات الكميات الداخلية غير الصفرية"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Internal locations with stock"
+msgstr "المواقع الداخلية المحتوية على مخزون"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Locations in the permitted warehouses"
+msgstr "المواقع الموجودة في المستودعات المسموحة"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Negative stock positions"
+msgstr "مواضع المخزون السالب"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Quant records whose on-hand quantity is below zero"
+msgstr "سجلات مخزون تقل كميتها الفعلية عن الصفر"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Replenishment suggestions"
+msgstr "اقتراحات إعادة التزويد"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Reordering rules with a positive quantity to order"
+msgstr "قواعد إعادة الطلب التي لديها كمية مقترحة موجبة"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Current quantities by warehouse and product"
+msgstr "الكميات الحالية حسب المستودع والمنتج"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Warehouse"
+msgstr "المستودع"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Product"
+msgstr "المنتج"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "On Hand"
+msgstr "الكمية الفعلية"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Reserved"
+msgstr "المحجوز"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Available"
+msgstr "المتاح"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Unit"
+msgstr "الوحدة"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid ""
+"Summary counts are exact. The product detail table is limited per warehouse "
+"for interactive performance."
+msgstr ""
+"الأعداد الملخصة دقيقة. تم تحديد عدد صفوف تفاصيل المنتجات لكل مستودع للمحافظة"
+" على أداء الواجهة."
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Analytics warehouses must belong to the user's allowed companies."
+msgstr "يجب أن تتبع مستودعات التحليل الشركات المسموحة للمستخدم."
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Invalid warehouse filter."
+msgstr "مرشح المستودعات غير صالح."
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "The selected warehouse scope is not allowed."
+msgstr "نطاق المستودعات المحدد غير مسموح به."
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "No analytics warehouse is configured for this user."
+msgstr "لم يتم تحديد مستودع تحليلي لهذا المستخدم."
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid ""
+"Non-zero stock.quant records in internal locations of the permitted "
+"warehouses. Quantities with different units are never added into one total."
+msgstr ""
+"سجلات الكميات غير الصفرية في المواقع الداخلية للمستودعات المسموحة. لا تُجمع "
+"الكميات ذات وحدات القياس المختلفة في إجمالي واحد."
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Reordering rules whose computed quantity to order is positive."
+msgstr "قواعد إعادة الطلب التي تكون كميتها المحسوبة المطلوب طلبها موجبة."
+
+#. module: eljohany_executive_intelligence_inventory
+#: model:ir.module.module,shortdesc:base.module_eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Eljohany Inventory Intelligence"
+msgstr "الجهني — ذكاء المخزون والمستودعات"
+
+#. module: eljohany_executive_intelligence_inventory
+#: model:ir.module.module,summary:base.module_eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Verified inventory quantities with strict warehouse scoping"
+msgstr "مؤشرات مخزون موثقة مع نطاق صارم للمستودعات"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Stock positions by warehouse"
+msgstr "مواقع الأرصدة حسب المستودع"
+
+#. module: eljohany_executive_intelligence_inventory
+#: code:addons/eljohany_executive_intelligence_inventory:1
+msgid "Negative stock share by warehouse"
+msgstr "نسبة المخزون السالب حسب المستودع"

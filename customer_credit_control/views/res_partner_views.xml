@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_credit_control" model="ir.ui.view">
+        <field name="name">res.partner.form.credit.control</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']//group" position="inside">
+                <group string="إدارة الائتمان">
+                    <field name="x_credit_limit"/>
+                    <separator string="مؤشرات"/>
+                    <field name="x_current_due" readonly="1"/>
+                    <field name="x_credit_available" readonly="1"/>
+                    <field name="x_credit_utilization" readonly="1"/>
+                    <field name="x_is_overdue_followup" readonly="1"/>
+                    <field name="x_is_credit_exceeded" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

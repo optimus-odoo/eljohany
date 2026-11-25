@@ -1,0 +1,319 @@
+<odoo>
+    <data>
+        <template id="invoice_report_all_temp">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.basic_layout" style="font-family: serif">
+                        <div class="header container" style="padding: 0;">
+                            <div style="position: relative;">
+                                <img src="invoice_prints/static/src/header_all.png"
+                                     style="width: 108%; height: auto; margin-left: -4%;"/>
+                            </div>
+                        </div>
+                        <div class="page" style="padding: 15px; font-family: Arial, sans-serif;">
+                            <div class="row" style="margin: 0; font-weight: bold;">
+                                <div class="col-4" style="direction: ltr;">VAT.NO 300057261600003</div>
+                                <div class="col-4" style="text-align: center; flex: 1;">TAX INVOICE فاتورة ضريبية</div>
+                                <div class="col-4" style="direction: rtl;">الرقم الضريبي 300057261600003</div>
+                            </div>
+                            <br/>
+                            <div class="row" style="margin: 0;">
+                                <div class="col-6" style="padding-left: 0; padding-right: 10px;">
+                                    <div style="padding: 10px; border: 1px solid black; border-radius: 8px; margin-bottom: 10px;">
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-4 text-start">INVOICE DATE</div>
+                                            <div class="col-4 text-center">
+                                                <span t-field="o.invoice_date"/>
+                                            </div>
+                                            <div class="col-4 text-end">تاريخ الفاتورة</div>
+                                        </div>
+
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-4 text-start">CUSTOME</div>
+                                            <div class="col-4 text-center">
+                                                <span t-field="o.partner_id.ref"/>
+                                            </div>
+                                            <div class="col-4 text-end">رقم العميل</div>
+                                        </div>
+
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-4 text-start">PRINT DATE</div>
+                                            <div class="col-4 text-center">
+                                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                            </div>
+                                            <div class="col-4 text-end">تاريخ الطباعة</div>
+                                        </div>
+
+                                        <div class="row align-items-center">
+                                            <div class="col-4 text-start">P.O NO</div>
+                                            <div class="col-4 text-center">
+                                            </div>
+                                            <div class="col-4 text-end">رقم طلب الشراء</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6" style="padding-right: 0; padding-left: 10px;">
+                                    <div style="padding: 10px; border: 1px solid black; border-radius: 8px; margin-bottom: 10px;">
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-4 text-start">BRANCH</div>
+                                            <div class="col-4 text-center">
+                                                <span t-field="o.company_id.name"/>
+                                            </div>
+                                            <div class="col-4 text-end">الفرع</div>
+                                        </div>
+
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-4 text-start">INVOICE NO</div>
+                                            <div class="col-4 text-center">
+                                                <span t-field="o.name"/>
+                                            </div>
+                                            <div class="col-4 text-end">رقم الفاتورة</div>
+                                        </div>
+
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-4 text-start">INVOICE TYPE</div>
+                                            <div class="col-4 text-center">
+                                                <t t-if="o.payment_state in ('paid')">
+                                                    <strong>بيع نقدي</strong>
+                                                </t>
+                                                <t t-else="">
+                                                    <strong>بيع اجل</strong>
+                                                </t>
+                                            </div>
+                                            <div class="col-4 text-end">نوع الفاتورة</div>
+                                        </div>
+
+                                        <div class="row align-items-center">
+                                            <div class="col-4 text-start">AREA</div>
+                                            <div class="col-4 text-center">
+                                            </div>
+                                            <div class="col-4 text-end">المنطقة</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 0;">
+                                <!-- LEFT BOX (WIDE) -->
+                                <div class="col-9" style="padding-left: 0; padding-right: 10px;">
+                                    <div style="padding: 10px; border: 1px solid black; border-radius: 8px; margin-bottom: 10px;">
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-8 text-center">
+                                                <span t-field="o.partner_id.name"/>
+                                            </div>
+                                            <div class="col-4 text-end">اسم العميل</div>
+                                        </div>
+
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-8 text-center">
+                                                <span t-field="o.partner_id.vat"/>
+                                            </div>
+                                            <div class="col-4 text-end">الرقم الضريبي للعميل</div>
+                                        </div>
+                                        <div class="row align-items-center">
+                                            <div class="col-8 text-center">
+                                                <address class="mb-0" t-field="o.partner_id"
+                                                         t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                                            </div>
+                                            <div class="col-4 text-end">العنوان الوطني للعميل</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3" style="padding-right: 0; padding-left: 10px;">
+                                    <div style="padding: 10px; border: 1px solid black; border-radius: 8px; margin-bottom: 10px; height: 100%;">
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-12 text-center">رقم الفاتورة</div>
+                                        </div>
+
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-12 text-center">INVOICE NO</div>
+                                        </div>
+                                        <div class="row align-items-center">
+                                            <div class="col-12 text-center" style="font-weight: bold;">
+                                                <span t-field="o.name"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <table class="table text-center"
+                                   style="width: 100%;direction: ltr;border-collapse: separate;border-spacing: 0;border: 1px solid #ddd;border-radius: 12px;overflow: hidden;font-family: 'Arial', sans-serif;box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                                <thead style="background: #f0f0f0; color: #333;">
+                                    <tr style="height: 65px;">
+                                        <th style="width: 13%;">الإجمالي
+                                            <br/>
+                                            <span style="font-size: 12px; color: #777;">TOTAL</span>
+                                        </th>
+                                        <th style="width: 10%;">سعر الوحدة
+                                            <br/>
+                                            <span style="font-size: 12px; color: #777;">UNIT PRICE</span>
+                                        </th>
+                                        <th style="width: 10%;">الكمية
+                                            <br/>
+                                            <span style="font-size: 12px; color: #777;">QUANTITY</span>
+                                        </th>
+                                        <th style="width: 7%;">الوحدة
+                                            <br/>
+                                            <span style="font-size: 12px; color: #777;">UNIT</span>
+                                        </th>
+                                        <th style="width: 10%;">المستودع
+                                            <br/>
+                                            <span style="font-size: 12px; color: #777;">STORE</span>
+                                        </th>
+                                        <th style="width: 30%;">وصف الصنف
+                                            <br/>
+                                            <span style="font-size: 12px; color: #777;">DESCRIPTION</span>
+                                        </th>
+                                        <th style="width: 15%;">رقم الصنف
+                                            <br/>
+                                            <span style="font-size: 12px; color: #777;">ITEM NO</span>
+                                        </th>
+                                        <th style="width: 10%;">تسلسل
+                                            <br/>
+                                            <span style="font-size: 12px; color: #777;">NO</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="line_index" t-value="0"/>
+                                    <t t-foreach="o.invoice_line_ids" t-as="line">
+                                        <tr style="border-top: 1px solid #eee;">
+                                            <td>
+                                                <span t-field="line.price_subtotal"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.price_unit"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.quantity"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.product_uom_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.stock_location_id"/>
+                                            </td>
+                                            <td class="text-start">
+                                                <span t-field="line.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.product_id.default_code"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line_index + 1"/>
+                                                <t t-set="line_index" t-value="line_index + 1"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr style="background: #f9f9f9; font-weight: bold;">
+                                        <td>
+                                            <span t-field="o.amount_untaxed"/>
+                                        </td>
+                                        <td colspan="2">المجموع
+                                            <br/>
+                                            <span style="font-size: 12px; color: #777;">TOTAL</span>
+                                        </td>
+                                        <td colspan="5">
+                                            <t t-esc="o.amount_to_text_ar(o.amount_untaxed, o.currency_id)"/>
+                                        </td>
+                                    </tr>
+                                    <!--                                    <tr>-->
+                                    <!--                                        <td>-->
+                                    <!--                                            <span t-field="o.name"/>-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td colspan="2">الخصم-->
+                                    <!--                                            <br/>-->
+                                    <!--                                            <span style="font-size: 12px; color: #777;">DISCOUNT</span>-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td colspan="5"></td>-->
+                                    <!--                                    </tr>-->
+                                    <!--                                    <tr style="background: #f9f9f9; font-weight: bold;">-->
+                                    <!--                                        <td>-->
+                                    <!--                                            <span t-field="o.name"/>-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td colspan="2">المجموع بعد الخصم-->
+                                    <!--                                            <br/>-->
+                                    <!--                                            <span style="font-size: 12px; color: #777;">TOTAL AFTER DIS</span>-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td colspan="5"></td>-->
+                                    <!--                                    </tr>-->
+                                    <tr>
+                                        <td>
+                                            <span t-field="o.amount_tax"/>
+                                        </td>
+                                        <td colspan="2">ضريبة القيمة المضافة
+                                            <br/>
+                                            <span style="font-size: 12px; color: #777;">VAT 15%</span>
+                                        </td>
+                                        <td colspan="5">
+                                            <t t-esc="o.amount_to_text_ar(o.amount_tax, o.currency_id)"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="background: #eafaf1; font-weight: bold; color: #2d6a4f;">
+                                        <td>
+                                            <span t-field="o.amount_total"/>
+                                        </td>
+                                        <td colspan="2">الصافي
+                                            <br/>
+                                            <span style="font-size: 12px; color: #2d6a4f;">NET TOTAL</span>
+                                        </td>
+                                        <td colspan="5">
+                                            <t t-esc="o.amount_to_text_ar(o.amount_total,o.currency_id)"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div style="padding: 15px; border: 1px solid black; border-radius: 12px; height: 100%;">
+                                        <div class="text-center mb-2">
+                                            <br/>
+                                        </div>
+                                        <hr style="margin: 8px 0;"/>
+                                        <div class="row">
+                                            <div class="col-6 text-start">Manager</div>
+                                            <div class="col-6 text-end">المدير</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div style="padding: 15px; border: 1px solid black; border-radius: 12px; height: 100%;">
+                                        <div class="text-center mb-2">
+                                            <br/>
+
+                                        </div>
+                                        <hr style="margin: 8px 0;"/>
+                                        <div class="row">
+                                            <div class="col-6 text-start">Seller</div>
+                                            <div class="col-6 text-end">البائع</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div style="padding: 15px; border: 1px solid black; border-radius: 12px; height: 100%;">
+                                        <div class="text-center mb-2">
+                                            <br/>
+                                        </div>
+                                        <hr style="margin: 8px 0;"/>
+                                        <div class="row">
+                                            <div class="col-6 text-start">Customer</div>
+                                            <div class="col-6 text-end">العميل</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer" style="padding: 0; margin-top: 20px;">
+                                <div style="position: relative;">
+                                    <img src="invoice_prints/static/src/footer_esdar.png"
+                                         style="width: 104%; height: auto; margin-left: -2%;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

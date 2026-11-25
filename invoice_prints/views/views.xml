@@ -1,0 +1,125 @@
+<odoo>
+    <data>
+        <record id="id_paper_format_account_invoice_esdar" model="report.paperformat">
+            <field name="name">Account invoice esdar paper</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">30</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+        <record id="id_report_invoice_print_esdar" model="ir.actions.report">
+            <field name="name">Invoice ESDAR</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">invoice_prints.invoice_report_esdar_temp</field>
+            <field name="report_file">invoice_prints.invoice_report_esdar_temp</field>
+            <field name="print_report_name">'Invoice ESDAR - %s' % (object.name)</field>
+            <field name="attachment"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="paperformat_id" ref="id_paper_format_account_invoice_esdar"/>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="id_report_invoice_print_All" model="ir.actions.report">
+            <field name="name">Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">invoice_prints.invoice_report_all_temp</field>
+            <field name="report_file">invoice_prints.invoice_report_all_temp</field>
+            <field name="print_report_name">'Invoice - %s' % (object.name)</field>
+            <field name="attachment"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="paperformat_id" ref="id_paper_format_account_invoice_esdar"/>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="id_view_move_form" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']/parent::div[hasclass('o_col')]" position="after">
+                    <field name="customer_vat"
+                           string="الرقم الضريبي للعميل"
+                           readonly="1"
+                           invisible="move_type not in ('out_invoice', 'out_refund')"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="after">
+                    <field name='stock_location_id' readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_out_invoice_tree_customer_vat" model="ir.ui.view">
+            <field name="name">account.move.invoice.tree.partner.vat</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="(//field[@name='invoice_partner_display_name'])[last()]" position="after">
+                    <field
+                        name="customer_vat"
+                        string="الرقم الضريبي"
+                        readonly="1"
+                        optional="show"
+                    />
+                </xpath>
+            </field>
+        </record>
+        <record id="id_res_company_custom" model="ir.ui.view">
+            <field name="name">res.company.custom</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="is_esdar"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_move_form_inherit" model="ir.ui.view">
+            <field name="name">view move form inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_print" string="Print Inv" type="object"
+                            class="btn-primary" invisible="move_type not in ('out_invoice')"/>
+                </xpath>
+            </field>
+        </record>
+
+        <template inherit_id="product.report_simple_label_dymo" id="portal_layout_label_dymo_add">
+            <xpath expr="//div[hasclass('text-end')]" position="replace">
+                <div class="text-end"
+                     style="padding: 2px; background: #f8f9fa; border-radius: 2px; border: 1px solid #e9ecef;">
+                    <!-- Before Tax Price -->
+                    <div style="margin-bottom: 1px; padding: 1px 0; border-bottom: 1px solid #dee2e6;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 8px; color: #6c757d; font-weight: 500; text-transform: uppercase;">
+                                Before Tax
+                            </span>
+                            <strong style="font-size: 10px; font-weight: bold; color: #495057;"
+                                    t-out="pricelist._get_product_price(product, 1, pricelist.currency_id or product.currency_id)"
+                                    t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id or product.currency_id, 'label_price': True}"/>
+                        </div>
+                    </div>
+                    <!-- After Tax Price -->
+                    <div style="margin-bottom: 1px; padding: 1px 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 8px; color: #28a745; font-weight: 600; text-transform: uppercase;">
+                                After Tax
+                            </span>
+                            <strong style="font-size: 11px; font-weight: bold; color: #28a745;"
+                                    t-out="pricelist._get_product_price(product, 1, pricelist.currency_id or product.currency_id) * (1 + (product.taxes_id.amount / 100 if product.taxes_id else 0))"
+                                    t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id or product.currency_id, 'label_price': True}"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

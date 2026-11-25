@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_line_tree_cost_visibility" model="ir.ui.view">
+        <field name="name">sale.order.line.tree.cost.visibility</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line_form"/>
+        <field name="arch" type="xml">
+            <field name="purchase_price" position="attributes">
+                <attribute name="groups">product_cost_security.group_sale_order_cost_view</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_order_line_form_cost_visibility" model="ir.ui.view">
+        <field name="name">sale.order.line.form.cost.visibility</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line"/>
+        <field name="arch" type="xml">
+            <field name="purchase_price" position="attributes">
+                <attribute name="groups">product_cost_security.group_sale_order_cost_view</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

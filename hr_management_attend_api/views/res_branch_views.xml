@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_branch_form_attendance_api" model="ir.ui.view">
+        <field name="name">res.branch.form.attendance.api</field>
+        <field name="model">res.branch</field>
+        <field name="inherit_id" ref="branch.branch_res_branch_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="after">
+                <group string="Attendance API" groups="hr_management_attend_api.group_attendance_api_admin">
+                    <group>
+                        <field name="active"/>
+                        <field name="api_attendance_enabled"/>
+                        <field name="api_external_id" groups="base.group_system"/>
+                        <field name="api_timezone"/>
+                        <field name="api_latitude"/>
+                        <field name="api_longitude"/>
+                        <field name="api_radius_m"/>
+                        <field name="api_max_accuracy_m"/>
+                    </group>
+                    <group>
+                        <field name="api_enforce_time_windows"/>
+                        <field name="api_morning_start" widget="float_time"/>
+                        <field name="api_morning_end" widget="float_time"/>
+                        <field name="api_evening_start" widget="float_time"/>
+                        <field name="api_evening_end" widget="float_time"/>
+                        <field name="api_grace_period_minutes"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_branch_tree_attendance_api" model="ir.ui.view">
+        <field name="name">res.branch.tree.attendance.api</field>
+        <field name="model">res.branch</field>
+        <field name="inherit_id" ref="branch.branch_res_branch_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="api_attendance_enabled" optional="show"/>
+                <field name="api_external_id" optional="hide" groups="base.group_system"/>
+                <field name="api_radius_m" optional="hide"/>
+                <field name="api_timezone" optional="hide"/>
+                <field name="active" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

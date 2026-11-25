@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <record id="product_cost_access" model="res.groups">
+            <field name="name">Access Product Cost Minimum and Maximum</field>
+        </record>
+    </data>
+</odoo>

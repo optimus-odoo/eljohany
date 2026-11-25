@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_vendor_stock_difference_root"
+              name="Vendor vs Stock"
+              parent="account.menu_finance_reports"
+              sequence="95"/>
+
+    <menuitem id="menu_vendor_stock_difference_wizard"
+              name="Difference Report"
+              parent="menu_vendor_stock_difference_root"
+              action="action_vendor_stock_difference_wizard"
+              sequence="10"/>
+</odoo>

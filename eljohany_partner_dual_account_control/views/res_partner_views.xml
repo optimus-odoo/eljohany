@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_property_form_dual_account_control" model="ir.ui.view">
+        <field name="name">res.partner.property.form.dual.account.control</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <field name="property_account_payable_id" position="after">
+                <field name="account_control_state" widget="badge" readonly="1"/>
+                <field name="account_control_message" readonly="1" nolabel="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

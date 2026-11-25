@@ -1,0 +1,9 @@
+# Translation of Odoo Server.
+# This file is intentionally minimal because views and strings are already Arabic-only.
+msgid ""
+msgstr ""
+"Project-Id-Version: stock_period_movement_report\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"

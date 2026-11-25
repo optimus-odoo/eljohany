@@ -1,0 +1,38 @@
+<odoo>
+<record id="paperformat_company_records" model="report.paperformat">
+    <field name="name">Company Records A4</field><field name="format">A4</field>
+    <field name="orientation">Portrait</field><field name="margin_top">15</field><field name="margin_bottom">15</field>
+    <field name="margin_left">10</field><field name="margin_right">10</field>
+</record>
+<record id="action_company_records_report" model="ir.actions.report">
+    <field name="name">تقرير السجلات</field>
+    <field name="model">crm.company.branch</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">company_records_management.branch_report</field>
+    <field name="report_file">company_records_management.branch_report</field>
+    <field name="paperformat_id" ref="paperformat_company_records"/>
+    <field name="binding_model_id" ref="model_crm_company_branch"/>
+    <field name="binding_type">report</field>
+</record>
+<template id="branch_report">
+<t t-call="web.html_container">
+<t t-foreach="docs" t-as="o">
+<t t-call="web.external_layout">
+<div class="page" dir="rtl">
+<h2>تقرير الفرع</h2>
+<table class="table table-sm">
+<tr><th>الفرع</th><td><span t-field="o.name"/></td></tr>
+<tr><th>الشركة</th><td><span t-field="o.company_id"/></td></tr>
+<tr><th>الكود</th><td><span t-field="o.code"/></td></tr>
+<tr><th>المدينة</th><td><span t-field="o.city"/></td></tr>
+<tr><th>الحالة</th><td><span t-field="o.state"/></td></tr>
+</table>
+<h3>السجلات التجارية</h3>
+<table class="table table-sm"><tr><th>الرقم</th><th>الانتهاء</th><th>الحالة</th></tr>
+<t t-foreach="o.commercial_registration_ids" t-as="r"><tr><td><span t-field="r.name"/></td><td><span t-field="r.expiration_date"/></td><td><span t-field="r.status"/></td></tr></t></table>
+</div>
+</t>
+</t>
+</t>
+</template>
+</odoo>

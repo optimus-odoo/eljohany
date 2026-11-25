@@ -1,0 +1,186 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * eljohany_executive_intelligence_purchase
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Analytics Warehouses"
+msgstr "المستودعات المسموحة للتحليل"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Confirmed purchase orders"
+msgstr "أوامر الشراء المؤكدة"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Orders confirmed in the selected period"
+msgstr "الأوامر المؤكدة خلال الفترة المحددة"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Orders awaiting receipt"
+msgstr "أوامر بانتظار الاستلام"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Current open incoming receipts"
+msgstr "الاستلامات الواردة المفتوحة حالياً"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Overdue receipts"
+msgstr "الاستلامات المتأخرة"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Open receipts past their scheduled date"
+msgstr "استلامات مفتوحة تجاوزت التاريخ المجدول"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Confirmed purchase value (%s)"
+msgstr "قيمة المشتريات المؤكدة (%s)"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Untaxed value converted on each order date"
+msgstr "القيمة دون الضريبة محولة بسعر الصرف في تاريخ كل أمر"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Receipt lead time"
+msgstr "مدة التوريد حتى الاستلام"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "%.1f days"
+msgstr "%.1f يوم"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Median %.1f days from approval to completed receipt"
+msgstr "الوسيط %.1f يوم من الاعتماد حتى اكتمال الاستلام"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Top suppliers by confirmed untaxed value"
+msgstr "أعلى الموردين حسب القيمة المؤكدة دون الضريبة"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Supplier"
+msgstr "المورد"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Company"
+msgstr "الشركة"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Orders"
+msgstr "الأوامر"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Value"
+msgstr "القيمة"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Monthly confirmed purchase trend"
+msgstr "الاتجاه الشهري للمشتريات المؤكدة"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Month"
+msgstr "الشهر"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Company Currency"
+msgstr "عملة الشركة"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Untaxed Value"
+msgstr "القيمة دون الضريبة"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "No analytics warehouse is configured for this user."
+msgstr "لم يتم تحديد مستودع تحليلي لهذا المستخدم."
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "The selected warehouse scope is not allowed."
+msgstr "نطاق المستودعات المحدد غير مسموح به."
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid ""
+"The selected period contains too many orders for a live value calculation. "
+"Counts remain exact; value analysis is withheld until the scheduled summary "
+"is available."
+msgstr ""
+"تحتوي الفترة المحددة على أوامر أكثر من الحد الآمن للحساب المباشر. تظل "
+"الأعداد دقيقة، ولا تُعرض تحليلات القيمة حتى يتوفر الملخص المجدول."
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid ""
+"Untaxed value of purchase orders in Purchase or Done state, converted to "
+"company currency using the order date."
+msgstr ""
+"القيمة دون الضريبة لأوامر الشراء في حالة أمر شراء أو منتهٍ، محولة إلى عملة "
+"الشركة بسعر تاريخ الأمر."
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid ""
+"Open incoming receipts linked to purchase orders whose scheduled date is "
+"before the current server time."
+msgstr ""
+"الاستلامات الواردة المفتوحة المرتبطة بأوامر شراء والتي يسبق تاريخها المجدول "
+"وقت الخادم الحالي."
+
+#. module: eljohany_executive_intelligence_purchase
+#: model:ir.module.module,shortdesc:base.module_eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Eljohany Procurement Intelligence"
+msgstr "الجهني — ذكاء المشتريات والموردين"
+
+#. module: eljohany_executive_intelligence_purchase
+#: model:ir.module.module,summary:base.module_eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Verified procurement KPIs with user and warehouse scoping"
+msgstr "مؤشرات مشتريات موثقة ومقيدة بالمستخدم والمستودع"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Monthly confirmed purchase order trend"
+msgstr "اتجاه أوامر الشراء المؤكدة شهريًا"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Confirmed order count without mixing currencies"
+msgstr "عدد الأوامر المؤكدة دون خلط العملات"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Top suppliers by confirmed order count"
+msgstr "أعلى الموردين حسب عدد الأوامر المؤكدة"
+
+#. module: eljohany_executive_intelligence_purchase
+#: code:addons/eljohany_executive_intelligence_purchase:1
+msgid "Overdue share of open receipts"
+msgstr "نسبة الاستلامات المفتوحة المتأخرة"

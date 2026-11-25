@@ -1,0 +1,74 @@
+<odoo>
+    <record id="view_stock_period_report_wizard_form" model="ir.ui.view">
+        <field name="name">stock.period.report.wizard.form</field>
+        <field name="model">stock.period.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="تقرير حركة المخزون بين فترتين">
+                <group>
+                    <group>
+                        <field name="company_id" string="الشركة" options="{'no_create': True}"/>
+                        <field name="warehouse_id" string="المستودع" options="{'no_create': True}"/>
+                        <field name="location_ids" string="المواقع" widget="many2many_tags" placeholder="كل مواقع المخزون"/>
+                    </group>
+                    <group>
+                        <field name="date_from" string="من تاريخ"/>
+                        <field name="date_to" string="إلى تاريخ"/>
+                        <field name="report_mode" string="نوع التقرير"/>
+                        <field name="show_value" string="إظهار القيمة"/>
+                    </group>
+                </group>
+
+                <group>
+                    <group>
+                        <field name="categ_id" string="فئة الأصناف"/>
+                        <field name="product_ids" string="الأصناف" widget="many2many_tags" placeholder="كل الأصناف المخزنية"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button string="إنشاء التقرير" type="object" name="action_generate" class="btn-primary"/>
+                    <button string="تصدير Excel" type="object" name="action_export_xlsx" class="btn-secondary"/>
+                    <button string="إغلاق" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_stock_period_report_line_tree" model="ir.ui.view">
+        <field name="name">stock.period.report.line.tree</field>
+        <field name="model">stock.period.report.line</field>
+        <field name="arch" type="xml">
+            <tree string="تقرير حركة المخزون" create="false" edit="false" delete="false">
+                <field name="product_id" string="الصنف"/>
+                <field name="date" string="التاريخ"/>
+                <field name="movement_type" string="نوع الحركة"/>
+                <field name="reference" string="المرجع"/>
+                <field name="location_id" optional="show"/>
+                <field name="location_dest_id" optional="show"/>
+                <field name="qty_opening" optional="show" sum="Opening"/>
+                <field name="qty_in" sum="In"/>
+                <field name="qty_out" sum="Out"/>
+                <field name="balance_qty" sum="Balance"/>
+                <field name="unit_cost" optional="show"/>
+                <field name="opening_value" optional="hide" sum="Opening Value"/>
+                <field name="movement_value" optional="show" sum="Movement Value"/>
+                <field name="balance_value" optional="show" sum="Balance Value"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_stock_period_report_wizard" model="ir.actions.act_window">
+        <field name="name">تقرير حركة المخزون بين فترتين</field>
+        <field name="res_model">stock.period.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_stock_period_report_lines" model="ir.actions.act_window">
+        <field name="name">تقرير حركة المخزون</field>
+        <field name="res_model">stock.period.report.line</field>
+        <field name="view_mode">tree</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

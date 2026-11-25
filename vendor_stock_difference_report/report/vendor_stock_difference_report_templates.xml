@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_vendor_stock_difference_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Vendor vs Stock Difference Report</h2>
+                        <p>
+                            <strong>Company:</strong> <span t-esc="o.company_id.display_name"/><br/>
+                            <strong>From:</strong> <span t-esc="o.date_from"/>
+                            <strong>To:</strong> <span t-esc="o.date_to"/>
+                            <br/>
+                            <strong>Group By:</strong>
+                            <span t-esc="dict(o._fields['group_by'].selection).get(o.group_by)"/>
+                        </p>
+
+                        <p t-if="o.notes"><strong>Note:</strong> <span t-esc="o.notes"/></p>
+
+                        <table class="table table-sm o_main_table">
+                            <thead>
+                                <tr>
+                                    <th>Vendor</th>
+                                    <th t-if="o.group_by == 'supplier_product'">Product</th>
+                                    <th class="text-end">Vendor Bill Value</th>
+                                    <th class="text-end">Total Debit</th>
+                                    <th class="text-end">Total Credit</th>
+                                    <th class="text-end">Partner Ledger Balance</th>
+                                    <th class="text-end">Stock Balance</th>
+                                    <th class="text-end">Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_invoice" t-value="0.0"/>
+                                <t t-set="total_debit" t-value="0.0"/>
+                                <t t-set="total_credit" t-value="0.0"/>
+                                <t t-set="total_vendor_balance" t-value="0.0"/>
+                                <t t-set="total_stock" t-value="0.0"/>
+                                <t t-set="total_diff" t-value="0.0"/>
+                                <tr t-foreach="o.result_line_ids.sorted(key=lambda l: ((l.partner_name or ''), (l.product_name or '')))" t-as="line">
+                                    <t t-set="total_invoice" t-value="total_invoice + line.invoice_value"/>
+                                    <t t-set="total_debit" t-value="total_debit + line.vendor_debit"/>
+                                    <t t-set="total_credit" t-value="total_credit + line.vendor_credit"/>
+                                    <t t-set="total_vendor_balance" t-value="total_vendor_balance + line.vendor_gl_balance"/>
+                                    <t t-set="total_stock" t-value="total_stock + line.stock_value"/>
+                                    <t t-set="total_diff" t-value="total_diff + line.difference"/>
+                                    <td><span t-esc="line.partner_name"/></td>
+                                    <td t-if="o.group_by == 'supplier_product'"><span t-esc="line.product_name"/></td>
+                                    <td class="text-end"><span t-esc="line.invoice_value" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td class="text-end"><span t-esc="line.vendor_debit" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td class="text-end"><span t-esc="line.vendor_credit" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td class="text-end"><span t-esc="line.vendor_gl_balance" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td class="text-end"><span t-esc="line.stock_value" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td class="text-end"><span t-esc="line.difference" t-options='{"widget": "float", "precision": 2}'/></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Totals</th>
+                                    <th t-if="o.group_by == 'supplier_product'"></th>
+                                    <th class="text-end"><span t-esc="total_invoice" t-options='{"widget": "float", "precision": 2}'/></th>
+                                    <th class="text-end"><span t-esc="total_debit" t-options='{"widget": "float", "precision": 2}'/></th>
+                                    <th class="text-end"><span t-esc="total_credit" t-options='{"widget": "float", "precision": 2}'/></th>
+                                    <th class="text-end"><span t-esc="total_vendor_balance" t-options='{"widget": "float", "precision": 2}'/></th>
+                                    <th class="text-end"><span t-esc="total_stock" t-options='{"widget": "float", "precision": 2}'/></th>
+                                    <th class="text-end"><span t-esc="total_diff" t-options='{"widget": "float", "precision": 2}'/></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

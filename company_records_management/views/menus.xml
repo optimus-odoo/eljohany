@@ -1,0 +1,36 @@
+<odoo>
+<menuitem id="menu_root" name="إدارة سجلات الشركات" action="action_dashboard" sequence="10" groups="company_records_management.group_records_user" web_icon="company_records_management,static/description/icon.png"/>
+<menuitem id="menu_dashboard" name="لوحة التحكم" parent="menu_root" action="action_dashboard" sequence="1" groups="company_records_management.group_records_user"/>
+<menuitem id="menu_master" name="البيانات الرئيسية" parent="menu_root" sequence="10"/>
+<menuitem id="menu_companies" name="الشركات" parent="menu_master" action="action_companies" sequence="10"/>
+<menuitem id="menu_branches" name="الفروع" parent="menu_master" action="action_branches" sequence="20"/>
+<menuitem id="menu_documents" name="السجلات والتراخيص" parent="menu_root" sequence="20"/>
+<menuitem id="menu_reg" name="السجلات التجارية" parent="menu_documents" action="action_registration" sequence="10"/>
+<menuitem id="menu_muni" name="الرخص البلدية" parent="menu_documents" action="action_municipality" sequence="20"/>
+<menuitem id="menu_address" name="العناوين الوطنية" parent="menu_documents" action="action_address" sequence="30"/>
+<menuitem id="menu_elec" name="عدادات الكهرباء" parent="menu_documents" action="action_electricity" sequence="40"/>
+<menuitem id="menu_civil" name="الدفاع المدني" parent="menu_documents" action="action_civil" sequence="50"/>
+<menuitem id="menu_bank" name="الحسابات البنكية" parent="menu_documents" action="action_bank" sequence="60"/>
+<menuitem id="menu_lease" name="عقود الإيجار" parent="menu_root" action="action_lease" sequence="30"/>
+<menuitem id="menu_reports" name="التقارير" parent="menu_root" sequence="40"/>
+<menuitem id="menu_pdf" name="تقرير إدارة السجلات PDF" parent="menu_reports" action="company_records_management.action_records_pdf" sequence="10"/>
+<menuitem id="menu_xlsx" name="تصدير Excel" parent="menu_reports" action="action_xlsx_wizard" sequence="20"/>
+<menuitem id="menu_audit" name="سجل التدقيق" parent="menu_root" action="action_audit" sequence="50" groups="company_records_management.group_records_manager,company_records_management.group_records_auditor"/>
+<!-- Retain external IDs on upgrade; the workspace replaces these entry points. -->
+<record id="menu_dashboard" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_master" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_companies" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_branches" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_documents" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_reg" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_muni" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_address" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_elec" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_civil" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_bank" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_lease" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_reports" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_pdf" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_xlsx" model="ir.ui.menu"><field name="active" eval="False"/></record>
+<record id="menu_audit" model="ir.ui.menu"><field name="active" eval="False"/></record>
+</odoo>

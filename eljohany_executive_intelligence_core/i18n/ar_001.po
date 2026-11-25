@@ -1,0 +1,793 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * eljohany_executive_intelligence_core
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Language: ar_001\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.actions.client,name:eljohany_executive_intelligence_core.action_executive_intelligence_center
+#: model:ir.ui.menu,name:eljohany_executive_intelligence_core.menu_ei_root
+msgid "Executive Intelligence Center"
+msgstr "مركز المعلومات والذكاء التنفيذي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.ui.menu,name:eljohany_executive_intelligence_core.menu_ei_center
+msgid "Intelligence Center"
+msgstr "مركز المعلومات والذكاء التنفيذي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.module.category,name:eljohany_executive_intelligence_core.module_category_executive_intelligence
+#: model_terms:ir.ui.view,arch_db:eljohany_executive_intelligence_core.view_users_form_executive_intelligence
+msgid "Executive Intelligence"
+msgstr "الذكاء التنفيذي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:executive.intelligence.dashboard,name:eljohany_executive_intelligence_core.dashboard_executive
+msgid "Executive Overview"
+msgstr "النظرة التنفيذية الشاملة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:executive.intelligence.dashboard,name:eljohany_executive_intelligence_core.dashboard_finance
+msgid "Financial Intelligence"
+msgstr "التحليل المالي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:executive.intelligence.dashboard,name:eljohany_executive_intelligence_core.dashboard_sales
+msgid "Sales & CRM Intelligence"
+msgstr "تحليل المبيعات والعملاء"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:executive.intelligence.dashboard,name:eljohany_executive_intelligence_core.dashboard_purchase
+msgid "Procurement Intelligence"
+msgstr "تحليل المشتريات والموردين"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:executive.intelligence.dashboard,name:eljohany_executive_intelligence_core.dashboard_inventory
+msgid "Inventory Intelligence"
+msgstr "تحليل المخزون والمستودعات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:executive.intelligence.dashboard,name:eljohany_executive_intelligence_core.dashboard_product
+msgid "Product Intelligence"
+msgstr "تحليل أداء المنتجات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:executive.intelligence.dashboard,name:eljohany_executive_intelligence_core.dashboard_forecast
+msgid "Predictive Analytics"
+msgstr "التنبؤات والتحليلات المستقبلية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:executive.intelligence.dashboard,name:eljohany_executive_intelligence_core.dashboard_hr
+msgid "Human Resources Intelligence"
+msgstr "مؤشرات الموارد البشرية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:executive.intelligence.dashboard,name:eljohany_executive_intelligence_core.dashboard_operations
+msgid "Operations & Manufacturing"
+msgstr "الأداء التشغيلي والإنتاجي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:executive.intelligence.dashboard,name:eljohany_executive_intelligence_core.dashboard_risk
+msgid "Risk & Alerts Center"
+msgstr "مركز المخاطر والتنبيهات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_enabled
+msgid "Executive Intelligence Access"
+msgstr "السماح بدخول مركز الذكاء التنفيذي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_access_profile_id
+msgid "Intelligence Access Profile"
+msgstr "قالب صلاحيات مركز الذكاء"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_custom_access
+msgid "Use Custom Intelligence Access"
+msgstr "استخدام صلاحيات مخصصة للمستخدم"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_dashboard_ids
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_profile__dashboard_ids
+msgid "Allowed Dashboards"
+msgstr "اللوحات المسموحة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_company_ids
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_profile__company_ids
+msgid "Analytics Companies"
+msgstr "الشركات المسموحة للتحليل"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_financial_access
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_profile__financial_access
+msgid "Financial Data Level"
+msgstr "مستوى البيانات المالية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_hr_access
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_profile__hr_access
+msgid "HR Data Level"
+msgstr "مستوى بيانات الموارد البشرية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_can_drilldown
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_profile__can_drilldown
+msgid "Allow Drill-Down"
+msgstr "السماح بعرض التفاصيل"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_can_export
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_profile__can_export
+msgid "Allow Export"
+msgstr "السماح بالتصدير"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_can_forecast
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_profile__can_forecast
+msgid "Allow Forecasts"
+msgstr "السماح بالتنبؤات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_can_manage_alerts
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_profile__can_manage_alerts
+msgid "Manage Alerts"
+msgstr "إدارة التنبيهات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_can_manage_kpis
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_profile__can_manage_kpis
+msgid "Manage KPI Definitions"
+msgstr "إدارة تعريفات مؤشرات الأداء"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.actions.act_window,name:eljohany_executive_intelligence_core.action_ei_access_profiles
+#: model:ir.ui.menu,name:eljohany_executive_intelligence_core.menu_ei_access_profiles
+msgid "Access Profiles"
+msgstr "قوالب الصلاحيات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.ui.menu,name:eljohany_executive_intelligence_core.menu_ei_configuration
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.actions.act_window,name:eljohany_executive_intelligence_core.action_ei_access_logs
+#: model:ir.ui.menu,name:eljohany_executive_intelligence_core.menu_ei_access_logs
+msgid "Access Change Log"
+msgstr "سجل تغييرات الصلاحيات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Intelligence access audit logs are immutable."
+msgstr "سجلات تدقيق صلاحيات مركز الذكاء غير قابلة للتعديل أو الحذف."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Intelligence access logs can only be created automatically."
+msgstr "لا يمكن إنشاء سجلات صلاحيات مركز الذكاء إلا آلياً."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__res_users__ei_financial_access__none
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__res_users__ei_hr_access__none
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_access_profile__financial_access__none
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_access_profile__hr_access__none
+msgid "None"
+msgstr "لا شيء"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__res_users__ei_financial_access__summary
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_access_profile__financial_access__summary
+msgid "Summary"
+msgstr "ملخص"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__res_users__ei_financial_access__detail
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_access_profile__financial_access__detail
+msgid "Details"
+msgstr "تفاصيل"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__res_users__ei_hr_access__statistics
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_access_profile__hr_access__statistics
+msgid "Statistics Only"
+msgstr "إحصاءات فقط"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__res_users__ei_hr_access__employee
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_access_profile__hr_access__employee
+msgid "Employee Details"
+msgstr "تفاصيل الموظفين"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__res_users__ei_hr_access__payroll
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_access_profile__hr_access__payroll
+msgid "Payroll and Cost"
+msgstr "الرواتب والتكلفة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "You are not allowed to access the intelligence center."
+msgstr "غير مسموح لك بالدخول إلى مركز الذكاء التنفيذي."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "You are not allowed to access this dashboard."
+msgstr "غير مسموح لك بالدخول إلى هذه اللوحة."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "The selected company scope is not allowed."
+msgstr "نطاق الشركات المحدد غير مسموح به."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "This dashboard data provider is not installed yet."
+msgstr "موفر بيانات هذه اللوحة غير مثبت حتى الآن."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Automatically Configured"
+msgstr "مُهيأ تلقائياً"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid ""
+"The intelligence scope is maintained from the user's standard Odoo roles."
+msgstr ""
+"يُحدّث نطاق مركز الذكاء تلقائياً وفق صلاحيات المستخدم الأصلية في أودو."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "When enabled, the values on this user override the selected profile."
+msgstr "عند التفعيل تتجاوز إعدادات هذا المستخدم قالب الصلاحيات المحدد."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Must be a subset of the user's standard allowed companies."
+msgstr "يجب أن تكون ضمن الشركات الأصلية المسموحة للمستخدم."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_dashboard__sensitivity__normal
+msgid "Normal"
+msgstr "عادي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_dashboard__sensitivity__financial
+msgid "Financial"
+msgstr "مالي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_dashboard__sensitivity__hr
+msgid "Human Resources"
+msgstr "الموارد البشرية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_dashboard__sensitivity__payroll
+msgid "Payroll"
+msgstr "الرواتب"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model_terms:ir.ui.view,arch_db:eljohany_executive_intelligence_core.view_users_form_executive_intelligence
+msgid "Access Source"
+msgstr "مصدر الصلاحية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model_terms:ir.ui.view,arch_db:eljohany_executive_intelligence_core.view_users_form_executive_intelligence
+msgid "Effective Scope"
+msgstr "النطاق الفعّال"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model_terms:ir.ui.view,arch_db:eljohany_executive_intelligence_core.view_users_form_executive_intelligence
+msgid "Custom Sensitivity and Actions"
+msgstr "مستويات السرية والإجراءات المخصصة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model_terms:ir.ui.view,arch_db:eljohany_executive_intelligence_core.view_users_form_executive_intelligence
+msgid ""
+"Access is enabled but no profile or custom scope is configured. The user "
+"will see no dashboards."
+msgstr ""
+"تم السماح بالدخول دون تحديد قالب أو نطاق مخصص؛ لن تظهر أي لوحة لهذا "
+"المستخدم."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model_terms:ir.ui.view,arch_db:eljohany_executive_intelligence_core.view_ei_access_profile_form
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_dashboard__sensitivity
+msgid "Sensitivity"
+msgstr "مستوى السرية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model_terms:ir.ui.view,arch_db:eljohany_executive_intelligence_core.view_ei_access_profile_form
+msgid "Actions"
+msgstr "الإجراءات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model_terms:ir.ui.view,arch_db:eljohany_executive_intelligence_core.view_ei_access_profile_form
+msgid "Archived"
+msgstr "مؤرشف"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model_terms:ir.ui.view,arch_db:eljohany_executive_intelligence_core.view_ei_access_log_form
+msgid "Configuration Snapshot"
+msgstr "لقطة إعدادات الصلاحية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_access_log__operation__create
+msgid "Initial Configuration"
+msgstr "التهيئة الأولية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields.selection,name:eljohany_executive_intelligence_core.selection__executive_intelligence_access_log__operation__write
+msgid "Access Changed"
+msgstr "تعديل الصلاحية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_profile__name
+msgid "Profile Name"
+msgstr "اسم قالب الصلاحية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_log__target_user_id
+msgid "Target User"
+msgstr "المستخدم المستهدف"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_log__changed_by_id
+msgid "Changed By"
+msgstr "تم التغيير بواسطة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_log__change_date
+msgid "Change Date"
+msgstr "تاريخ التغيير"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_log__operation
+msgid "Operation"
+msgstr "العملية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_log__previous_configuration
+msgid "Previous Configuration"
+msgstr "الإعداد السابق"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_access_log__new_configuration
+msgid "New Configuration"
+msgstr "الإعداد الجديد"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_dashboard__name
+msgid "Dashboard Name"
+msgstr "اسم اللوحة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_dashboard__code
+msgid "Dashboard Code"
+msgstr "رمز اللوحة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_dashboard__sequence
+msgid "Sequence"
+msgstr "الترتيب"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_dashboard__icon
+msgid "Icon"
+msgstr "الأيقونة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_executive_intelligence_dashboard__required_module_names
+msgid "Required Modules"
+msgstr "الموديولات المطلوبة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model,name:eljohany_executive_intelligence_core.model_executive_intelligence_access_profile
+msgid "Executive Intelligence Access Profile"
+msgstr "قالب صلاحيات الذكاء التنفيذي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model,name:eljohany_executive_intelligence_core.model_executive_intelligence_dashboard
+msgid "Executive Intelligence Dashboard"
+msgstr "لوحة الذكاء التنفيذي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model,name:eljohany_executive_intelligence_core.model_executive_intelligence_access_log
+msgid "Executive Intelligence Access Change Log"
+msgstr "سجل تغييرات صلاحيات الذكاء التنفيذي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model,name:eljohany_executive_intelligence_core.model_executive_intelligence_service
+msgid "Executive Intelligence Service"
+msgstr "خدمة الذكاء التنفيذي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Technical key used to update automatically generated profiles safely."
+msgstr "مفتاح تقني لتحديث القوالب المنشأة تلقائياً بصورة آمنة."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Comma-separated technical module names. All must be installed."
+msgstr "أسماء الموديولات التقنية مفصولة بفواصل، ويجب تثبيتها جميعاً."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Dashboard code must be unique."
+msgstr "يجب ألا يتكرر رمز اللوحة."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Dashboard code may contain only letters, numbers, and underscores."
+msgstr "لا يقبل رمز اللوحة إلا الحروف والأرقام والشرطة السفلية."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Automatic access profile code must be unique."
+msgstr "يجب ألا يتكرر رمز قالب الصلاحيات التلقائي."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Analytics companies must be included in the user's allowed companies."
+msgstr "يجب أن تكون شركات التحليل ضمن الشركات المسموحة للمستخدم."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:res.groups,name:eljohany_executive_intelligence_core.group_ei_user
+msgid "Intelligence Center User"
+msgstr "مستخدم مركز الذكاء التنفيذي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:res.groups,name:eljohany_executive_intelligence_core.group_ei_admin
+msgid "Intelligence Center Administrator"
+msgstr "مدير مركز الذكاء التنفيذي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.module.category,description:eljohany_executive_intelligence_core.module_category_executive_intelligence
+msgid "Access to executive and departmental analytics"
+msgstr "صلاحيات الوصول إلى التحليلات التنفيذية وتحليلات الإدارات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Invalid company filter."
+msgstr "مرشح الشركات غير صالح."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Invalid date filter."
+msgstr "مرشح التاريخ غير صالح."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "The start date must not be after the end date."
+msgstr "يجب ألا يكون تاريخ البداية بعد تاريخ النهاية."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "The selected period is too large."
+msgstr "الفترة المحددة أكبر من الحد المسموح."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Loading intelligence center…"
+msgstr "جارٍ تحميل مركز المعلومات والذكاء التنفيذي…"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Last update:"
+msgstr "آخر تحديث:"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "From"
+msgstr "من"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "To"
+msgstr "إلى"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Companies"
+msgstr "الشركات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Warehouses"
+msgstr "المستودعات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Apply"
+msgstr "تطبيق"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Selected"
+msgstr "محدد"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Select all"
+msgstr "تحديد الكل"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Clear"
+msgstr "مسح"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid ""
+"No dashboards are assigned to this user. Contact the intelligence center "
+"administrator."
+msgstr ""
+"لا توجد لوحات مسندة لهذا المستخدم. يرجى التواصل مع مدير مركز الذكاء "
+"التنفيذي."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Loading verified data…"
+msgstr "جارٍ تحميل البيانات الموثقة…"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Unable to load the intelligence center."
+msgstr "تعذر تحميل مركز المعلومات والذكاء التنفيذي."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Unable to load dashboard data."
+msgstr "تعذر تحميل بيانات اللوحة."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Complete error details"
+msgstr "تفاصيل الخطأ كاملة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Technical traceback"
+msgstr "التتبع التقني الكامل للخطأ"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Retry"
+msgstr "إعادة المحاولة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Copy error"
+msgstr "نسخ الخطأ"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Copied"
+msgstr "تم النسخ"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Dashboard:"
+msgstr "لوحة المعلومات:"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Occurred at:"
+msgstr "وقت حدوث الخطأ:"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "The complete error details are displayed below and will remain visible until retry."
+msgstr "تظهر تفاصيل الخطأ كاملة أدناه، وستظل ظاهرة حتى إعادة المحاولة."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Intelligence center loading error"
+msgstr "خطأ في تحميل مركز المعلومات والذكاء التنفيذي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Dashboard loading error"
+msgstr "خطأ في تحميل لوحة المعلومات"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "The complete error details are displayed on the dashboard."
+msgstr "تم عرض تفاصيل الخطأ كاملة داخل لوحة المعلومات."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Unable to copy the error details."
+msgstr "تعذر نسخ تفاصيل الخطأ."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+#: model:ir.model.fields,field_description:eljohany_executive_intelligence_core.field_res_users__ei_auto_configured
+msgid "Automatic Role-Based Configuration"
+msgstr "التهيئة التلقائية حسب دور المستخدم"
+
+#. module: eljohany_executive_intelligence_core
+#: model:ir.module.module,shortdesc:base.module_eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Eljohany Executive Intelligence Core"
+msgstr "الجهني — الأساس الآمن لمركز الذكاء التنفيذي"
+
+#. module: eljohany_executive_intelligence_core
+#: model:ir.module.module,summary:base.module_eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Secure, user-scoped executive intelligence center"
+msgstr "مركز ذكاء تنفيذي آمن ومقيد بصلاحيات كل مستخدم"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Search in table…"
+msgstr "بحث في الجدول…"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "No matching rows."
+msgstr "لا توجد صفوف مطابقة."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "rows"
+msgstr "صفوف"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Line chart"
+msgstr "رسم خطي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Area chart"
+msgstr "رسم مساحي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Bar chart"
+msgstr "رسم شريطي"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Column chart"
+msgstr "رسم بالأعمدة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Gauge"
+msgstr "مؤشر قياس"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Progress"
+msgstr "مؤشر تقدم"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Heatmap"
+msgstr "خريطة حرارية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Geographic map"
+msgstr "خريطة جغرافية"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "New"
+msgstr "جديد"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "vs previous period"
+msgstr "مقارنة بالفترة السابقة"
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "The dashboard provider returned an invalid payload."
+msgstr "أعاد موفّر اللوحة حمولة بيانات غير صالحة."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Dashboard collection '%s' must be a list."
+msgstr "يجب أن تكون مجموعة اللوحة '%s' قائمة."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "The dashboard provider returned an unsupported chart."
+msgstr "أعاد موفّر اللوحة نوع رسم غير مدعوم."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Every chart must have a key and a title."
+msgstr "يجب أن يحتوي كل رسم على مفتاح وعنوان."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Chart items must be a list."
+msgstr "يجب أن تكون عناصر الرسم قائمة."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Chart values must be finite numbers."
+msgstr "يجب أن تكون قيم الرسم أرقامًا صحيحة ومحدودة."
+
+#. module: eljohany_executive_intelligence_core
+#: code:addons/eljohany_executive_intelligence_core:1
+msgid "Geographic chart coordinates are invalid."
+msgstr "إحداثيات الرسم الجغرافي غير صالحة."

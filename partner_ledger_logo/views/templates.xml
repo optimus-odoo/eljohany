@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <template id="custom_pdf_export_main" inherit_id="account_reports.pdf_export_main">
+            <!-- Add logo in header, move it to the left side with more space -->
+            <xpath expr="//header" position="before">
+                <center>
+                    <img src="/partner_ledger_logo/static/description/logo.png"
+                         style="height: 80px; width: 250px; object-fit: contain; margin-top: 20px;"
+                         alt="Logo"/>
+                    <br/>
+                    <br/>
+                </center>
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

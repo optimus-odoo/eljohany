@@ -1,0 +1,60 @@
+.o_form_view {
+    .o_attendance_sync_log_metrics {
+        margin-bottom: 0.5rem;
+    }
+
+    .o_attendance_sync_metric {
+        display: flex;
+        min-height: 5.25rem;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0.875rem 1rem;
+        border: 1px solid var(--border-color, #dee2e6);
+        border-inline-start-width: 0.25rem;
+        border-radius: 0.5rem;
+        background: var(--o-view-background-color, #fff);
+
+        .o_field_widget {
+            margin-top: 0.15rem;
+            font-size: 1.65rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+    }
+
+    .o_attendance_sync_metric_fetched {
+        border-inline-start-color: #6c757d;
+    }
+
+    .o_attendance_sync_metric_created {
+        border-inline-start-color: #198754;
+    }
+
+    .o_attendance_sync_metric_updated {
+        border-inline-start-color: #0d6efd;
+    }
+
+    .o_attendance_sync_metric_skipped {
+        border-inline-start-color: #ffc107;
+    }
+
+    .o_attendance_sync_metric_failed {
+        border-inline-start-color: #dc3545;
+    }
+
+    .o_attendance_sync_log_details {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        min-height: 5rem;
+        padding: 1rem 1.25rem;
+        border: 1px solid var(--border-color, #dee2e6);
+        border-radius: 0.5rem;
+        background: var(--o-gray-100, #f8f9fa);
+        font-size: 0.95rem;
+        line-height: 1.75;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        unicode-bidi: plaintext;
+    }
+}

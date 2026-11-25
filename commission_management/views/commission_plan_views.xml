@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_commission_plan_tree" model="ir.ui.view">
+        <field name="name">commission.plan.tree</field>
+        <field name="model">commission.plan</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="state == 'closed'">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="trigger_type"/>
+                <field name="base_type"/>
+                <field name="payment_frequency"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_commission_plan_form" model="ir.ui.view">
+        <field name="name">commission.plan.form</field>
+        <field name="model">commission.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_activate" string="Activate" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_close" string="Close" type="object" invisible="state == 'closed'"/>
+                    <button name="action_reset_to_draft" string="Reset to Draft" type="object" invisible="state != 'closed'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Monthly Sales Commission"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="currency_id"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                        <group>
+                            <field name="trigger_type"/>
+                            <field name="base_type"/>
+                            <field name="payment_frequency"/>
+                            <field name="allow_rule_stacking"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Rules">
+                            <field name="rule_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="calculation_method"/>
+                                    <field name="rate"/>
+                                    <field name="fixed_amount"/>
+                                    <field name="beneficiary_type"/>
+                                    <field name="team_id"/>
+                                    <field name="product_id"/>
+                                    <field name="product_categ_id"/>
+                                    <field name="target_min_amount"/>
+                                    <field name="target_max_amount"/>
+                                    <field name="active"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Accounting">
+                            <group>
+                                <field name="journal_id"/>
+                                <field name="expense_account_id"/>
+                                <field name="liability_account_id"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_commission_plan_search" model="ir.ui.view">
+        <field name="name">commission.plan.search</field>
+        <field name="model">commission.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="company_id"/>
+                <filter string="Active" name="active_state" domain="[('state', '=', 'active')]"/>
+                <filter string="Draft" name="draft_state" domain="[('state', '=', 'draft')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Company" name="group_company" context="{'group_by': 'company_id'}"/>
+                    <filter string="Trigger" name="group_trigger" context="{'group_by': 'trigger_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_commission_plan" model="ir.actions.act_window">
+        <field name="name">Commission Plans</field>
+        <field name="res_model">commission.plan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

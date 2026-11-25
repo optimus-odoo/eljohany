@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="id_view_account_credit_form">
+            <field name="name">Account Credit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group" position="inside">
+                    <field name="location_id" invisible="move_type not in ('out_refund')" readonly="state == 'posted'"/>
+                    <field name="plumber_id" invisible="move_type not in ('out_refund')" readonly="state == 'posted'"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_bank_id']" position="after">
+                    <field name="location_id"/>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <field name="create_operation" invisible="1"/>
+                    <button name="button_create_operation" string="Create receipt order" type="object"
+                            class="oe_highlight"
+                            invisible="state != 'posted' or  create_operation or move_type not in ('out_refund')"/>
+                </xpath>
+                <xpath expr="//page[@name='invoice_tab']/field[@name='invoice_line_ids']/tree/field[@name='quantity']"
+                       position="after">
+                    <field name="delivered_qty_inventory" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="id_note_account_invoice_groupby_inherit" model="ir.ui.view">
+            <field name="name">account.move.groupby</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <field name="invoice_user_id" position="after">
+                    <field name="plumber_id"/>
+                    <filter string="Plumper/سباك" name="plumber_id" domain="[]" context="{'group_by':'plumber_id'}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

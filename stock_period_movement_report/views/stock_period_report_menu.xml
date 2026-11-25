@@ -1,0 +1,12 @@
+<odoo>
+    <menuitem id="menu_stock_period_report_root"
+              name="تقارير المخزون"
+              parent="stock.menu_stock_warehouse_mgmt"
+              sequence="80"/>
+
+    <menuitem id="menu_stock_period_report"
+              name="حركة المخزون بين فترتين"
+              parent="menu_stock_period_report_root"
+              action="action_stock_period_report_wizard"
+              sequence="10"/>
+</odoo>

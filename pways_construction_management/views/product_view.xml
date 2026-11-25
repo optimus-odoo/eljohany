@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!-- product -->
+        <record id="construct_product_normal_action" model="ir.actions.act_window">
+            <field name="name">Product Variants</field>
+            <field name="res_model">product.product</field>
+            <field name="view_mode">tree,form,kanban,activity</field>
+            <field name="domain">[('is_material', '=', True)]</field>
+            <field name="context">{'default_is_material': 1}</field>
+        </record>
+
+        <record id="product_normal_form_view_inherit_boq_type" model="ir.ui.view">
+            <field name="name">product.product.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <field name="categ_id" position="after">
+                    <field name="boq_type"/>
+                </field>
+                <div name="options" position="inside">
+                    <span class="d-inline-block">
+                        <field name="is_material"/>
+                        <label for="is_material"/>
+                    </span>
+                </div>
+            </field>
+        </record>
+
+        <!-- sale -->
+        <record id="construct_sale_view_form_inherited" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term_id" position="after">
+                    <field name="project_id" string="Project" readonly="0"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- equipment -->
+        <record id="hr_equipment_view_form_inherited" model="ir.ui.view">
+            <field name="name">maintenance.equipment.form</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+            <field name="arch" type="xml">
+                <field name="location" position="after">
+                    <field name="product_id" domain="[('is_material', '=', True)]"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- expense -->
+        <record id="hr_expense_view_form_inherited" model="ir.ui.view">
+            <field name="name">hr.expense.form</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr = "//field[@name='company_id'][@groups='base.group_multi_company']" position="after">
+                    <field name="project_id" readonly="state != 'draft'"/>
+                    <field name="task_id" readonly="state != 'draft'" domain="[('project_id', '=', project_id)]"/>
+                    <field name="job_cost_id" domain="[('project_id', '=', project_id)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- expense sheet-->
+        <record id="hr_expense_sheet_view_form_inherited" model="ir.ui.view">
+            <field name="name">hr.expense.sheetform</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+            <field name="arch" type="xml">
+                <xpath expr = "//field[@name='user_id']" position="after">
+                    <field name="project_id" readonly="state != 'draft'"/>
+                    <field name="task_id" readonly="state != 'draft'" domain="[('project_id', '=', project_id)]"/>
+                    <field name="job_cost_id" domain="[('project_id', '=', project_id)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- department -->
+        <record id="purchase_requisition_department_form_view" model="ir.ui.view">
+            <field name="name">hr.department.form.view</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="dest_location_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- employee -->
+        <record id="purchase_requisition_employee_form_view" model="ir.ui.view">
+            <field name="name">hr.employee.form.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[last()]" position="after">
+                     <page name="purchase_settings" string="Purchase Requisition Settings">
+                        <group>
+                            <group>
+                                <field name="dest_location_id"/>
+                            </group>
+                        </group>
+                     </page>
+                </xpath>
+                <xpath expr="//group/field[@name='tz']" position="after">
+                    <field name="salary_period"/>
+                    <field name="price_per_time"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Res Partner -->
+        <record model="ir.ui.view" id="view_partner_form_inherit_contractor">
+            <field name="name">res.partner.inherit.contractor</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales_purchases']//field[@name='company_id']" position="after">
+                    <field name="is_contractor"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_res_partner_is_contractor" model="ir.actions.act_window">
+            <field name="name">Contractors</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('is_contractor', '=', True)]</field>
+            <field name="context">{'default_is_contractor': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create Contractor</p>
+            </field>
+        </record>
+
+        <!-- Res Config Settings -->
+        <record id="res_config_settings_view_form_construct" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.construct</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="project.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <!-- Use xpath to add a new block above "Tasks Management" -->
+                <xpath expr="//block[@id='tasks_management']" position="before">
+                    <block title="Construction Dashboard Dates" name="construction_dashboard_dates">
+                        <setting id="default_construct_strat_date_setting" 
+                            help="Specify the starting date for retrieving data to display on the Construction Dashboard. Data from this date onward will be included in the dashboard." 
+                            title="Start Date">
+                            <field name="construct_start_date" readonly="0" widget="date"/>
+                        </setting>
+                        <setting id="default_construct_end_date_setting" 
+                            help="Specify the end date for retrieving data to display on the Construction Dashboard. Data up to this date will be included in the dashboard." 
+                            title="End Date">
+                            <field name="construct_end_date" readonly="0" widget="date" />
+                        </setting>
+                    </block>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

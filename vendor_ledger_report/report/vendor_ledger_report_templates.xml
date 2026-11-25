@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="vendor_ledger_report_pdf">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="wizard"/>
+                <div class="page" dir="rtl" lang="ar"
+                     style="font-family: Arial, 'DejaVu Sans', sans-serif;">
+                <h2 class="text-center" style="color: #1f4e78;">
+                    <span t-esc="labels['title']"/>
+                </h2>
+                <div class="row mb-2" style="font-size: 11px;">
+                    <div class="col-6">
+                        <strong><span t-esc="labels['company']"/>:</strong>
+                        <span t-esc="doc.company_id.display_name"/>
+                        <span> | </span>
+                        <strong><span t-esc="labels['currency']"/>:</strong>
+                        <span t-esc="doc.company_id.currency_id.display_name"/>
+                    </div>
+                    <div class="col-6">
+                        <strong><span t-esc="labels['period']"/>:</strong>
+                        <span t-esc="doc.date_from"/>
+                        <span t-esc="labels['to']"/>
+                        <span t-esc="doc.date_to"/>
+                        <span> | </span>
+                        <strong><span t-esc="labels['display_mode']"/>:</strong>
+                        <span t-esc="labels['details'] if doc.display_mode == 'details' else labels['summary_only']"/>
+                    </div>
+                </div>
+                <div class="alert alert-info py-1 px-2" style="font-size: 10px;">
+                    <span t-esc="labels['posted_only']"/>
+                </div>
+
+                <t t-foreach="partners" t-as="partner_report">
+                    <div style="background-color: #4472c4; color: white; padding: 6px; margin-top: 10px; font-weight: bold;">
+                        <span t-esc="labels['supplier']"/>:
+                        <span t-esc="partner_report['partner_name']"/>
+                        <t t-if="partner_report['vat']">
+                            <span> | </span>
+                            <span t-esc="labels['vat']"/>:
+                            <span t-esc="partner_report['vat']"/>
+                        </t>
+                    </div>
+                    <table class="table table-sm table-bordered"
+                           style="width: 100%; font-size: 8px; margin-bottom: 0;">
+                        <thead style="background-color: #d9eaf7;">
+                            <tr t-if="doc.display_mode == 'details'" class="text-center">
+                                <th><span t-esc="labels['accounting_date']"/></th>
+                                <th><span t-esc="labels['document_date']"/></th>
+                                <th><span t-esc="labels['document']"/></th>
+                                <th><span t-esc="labels['journal']"/></th>
+                                <th><span t-esc="labels['account']"/></th>
+                                <th style="width: 24%;"><span t-esc="labels['item']"/></th>
+                                <th><span t-esc="labels['debit']"/></th>
+                                <th><span t-esc="labels['credit']"/></th>
+                                <th><span t-esc="labels['balance']"/></th>
+                            </tr>
+                            <tr t-else="" class="text-center">
+                                <th colspan="6"><span t-esc="labels['description']"/></th>
+                                <th><span t-esc="labels['debit']"/></th>
+                                <th><span t-esc="labels['credit']"/></th>
+                                <th><span t-esc="labels['balance']"/></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="font-weight: bold; background-color: #e2f0d9;">
+                                <td colspan="6"><span t-esc="labels['opening']"/></td>
+                                <td class="text-center">
+                                    <span t-esc="doc.company_id.currency_id.format(partner_report['opening_debit'])"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="doc.company_id.currency_id.format(partner_report['opening_credit'])"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="doc.company_id.currency_id.format(partner_report['opening_balance'])"/>
+                                </td>
+                            </tr>
+                            <t t-if="doc.display_mode == 'details'" t-foreach="partner_report['lines']" t-as="line">
+                                <tr>
+                                    <td class="text-center"><span t-esc="line['date_display']"/></td>
+                                    <td class="text-center"><span t-esc="line['document_date_display']"/></td>
+                                    <td><span t-esc="line['document']"/></td>
+                                    <td><span t-esc="line['journal']"/></td>
+                                    <td><span t-esc="line['account']"/></td>
+                                    <td>
+                                        <span t-esc="line['item']"/>
+                                        <t t-if="line['reference']">
+                                            <br/><small t-esc="line['reference']"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-center"><span t-esc="doc.company_id.currency_id.format(line['debit'])"/></td>
+                                    <td class="text-center"><span t-esc="doc.company_id.currency_id.format(line['credit'])"/></td>
+                                    <td class="text-center"><span t-esc="doc.company_id.currency_id.format(line['running_balance'])"/></td>
+                                </tr>
+                            </t>
+                            <tr style="font-weight: bold; background-color: #e2f0d9;">
+                                <td colspan="6"><span t-esc="labels['period_total']"/></td>
+                                <td class="text-center"><span t-esc="doc.company_id.currency_id.format(partner_report['period_debit'])"/></td>
+                                <td class="text-center"><span t-esc="doc.company_id.currency_id.format(partner_report['period_credit'])"/></td>
+                                <td class="text-center"><span t-esc="doc.company_id.currency_id.format(partner_report['period_debit'] - partner_report['period_credit'])"/></td>
+                            </tr>
+                            <tr style="font-weight: bold; background-color: #c6e0b4;">
+                                <td colspan="8"><span t-esc="labels['closing']"/></td>
+                                <td class="text-center"><span t-esc="doc.company_id.currency_id.format(partner_report['closing_balance'])"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+
+                <div t-if="not partners" class="alert alert-warning text-center mt-3">
+                    <span t-esc="labels['no_data']"/>
+                </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

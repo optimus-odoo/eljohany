@@ -1,0 +1,41 @@
+<odoo>
+    <record id="sales_visit_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config_.settings.sales.visit.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="1"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                    <app data-string="Visits" string="Visits" name="sales_visits" groups="base.group_user">
+                        <block title="Sales Visit Settings" name="sales_visit_settings">
+                        <setting title="Set sales visit settings." string="Set sales visit settings." company_dependent="1">
+                            <div class="text-muted">
+                                    You can set the maximum allowed distance between the employee and the customer in Miles.
+                                if employee in the allowed range then it stored in the visit as compliant else not compliant.
+                            </div>
+                            <div class="mt16" required="1">
+                                <div class="mt16 row" title="Max Distance" required="1">
+                                    <label for="visit_max_distance" string="Maximum Allowed Distance in Miles"
+                                           class="col-5 col-lg-5 o_light_label"/>
+                                    <field name="visit_max_distance" class="col-lg-4 p-0"
+                                       required="1"/>
+                                </div>
+                                <br/>
+                            </div>
+                        </setting>
+
+                    </block>
+                    </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_visit_config" model="ir.actions.act_window">
+        <field name="name">Visit Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'sales_visits','bin_size': False}</field>
+    </record>
+</odoo>

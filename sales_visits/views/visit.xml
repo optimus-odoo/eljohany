@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_visit_tree" model="ir.ui.view">
+        <field name="name">view.visit.tree</field>
+        <field name="model">visit.visit</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="partner_id" />
+                <field name="salesperson_id" />
+                <field name="start_date" />
+                <field name="message_in" optional="hide"/>
+                <field name="in_url" widget="url" optional="hide"/>
+                <field name="end_date" />
+                <field name="message_out" optional="hide"/>
+                <field name="out_url" widget="url" optional="hide"/>
+<!--                <field name="option_id" />-->
+                <field name="in_compliant" optional="show"/>
+                <field name="out_compliant" optional="show"/>
+                <field name="points" sum="Points" optional="show"/>
+                <field name="collected" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_visit_form_user" model="ir.ui.view">
+        <field name="name">view.visit.form</field>
+        <field name="model">visit.visit</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <header>
+                     <field name="state" widget="statusbar" statusbar_visible="open,close"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h3><field name="name" readonly="1"/></h3>
+                    </div>
+                    <group col="2">
+                        <group>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="visit_type_id" widget="many2many_tags"/>
+                            <field name="points" invisible="visit_type_id == []"/>
+                        </group>
+                        <group>
+                            <field name="salesperson_id" readonly="1"/>
+                            <field name="duration" invisible="end_date == False" widget="float_time"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group col="2">
+                        <group string="Check-in">
+                            <field name="start_date" string="Date" readonly="1"/>
+                            <field name="message_in" />
+                            <field name="in_latitude" readonly="1" invisible="1"/>
+                            <field name="in_longitude" readonly="1" invisible="1"/>
+                            <field name="in_url" widget="url" readonly="1"/>
+                            <field name="in_compliant" readonly="1"/>
+                        </group>
+                        <group string="Check-out">
+                            <field name="end_date" string="Date" readonly="1"/>
+                            <field name="message_out" />
+                            <field name="out_latitude" invisible="1"/>
+                            <field name="out_longitude" invisible="1"/>
+                            <field name="out_url" widget="url" readonly="1"/>
+                            <field name="out_compliant" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user" options="{'post_refresh': 'recipients'}"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                </div>
+            </form>
+
+
+        </field>
+    </record>
+
+    <record id="view_visit_form_manager" model="ir.ui.view">
+        <field name="name">view.visit.form.manager</field>
+        <field name="model">visit.visit</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="sales_visits.view_visit_form_user"/>
+        <field name="groups_id" eval="[(4, ref('sales_visits.group_visit_manager'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="create" value="true"/>
+            </xpath>
+            <field name="partner_id" position="attributes">
+                <attribute name="readonly" value="False"/>
+            </field>
+            <field name="salesperson_id" position="attributes">
+                <attribute name="readonly" value="False"/>
+            </field>
+            <field name="start_date" position="attributes">
+                <attribute name="readonly" value="False"/>
+            </field>
+            <field name="end_date" position="attributes">
+                <attribute name="readonly" value="False"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_visit_kanban" model="ir.ui.view">
+        <field name="name">viw.visit.kanban</field>
+        <field name="model">visit.visit</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <kanban version="7.0" create="false" class="o_kanban_mobile">
+                <field name="company_id"/>
+                <field name="state"/>
+                <field name="salesperson_id"/>
+                <field name="partner_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="duration"/>
+                <field name="in_url"/>
+                <field name="out_url"/>
+                <field name="points"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card shadow oe_kanban_global_click">
+                            <i class="fa fa-pencil-square-o" title="Visit" style="color:#714b67;"/>
+                            <span style="font-weight:bold;">Visit No:</span>
+                            <div style="float:right; width:55%;">
+                                <field name="name"/>
+                            </div>
+                            <br/>
+
+                            <i class="fa fa-user" title="Client" style="font-size: 1.2rem;color:#714b67;"/>
+                            <span style="font-weight:bold;">Client:</span>
+                            <div style="float:right; width:55%;"><field name="partner_id"/></div>
+                            <br/>
+
+                            <i class="fa fa-calendar" title="Start Date" style="font-size: 1.2rem;color:#714b67;"/>
+                            <t t-if="record.start_date.raw_value">
+                                <span style="font-weight:bold;">Start Date:</span>
+                            </t>
+                            <div style="float:right; width:55%;"><field name="start_date"/></div>
+                            <br/>
+
+                            <i class="fa fa-calendar" title="Done Date" style="font-size: 1.2rem;color:#714b67;"/>
+                            <t t-if="record.end_date.raw_value">
+                                <span style="font-weight:bold;">Done Date:</span>
+                            </t>
+                            <div style="float:right; width:55%;"><field name="end_date"/></div>
+                            <br/>
+
+                            <i class="fa fa-clock-o" title="Duration" style="font-size: 1.2rem;color:#714b67;"/>
+                            <t t-if="record.duration.raw_value">
+                                <span style="font-weight:bold;">Duration:</span>
+                            </t>
+                            <div style="float:right; width:55%;"><field name="duration" widget="float_time"/></div>
+                            <br/>
+
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                     <t t-if="record.visit_type_id.raw_value">
+                                         <field name="visit_type_id" widget="many2many_tags"/>
+
+                                    </t>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <t t-if="record.salesperson_id.raw_value">
+                                        <field name="salesperson_id" widget="many2one_avatar_user"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_visit_calendar" model="ir.ui.view">
+            <field name="name">view.visit.calendar</field>
+            <field name="model">visit.visit</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <calendar string="Visit Calendar" create="false" date_start="start_date">
+                    <field name="company_id" filters="1" groups="base.group_multi_company"/>
+                    <field name="state" filters="1"/>
+                    <field name="salesperson_id"/>
+                    <field name="partner_id" filters="1"/>
+                    <field name="duration" widget="float_time"/>
+                </calendar>
+            </field>
+        </record>
+
+    <record id="view_visit_map" model="ir.ui.view">
+        <field name="name">view.visit.map</field>
+        <field name="model">visit.visit</field>
+        <field name="priority">3</field>
+        <field name="arch" type="xml">
+            <map res_partner="partner_id">
+                <field name="partner_id" string="Client"/>
+                <field name="salesperson_id" string="Salesperson"/>
+                <field name="end_date" string="Assignees"/>
+                <field name="start_date" string="Date"/>
+                <field name="state" string="Status"/>
+            </map>
+        </field>
+    </record>
+
+    <record id="view_visit_search" model="ir.ui.view">
+            <field name="name">view.visit.search</field>
+            <field name="model">visit.visit</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="salesperson_id"/>
+                    <field name="state"/>
+                    <separator/>
+                    <filter string="Closed" name="closed" domain="[('state', '=', 'close')]"/>
+                    <filter string="Opened" name="opened" domain="[('state', '=', 'open')]"/>
+                    <filter string="Collected" name="collected" domain="[('collected', '=', True)]"/>
+                    <separator/>
+                    <separator/>
+                    <filter string="Today" name="today" domain="[('start_date', '&gt;', (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d'))]"/>
+                    <filter string="Last 7 days" name="last_7days" domain="[('start_date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                    <filter string="Last 30 days" name="last_month" domain="[('start_date','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                    <separator/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Status" name="state" domain="[]" context="{'group_by': 'state'}"/>
+                        <filter string="Salesperson" name="salesperson_id" domain="[]" context="{'group_by': 'salesperson_id'}"/>
+                        <filter string="Company" name="company" domain="[]" context="{'group_by': 'company_id'}"/>
+                        <filter string="Date" name="today" context="{'group_by':'start_date:day'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="state" expand="1" select="multi" icon="fa-check-square-o" enable_counters="1"/>
+                        <field name="company_id" expand="1" select="one" icon="fa-building" enable_counters="1"/>
+                        <field name="partner_id" expand="1" select="one" icon="fa-users" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+            </field>
+    </record>
+
+    <record id="action_open_visit" model="ir.actions.act_window">
+        <field name="name">Customers Visit</field>
+        <field name="res_model">visit.visit</field>
+        <field name="context">{"search_default_opened":1}</field>
+        <field name="view_mode">kanban,map,calendar,tree,form</field>
+        <field name="target">current</field>
+    </record>
+    <record id="action_view_visit_partners" model="ir.actions.act_window">
+        <field name="name">Clients</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">map,form</field>
+        <field name="view_id" ref="contacts_enterprise.res_partner_view_map"/>
+        <field name="context">{}</field>
+        <field name="domain">['|',('user_id','=',uid),('user_id','=',False)]</field>
+    </record>
+
+    <menuitem id="visit_root_menu"  name="Client Visits" web_icon="sales_visits,static/description/icon.png" sequence="0" >
+        <menuitem id="menu_view_partners" name="Clients" action="action_view_visit_partners" sequence="1" />
+        <menuitem id="menu_view_visits" name="Visits" action="action_open_visit"  sequence="5" />
+    </menuitem>
+
+
+</odoo>

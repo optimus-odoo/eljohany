@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="eljohany_company_switcher_select_all.SwitchCompanyMenu"
+       t-inherit="web.SwitchCompanyMenu"
+       t-inherit-mode="extension">
+        <xpath expr="//Dropdown/t[@t-foreach]" position="before">
+            <DropdownItem class="'o_company_select_all_item p-0'"
+                          parentClosingMode="'none'">
+                <button type="button"
+                        class="btn btn-link border-0 d-flex align-items-center gap-2
+                               w-100 px-3 py-2 text-start"
+                        role="menuitemcheckbox"
+                        t-att-aria-checked="allCompaniesSelected ? 'true' : 'false'"
+                        t-att-aria-label="toggleAllCompaniesLabel"
+                        t-att-title="toggleAllCompaniesLabel"
+                        t-on-click.stop="toggleAllCompanies">
+                    <i class="fa fa-fw"
+                       t-att-class="allCompaniesSelected ? 'fa-check-square text-primary' : 'fa-square-o'"/>
+                    <span class="flex-grow-1" t-esc="toggleAllCompaniesLabel"/>
+                    <span class="badge rounded-pill text-bg-secondary"
+                          t-esc="selectableCompanyCount"/>
+                </button>
+            </DropdownItem>
+            <div class="dropdown-divider my-0"/>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_download_invoice_attachments_from_moves" model="ir.actions.server">
+        <field name="name">تحميل مرفقات الفواتير (ZIP) | Download Invoice Attachments</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_download_invoice_attachments()</field>
+    </record>
+
+    <record id="action_download_invoice_attachments_from_move_lines" model="ir.actions.server">
+        <field name="name">تحميل مرفقات الفواتير (ZIP) | Download Invoice Attachments</field>
+        <field name="model_id" ref="account.model_account_move_line"/>
+        <field name="binding_model_id" ref="account.model_account_move_line"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_download_invoice_attachments()</field>
+    </record>
+</odoo>

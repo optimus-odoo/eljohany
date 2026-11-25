@@ -1,0 +1,116 @@
+<odoo>
+    <data>
+        <record id="id_confirm_manager_purchase_order" model="res.groups">
+            <field name="name">Confirm Manager P.O</field>
+        </record>
+        <record id="id_inherit_sale_order_line_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <!--                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']"-->
+                <!--                       position="after">-->
+                <!--                    <field name="last_so_price" optional="show" force_save="1" string="Last Sales Price"/>-->
+                <!--                    <field name="last_so_for_product_id" optional="show" force_save="1" string="Last Sale Order"/>-->
+                <!--                </xpath>-->
+                <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']"
+                       position="attributes">
+                    <attribute name="readonly">0</attribute>
+
+                </xpath>
+            </field>
+        </record>
+        <record id="id_purchase_order_inherited_form" model="ir.ui.view">
+            <field name="name">purchase.order.inherited form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <!--                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">-->
+                <!--                    <field name="last_po_price" optional="show" force_save="1" string="Last Purchased Price"/>-->
+                <!--                    <field name="last_po_for_product_id" optional="show" force_save="1" string="Last P.O"/>-->
+                <!--                </xpath>-->
+                <xpath expr="//header" position="inside">
+                    <button name="action_submit_to_manager" string="Submit To Manager" type="object"
+                            class="oe_highlight" invisible="state not in ('draft','sent')"/>
+                </xpath>
+                <xpath expr="//header/button[@name='button_confirm'][2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='button_confirm']" position="attributes">
+                    <attribute name="invisible">state != 'waiting_manager_approve'</attribute>
+                    <attribute name="groups">product_last_price.id_confirm_manager_purchase_order</attribute>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="id_view_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@id='invoice_tab']//field[@name='invoice_line_ids']//tree//field[@name='price_unit']"
+                       position="after">
+                    <field name="lock_lines" column_invisible="1"/>
+                    <field name="max_qty" column_invisible="1"/>
+                </xpath>
+                <xpath expr="//page[@id='invoice_tab']//field[@name='invoice_line_ids']//tree//field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="readonly">lock_lines</attribute>
+                </xpath>
+                <xpath expr="//page[@id='invoice_tab']//field[@name='invoice_line_ids']//tree//field[@name='name']"
+                       position="attributes">
+                    <attribute name="readonly">lock_lines</attribute>
+                </xpath>
+                <xpath expr="//page[@id='invoice_tab']//field[@name='invoice_line_ids']//tree//field[@name='account_id']"
+                       position="attributes">
+                    <attribute name="readonly">lock_lines</attribute>
+                </xpath>
+                <xpath expr="//page[@id='invoice_tab']//field[@name='invoice_line_ids']//tree//field[@name='analytic_distribution']"
+                       position="attributes">
+                    <attribute name="readonly">lock_lines</attribute>
+                </xpath>
+                <xpath expr="//page[@id='invoice_tab']//field[@name='invoice_line_ids']//tree//field[@name='deferred_start_date']"
+                       position="attributes">
+                    <attribute name="readonly">lock_lines</attribute>
+                </xpath>
+                <xpath expr="//page[@id='invoice_tab']//field[@name='invoice_line_ids']//tree//field[@name='deferred_end_date']"
+                       position="attributes">
+                    <attribute name="readonly">lock_lines</attribute>
+                </xpath>
+                <xpath expr="//page[@id='invoice_tab']//field[@name='invoice_line_ids']//tree//field[@name='product_uom_id']"
+                       position="attributes">
+                    <attribute name="readonly">lock_lines</attribute>
+                </xpath>
+                <xpath expr="//page[@id='invoice_tab']//field[@name='invoice_line_ids']//tree//field[@name='price_unit']"
+                       position="attributes">
+                    <attribute name="readonly">lock_lines</attribute>
+                </xpath>
+                <xpath expr="//page[@id='invoice_tab']//field[@name='invoice_line_ids']//tree//field[@name='total_price']"
+                       position="attributes">
+                    <attribute name="readonly">lock_lines</attribute>
+                </xpath>
+                <xpath expr="//page[@id='invoice_tab']//field[@name='invoice_line_ids']//tree//field[@name='discount']"
+                       position="attributes">
+                    <attribute name="readonly">lock_lines</attribute>
+                </xpath>
+                <xpath expr="//page[@id='invoice_tab']//field[@name='invoice_line_ids']//tree//field[@name='tax_ids']"
+                       position="attributes">
+                    <attribute name="readonly">lock_lines</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="button_confirm_all_orders_server_action" model="ir.actions.server">
+            <field name="name">Confirm Selected Orders</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_type">action</field>
+            <field name="binding_view_types">list</field>
+            <field name="groups_id" eval="[(4, ref('product_last_price.id_confirm_manager_purchase_order'))]"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.button_confirm_all_orders()
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- =========================
+        Wizard Form
+    ========================== -->
+    <record id="view_vendor_stock_difference_wizard_form" model="ir.ui.view">
+        <field name="name">vendor.stock.difference.wizard.form</field>
+        <field name="model">vendor.stock.difference.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Vendor vs Stock Difference">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="company_id"/>
+                    </group>
+                    <group>
+                        <field name="partner_ids" widget="many2many_tags"/>
+                        <field name="product_ids" widget="many2many_tags"/>
+                        <field name="group_by"/>
+                    </group>
+                </group>
+
+                <group>
+                    <field name="notes" readonly="1"/>
+                </group>
+
+                <footer>
+                    <button name="action_generate" type="object"
+                            string="Generate" class="btn-primary"/>
+                    <button name="action_print_pdf" type="object"
+                            string="Print PDF" class="btn-secondary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- =========================
+        Wizard Action
+    ========================== -->
+    <record id="action_vendor_stock_difference_wizard" model="ir.actions.act_window">
+        <field name="name">Vendor vs Stock Difference</field>
+        <field name="res_model">vendor.stock.difference.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- =========================
+        Menu
+    ========================== -->
+    <menuitem id="menu_vendor_stock_difference_root"
+              name="Vendor Reports"
+              parent="account.menu_finance_reports"/>
+
+    <menuitem id="menu_vendor_stock_difference"
+              name="Vendor vs Stock Difference"
+              parent="menu_vendor_stock_difference_root"
+              action="action_vendor_stock_difference_wizard"/>
+
+
+    <!-- =========================
+        Result Tree View
+    ========================== -->
+    <record id="view_vendor_stock_difference_result_tree" model="ir.ui.view">
+        <field name="name">vendor.stock.difference.result.tree</field>
+        <field name="model">vendor.stock.difference.result</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_name"/>
+                <field name="product_name"/>
+
+                <field name="invoice_value"/>
+                <field name="vendor_debit" invisible="1"/>
+                <field name="vendor_credit" invisible="1"/>
+                <field name="vendor_gl_balance"/>
+                <field name="stock_value"/>
+                <field name="difference"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- =========================
+        Result Search View
+    ========================== -->
+    <record id="view_vendor_stock_difference_result_search" model="ir.ui.view">
+        <field name="name">vendor.stock.difference.result.search</field>
+        <field name="model">vendor.stock.difference.result</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="product_id"/>
+
+                <group expand="0" string="Group By">
+                    <filter name="group_partner"
+                            string="Vendor"
+                            context="{'group_by':'partner_id'}"/>
+                    <filter name="group_product"
+                            string="Product"
+                            context="{'group_by':'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- =========================
+        Result Action
+    ========================== -->
+    <record id="action_vendor_stock_difference_result" model="ir.actions.act_window">
+        <field name="name">Vendor vs Stock Difference</field>
+        <field name="res_model">vendor.stock.difference.result</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+    <!-- =========================
+        PDF Report Template
+    ========================== -->
+    <template id="report_vendor_stock_difference">
+        <t t-call="web.external_layout">
+            <div class="page">
+
+                <h2>Vendor vs Stock Difference</h2>
+
+                <p>
+                    <strong>From:</strong>
+                    <span t-esc="doc.date_from"/>
+                    -
+                    <strong>To:</strong>
+                    <span t-esc="doc.date_to"/>
+                </p>
+
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Vendor</th>
+                            <th>Product</th>
+                            <th>Vendor Bills</th>
+                            <th>Total Debit</th>
+                            <th>Total Credit</th>
+                            <th>Partner Ledger Balance</th>
+                            <th>Stock Balance</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <t t-foreach="doc.result_line_ids" t-as="line">
+                            <tr>
+                                <td>
+                                    <span t-esc="line.partner_name"/>
+                                </td>
+
+                                <td>
+                                    <span t-esc="line.product_name"/>
+                                </td>
+
+                                <td class="text-right">
+                                    <span t-esc="line.invoice_value"/>
+                                </td>
+
+                                <td class="text-right">
+                                    <span t-esc="line.vendor_debit"/>
+                                </td>
+
+                                <td class="text-right">
+                                    <span t-esc="line.vendor_credit"/>
+                                </td>
+
+                                <td class="text-right">
+                                    <span t-esc="line.vendor_gl_balance"/>
+                                </td>
+
+                                <td class="text-right">
+                                    <span t-esc="line.stock_value"/>
+                                </td>
+
+                                <td class="text-right">
+                                    <span t-esc="line.difference"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+            </div>
+        </t>
+    </template>
+
+    <!-- =========================
+        Report Action
+    ========================== -->
+    <record id="action_report_vendor_stock_difference" model="ir.actions.report">
+        <field name="name">Vendor vs Stock Difference</field>
+        <field name="model">vendor.stock.difference.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">vendor_stock_difference_report.report_vendor_stock_difference</field>
+        <field name="report_file">vendor_stock_difference_report.report_vendor_stock_difference</field>
+    </record>
+
+</odoo>

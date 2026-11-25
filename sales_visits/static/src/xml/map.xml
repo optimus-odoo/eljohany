@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-inherit="web_map.markerPopup" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o-map-renderer--popup-buttons')]" position="inside">
+            <div class="o-map-renderer--popup-buttons-divider d-inline-block h-auto"/>
+            <button class="btn btn-primary o-map-renderer--popup-buttons-checkin-out">
+                Check In/Out
+            </button>
+        </xpath>
+    </t>
+</templates>

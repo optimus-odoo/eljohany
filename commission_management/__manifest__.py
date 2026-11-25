@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Commission Management',
+    'version': '17.0.1.0.0',
+    'summary': 'Configurable sales commission plans, calculations, approvals, and accruals',
+    'category': 'Sales/Accounting',
+    'author': 'Eljohany',
+    'depends': ['sale_management', 'purchase_stock', 'account', 'hr', 'mail'],
+    'data': [
+        'security/commission_management_groups.xml',
+        'security/product_security.xml',
+        'security/ir.model.access.csv',
+        'data/ir_sequence_data.xml',
+        'views/product_views.xml',
+        'views/commission_plan_views.xml',
+        'views/commission_rule_views.xml',
+        'views/commission_line_views.xml',
+        'views/commission_statement_views.xml',
+        'views/account_move_views.xml',
+        'views/commission_menus.xml',
+    ],
+    'license': 'LGPL-3',
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_commission_line_tree" model="ir.ui.view">
+        <field name="name">commission.line.tree</field>
+        <field name="model">commission.line</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="commission_amount &lt; 0" decoration-muted="state in ('cancelled', 'reversed')">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="plan_id"/>
+                <field name="rule_id"/>
+                <field name="user_id"/>
+                <field name="partner_id"/>
+                <field name="customer_id"/>
+                <field name="invoice_id"/>
+                <field name="product_id"/>
+                <field name="base_amount" sum="Base"/>
+                <field name="commission_rate"/>
+                <field name="commission_amount" sum="Commission"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_commission_line_form" model="ir.ui.view">
+        <field name="name">commission.line.form</field>
+        <field name="model">commission.line</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <header>
+                    <button name="action_approve" string="Approve" type="object" class="btn-primary" invisible="state not in ('draft', 'calculated')" groups="commission_management.group_commission_manager"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="state in ('cancelled', 'accrued', 'paid')" groups="commission_management.group_commission_manager"/>
+                    <button name="action_reset_to_calculated" string="Reset" type="object" invisible="state not in ('draft', 'cancelled')" groups="commission_management.group_commission_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="calculated,approved,accrued,paid"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="line_type"/>
+                            <field name="date"/>
+                            <field name="plan_id"/>
+                            <field name="rule_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id"/>
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="employee_id"/>
+                            <field name="partner_id"/>
+                            <field name="sales_team_id"/>
+                            <field name="statement_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Source">
+                            <field name="customer_id"/>
+                            <field name="invoice_id"/>
+                            <field name="invoice_line_id"/>
+                            <field name="sale_order_id"/>
+                            <field name="product_id"/>
+                        </group>
+                        <group string="Amounts">
+                            <field name="base_amount"/>
+                            <field name="commission_rate"/>
+                            <field name="commission_amount"/>
+                            <field name="reversed_line_id"/>
+                            <field name="move_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="note"/>
+                            <field name="unique_key" groups="base.group_no_one"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_commission_line_search" model="ir.ui.view">
+        <field name="name">commission.line.search</field>
+        <field name="model">commission.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="plan_id"/>
+                <field name="rule_id"/>
+                <field name="user_id"/>
+                <field name="partner_id"/>
+                <field name="customer_id"/>
+                <field name="invoice_id"/>
+                <field name="product_id"/>
+                <filter string="Calculated" name="calculated" domain="[('state', '=', 'calculated')]"/>
+                <filter string="Approved" name="approved" domain="[('state', '=', 'approved')]"/>
+                <filter string="Accrued" name="accrued" domain="[('state', '=', 'accrued')]"/>
+                <filter string="Paid" name="paid" domain="[('state', '=', 'paid')]"/>
+                <filter string="Clawbacks" name="clawbacks" domain="[('commission_amount', '&lt;', 0)]"/>
+                <separator/>
+                <filter string="This Month" name="this_month" domain="[('date', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Plan" name="group_plan" context="{'group_by': 'plan_id'}"/>
+                    <filter string="Salesperson" name="group_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Customer" name="group_customer" context="{'group_by': 'customer_id'}"/>
+                    <filter string="Product" name="group_product" context="{'group_by': 'product_id'}"/>
+                    <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Month" name="group_month" context="{'group_by': 'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_commission_line_pivot" model="ir.ui.view">
+        <field name="name">commission.line.pivot</field>
+        <field name="model">commission.line</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="date" type="col" interval="month"/>
+                <field name="user_id" type="row"/>
+                <field name="commission_amount" type="measure"/>
+                <field name="base_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_commission_line" model="ir.actions.act_window">
+        <field name="name">Commission Lines</field>
+        <field name="res_model">commission.line</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="context">{'search_default_calculated': 1}</field>
+    </record>
+</odoo>

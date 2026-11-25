@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_loan_view_tree" model="ir.ui.view">
+        <field name="name">hr.loan.view.tree.management</field>
+        <field name="model">hr.loan</field>
+        <field name="arch" type="xml">
+            <tree string="Loan Requests">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="loan_amount"/>
+                <field name="date"/>
+                <field name="current_step_name"/>
+                <field name="current_approver_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_loan_view_form" model="ir.ui.view">
+        <field name="name">hr.loan.view.form.management</field>
+        <field name="model">hr.loan</field>
+        <field name="arch" type="xml">
+            <form string="Loan Request">
+                <header>
+                    <button name="action_compute_installment" type="object"
+                            string="Recalculate Installments"
+                            invisible="state not in ('draft', 'waiting_approval_1')"
+                            groups="hr.group_hr_user"/>
+                    <button name="action_workflow_approve" type="object"
+                            string="Approve Current Stage" class="oe_highlight"
+                            invisible="state != 'waiting_approval_1'"
+                            groups="ohrms_loan.group_loan_approver"/>
+                    <button name="action_workflow_reject" type="object"
+                            string="Reject Current Stage"
+                            invisible="state != 'waiting_approval_1'"
+                            groups="ohrms_loan.group_loan_approver"/>
+                    <button name="action_reset_to_draft" type="object"
+                            string="Reset to Draft"
+                            invisible="state not in ('waiting_approval_1', 'waiting_approval_2', 'refuse', 'cancel')"
+                            groups="hr.group_hr_user"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,waiting_approval_1,approve,refuse,cancel"/>
+                </header>
+                <sheet>
+                    <field name="company_id" invisible="1"/>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="state != 'draft'"/>
+                            <field name="department_id"/>
+                            <field name="job_position"/>
+                            <field name="company_id" options="{'no_create': True}"
+                                   readonly="state != 'draft'"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="loan_amount" readonly="state == 'approve'"/>
+                            <field name="installment" readonly="state == 'approve'"/>
+                            <field name="payment_date" readonly="state == 'approve'"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group name="current_approval_group"
+                           string="Current Approval">
+                        <field name="workflow_id"/>
+                        <field name="current_step_name"/>
+                        <field name="current_approver_id"/>
+                        <field name="current_step_type" invisible="1"/>
+                        <field name="rejection_reason"
+                               readonly="state != 'waiting_approval_1'"/>
+                    </group>
+                    <notebook>
+                        <page string="Approval History">
+                            <field name="approval_line_ids" readonly="1">
+                                <tree create="0" delete="0">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="step_type"/>
+                                    <field name="approver_id"/>
+                                    <field name="status"/>
+                                    <field name="action_by_id"/>
+                                    <field name="action_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Installments">
+                            <field name="loan_lines" readonly="state == 'approve'">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="amount"/>
+                                    <field name="paid"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_amount"/>
+                                <field name="total_paid_amount"/>
+                                <field name="balance_amount"
+                                       class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_loan_employee_view_tree" model="ir.ui.view">
+        <field name="name">hr.loan.employee.view.tree</field>
+        <field name="model">hr.loan</field>
+        <field name="arch" type="xml">
+            <tree string="My Loan Requests" create="1" delete="0">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="loan_amount"/>
+                <field name="installment"/>
+                <field name="current_step_name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_loan_employee_view_form" model="ir.ui.view">
+        <field name="name">hr.loan.employee.view.form</field>
+        <field name="model">hr.loan</field>
+        <field name="arch" type="xml">
+            <form string="My Loan Request" delete="0">
+                <header>
+                    <button name="action_submit" type="object" string="Submit Request"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,waiting_approval_1,approve,refuse,cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="1"/>
+                            <field name="department_id"/>
+                            <field name="job_position"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="loan_amount" readonly="state != 'draft'"/>
+                            <field name="installment" readonly="state != 'draft'"/>
+                            <field name="payment_date" readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Request Tracking" invisible="state == 'draft'">
+                        <field name="current_step_name"/>
+                        <field name="rejection_reason"
+                               invisible="state != 'refuse'"/>
+                    </group>
+                    <notebook>
+                        <page string="Approval Progress" invisible="state == 'draft'">
+                            <field name="approval_line_ids" readonly="1">
+                                <tree create="0" delete="0">
+                                    <field name="sequence"/>
+                                    <field name="name"/>
+                                    <field name="status"/>
+                                    <field name="action_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Approved Installment Schedule"
+                              invisible="state != 'approve'">
+                            <field name="loan_lines" readonly="1">
+                                <tree create="0" edit="0" delete="0">
+                                    <field name="date"/>
+                                    <field name="amount"/>
+                                    <field name="paid"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_paid_amount"/>
+                                <field name="balance_amount"
+                                       class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_loan_approver_view_tree" model="ir.ui.view">
+        <field name="name">hr.loan.approver.view.tree</field>
+        <field name="model">hr.loan</field>
+        <field name="arch" type="xml">
+            <tree string="Loan Requests Awaiting My Action" create="0" delete="0">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="loan_amount"/>
+                <field name="current_step_name"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_loan_approver_view_form" model="ir.ui.view">
+        <field name="name">hr.loan.approver.view.form</field>
+        <field name="model">hr.loan</field>
+        <field name="arch" type="xml">
+            <form string="Loan Approval" create="0" delete="0">
+                <header>
+                    <button name="action_workflow_approve" type="object"
+                            string="Approve Current Stage" class="oe_highlight"
+                            invisible="state != 'waiting_approval_1'"/>
+                    <button name="action_workflow_reject" type="object"
+                            string="Reject Current Stage"
+                            invisible="state != 'waiting_approval_1'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="waiting_approval_1,approve,refuse"/>
+                </header>
+                <sheet>
+                    <field name="company_id" invisible="1"/>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="department_id"/>
+                            <field name="job_position"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="loan_amount"/>
+                            <field name="installment"/>
+                            <field name="payment_date"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group name="required_action_group"
+                           string="Required Action">
+                        <field name="current_step_name"/>
+                        <field name="current_step_type" invisible="1"/>
+                        <field name="current_approver_id"/>
+                        <field name="rejection_reason"
+                               readonly="state != 'waiting_approval_1'"/>
+                    </group>
+                    <notebook>
+                        <page string="Approval History">
+                            <field name="approval_line_ids" readonly="1">
+                                <tree create="0" delete="0">
+                                    <field name="sequence"/>
+                                    <field name="name"/>
+                                    <field name="status"/>
+                                    <field name="action_by_id"/>
+                                    <field name="action_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_loan_view_search" model="ir.ui.view">
+        <field name="name">hr.loan.view.search</field>
+        <field name="model">hr.loan</field>
+        <field name="arch" type="xml">
+            <search string="Loan">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="current_approver_id"/>
+                <filter string="My Requests" name="myrequest"
+                        domain="[('employee_id.user_id', '=', uid)]"/>
+                <filter string="Awaiting My Action" name="my_approval"
+                        domain="[('current_approver_id', '=', uid), ('state', '=', 'waiting_approval_1')]"/>
+                <filter string="Employee" name="group_employee"
+                        context="{'group_by':'employee_id'}"/>
+                <filter string="Company" name="group_company"
+                        context="{'group_by':'company_id'}"
+                        groups="base.group_multi_company"/>
+                <filter string="Status" name="group_status"
+                        context="{'group_by':'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_loan_workflow_view_tree" model="ir.ui.view">
+        <field name="name">hr.loan.workflow.view.tree</field>
+        <field name="model">hr.loan.workflow</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_loan_workflow_view_form" model="ir.ui.view">
+        <field name="name">hr.loan.workflow.view.form</field>
+        <field name="model">hr.loan.workflow</field>
+        <field name="arch" type="xml">
+            <form string="Loan Approval Workflow">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id" options="{'no_create': True}"/>
+                        <field name="active"/>
+                    </group>
+                    <field name="step_ids">
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="step_type"/>
+                            <field name="approver_id"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_loan_action" model="ir.actions.act_window">
+        <field name="name">My Loan Requests</field>
+        <field name="res_model">hr.loan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+        <field name="context">{'search_default_myrequest': 1}</field>
+        <field name="search_view_id" ref="hr_loan_view_search"/>
+        <field name="groups_id" eval="[(4, ref('ohrms_loan.group_employee_forms_access'))]"/>
+    </record>
+    <record id="hr_loan_action_employee_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="hr_loan_employee_view_tree"/>
+        <field name="act_window_id" ref="hr_loan_action"/>
+    </record>
+    <record id="hr_loan_action_employee_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="hr_loan_employee_view_form"/>
+        <field name="act_window_id" ref="hr_loan_action"/>
+    </record>
+
+    <record id="hr_loan_approval_action" model="ir.actions.act_window">
+        <field name="name">Loan Requests Awaiting My Action</field>
+        <field name="res_model">hr.loan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('current_approver_id', '=', uid), ('state', '=', 'waiting_approval_1')]</field>
+        <field name="context">{'search_default_my_approval': 1}</field>
+        <field name="search_view_id" ref="hr_loan_view_search"/>
+        <field name="groups_id" eval="[(4, ref('ohrms_loan.group_loan_approver'))]"/>
+    </record>
+    <record id="hr_loan_action_approver_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="hr_loan_approver_view_tree"/>
+        <field name="act_window_id" ref="hr_loan_approval_action"/>
+    </record>
+    <record id="hr_loan_action_approver_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="hr_loan_approver_view_form"/>
+        <field name="act_window_id" ref="hr_loan_approval_action"/>
+    </record>
+
+    <record id="hr_loan_management_action" model="ir.actions.act_window">
+        <field name="name">Loan Management</field>
+        <field name="res_model">hr.loan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_loan_view_tree"/>
+        <field name="search_view_id" ref="hr_loan_view_search"/>
+        <field name="groups_id" eval="[(4, ref('hr.group_hr_user'))]"/>
+    </record>
+
+    <record id="hr_loan_workflow_action" model="ir.actions.act_window">
+        <field name="name">Loan Approval Workflows</field>
+        <field name="res_model">hr.loan.workflow</field>
+        <field name="view_mode">tree,form</field>
+        <field name="groups_id" eval="[(4, ref('hr.group_hr_manager'))]"/>
+    </record>
+
+    <record id="act_hr_employee_loan_request" model="ir.actions.act_window">
+        <field name="name">Loans</field>
+        <field name="res_model">hr.loan</field>
+        <field name="binding_model_id" ref="hr.model_hr_employee"/>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_loan_view_tree"/>
+        <field name="context">{'search_default_myloan': 1}</field>
+        <field name="groups_id" eval="[(4, ref('hr.group_hr_user'))]"/>
+    </record>
+
+    <menuitem id="employee_forms_menu_root" name="Forms"
+              groups="ohrms_loan.group_employee_forms_access,ohrms_loan.group_loan_approver,hr.group_hr_user"
+              web_icon="ohrms_loan,static/description/icon.png"
+              sequence="80"/>
+    <menuitem id="hr_loan_menu_category" name="Employee Advances"
+              parent="employee_forms_menu_root"
+              groups="ohrms_loan.group_employee_forms_access,ohrms_loan.group_loan_approver,hr.group_hr_user"
+              sequence="10"/>
+    <menuitem id="hr_loan_menu_root" name="My Requests"
+              parent="hr_loan_menu_category" action="hr_loan_action"
+              groups="ohrms_loan.group_employee_forms_access" sequence="10"/>
+    <menuitem id="hr_loan_approval_menu" name="Approvals"
+              parent="hr_loan_menu_category" action="hr_loan_approval_action"
+              groups="ohrms_loan.group_loan_approver" sequence="20"/>
+    <menuitem id="hr_loan_management_menu" name="Management"
+              parent="hr_loan_menu_category" action="hr_loan_management_action"
+              groups="hr.group_hr_user" sequence="30"/>
+    <menuitem id="hr_loan_workflow_menu" name="Approval Workflows"
+              parent="hr_loan_menu_category" action="hr_loan_workflow_action"
+              groups="hr.group_hr_manager" sequence="40"/>
+
+    <record id="hr_loan_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="hr_loan_menu_requests" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_employee_forms_user" model="res.groups">
+        <field name="name">مستخدم نماذج الموظفين</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('ohrms_loan.group_employee_forms_access'))]"/>
+    </record>
+
+    <record id="group_employee_forms_manager" model="res.groups">
+        <field name="name">مدير نماذج الموظفين</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="implied_ids" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_user')), (4, ref('hr.group_hr_user'))]"/>
+    </record>
+
+    <record id="employee_forms_branch_rule" model="ir.rule">
+        <field name="name">Employee forms: branches in allowed companies</field>
+        <field name="model_id" ref="branch.model_res_branch"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="work_injury_own_rule" model="ir.rule">
+        <field name="name">Work injury reports: own records</field>
+        <field name="model_id" ref="model_hr_work_injury_report"/>
+        <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_user'))]"/>
+    </record>
+    <record id="work_injury_manager_rule" model="ir.rule">
+        <field name="name">Work injury reports: allowed companies</field>
+        <field name="model_id" ref="model_hr_work_injury_report"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+
+    <record id="overtime_assignment_own_rule" model="ir.rule">
+        <field name="name">Overtime assignments: own records</field>
+        <field name="model_id" ref="model_hr_overtime_assignment"/>
+        <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_user'))]"/>
+    </record>
+    <record id="overtime_assignment_manager_rule" model="ir.rule">
+        <field name="name">Overtime assignments: allowed companies</field>
+        <field name="model_id" ref="model_hr_overtime_assignment"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+
+    <record id="employee_transfer_own_rule" model="ir.rule">
+        <field name="name">Employee transfers: own records</field>
+        <field name="model_id" ref="model_hr_employee_transfer"/>
+        <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_user'))]"/>
+    </record>
+    <record id="employee_transfer_manager_rule" model="ir.rule">
+        <field name="name">Employee transfers: allowed companies</field>
+        <field name="model_id" ref="model_hr_employee_transfer"/>
+        <field name="domain_force">[('from_company_id', 'in', user.company_ids.ids), ('to_company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+
+    <record id="job_offer_manager_rule" model="ir.rule">
+        <field name="name">العروض الوظيفية: الشركات المسموحة</field>
+        <field name="model_id" ref="model_hr_job_offer"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="job_offer_allowance_manager_rule" model="ir.rule">
+        <field name="name">بدلات العروض الوظيفية: الشركات المسموحة</field>
+        <field name="model_id" ref="model_hr_job_offer_allowance"/>
+        <field name="domain_force">[('offer_id.company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="work_commencement_manager_rule" model="ir.rule">
+        <field name="name">مباشرات العمل: الشركات المسموحة</field>
+        <field name="model_id" ref="model_hr_work_commencement"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="vehicle_handover_manager_rule" model="ir.rule">
+        <field name="name">استلام السيارات: الشركات المسموحة</field>
+        <field name="model_id" ref="model_hr_vehicle_handover"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="mobile_sim_category_manager_rule" model="ir.rule">
+        <field name="name">فئات الشرائح: الشركات المسموحة</field>
+        <field name="model_id" ref="model_hr_mobile_sim_category"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="mobile_sim_manager_rule" model="ir.rule">
+        <field name="name">شرائح الجوال: الشركات المسموحة</field>
+        <field name="model_id" ref="model_hr_mobile_sim"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="mobile_sim_handover_manager_rule" model="ir.rule">
+        <field name="name">استلام الشرائح: الشركات المسموحة</field>
+        <field name="model_id" ref="model_hr_mobile_sim_handover"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="employee_information_report_manager_rule" model="ir.rule">
+        <field name="name">تقارير معلومات الموظفين: الشركات المسموحة</field>
+        <field name="model_id" ref="model_hr_employee_information_report"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="employee_warning_manager_rule" model="ir.rule">
+        <field name="name">إنذارات الموظفين: الشركات المسموحة</field>
+        <field name="model_id" ref="model_hr_employee_warning"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+    </record>
+    <record id="fleet_vehicle_forms_manager_rule" model="ir.rule">
+        <field name="name">سيارات نماذج الموظفين: الشركات المسموحة</field>
+        <field name="model_id" ref="fleet.model_fleet_vehicle"/>
+        <field name="domain_force">[('company_id', 'in', user.company_ids.ids + [False])]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="hr_leave_forms_manager_rule" model="ir.rule">
+        <field name="name">إجازات نماذج الموظفين: الشركات المسموحة</field>
+        <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+        <field name="domain_force">[('employee_id.company_id', 'in', user.company_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('eljohany_employee_forms.group_employee_forms_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+</odoo>

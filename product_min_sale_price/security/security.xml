@@ -1,0 +1,6 @@
+<odoo>
+    <record id="group_ignore_min_price_warning" model="res.groups">
+        <field name="name">Ignore Minimum Sale Price Warning</field>
+        <!-- <field name="category_id" ref="base.module_category_sales_management"/> -->
+    </record>
+</odoo>

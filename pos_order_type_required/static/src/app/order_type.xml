@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_order_type_required.OrderTypeButton">
+        <button
+            class="control-button btn btn-light rounded-0 fw-bolder"
+            t-att-class="{ 'text-primary': isSelected }"
+            t-on-click="onClick"
+        >
+            <i class="fa fa-cutlery me-1" role="img" aria-label="نوع الطلب"/>
+            <span t-esc="label"/>
+        </button>
+    </t>
+
+    <t
+        t-name="pos_order_type_required.ReceiptHeader"
+        t-inherit="point_of_sale.ReceiptHeader"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//img[contains(@class, 'pos-receipt-logo')]" position="attributes">
+            <attribute name="class" add="ej-pos-receipt-logo" separator=" "/>
+        </xpath>
+        <xpath
+            expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' pos-receipt-contact ')]"
+            position="replace"
+        >
+            <div class="pos-receipt-contact ej-pos-receipt-contact" dir="rtl">
+                <div
+                    class="ej-pos-company-name"
+                    t-esc="props.data.company.pos_receipt_use_alias &amp;&amp; props.data.company.pos_receipt_alias ? props.data.company.pos_receipt_alias : props.data.company.name"
+                />
+                <div
+                    t-if="props.data.company.street or props.data.company.street2 or props.data.company.city"
+                    class="ej-pos-company-address"
+                >
+                    <t t-if="props.data.company.city" t-esc="props.data.company.city"/>
+                    <t t-if="props.data.company.city and props.data.company.street"> | </t>
+                    <t t-if="props.data.company.street" t-esc="props.data.company.street"/>
+                    <t t-if="props.data.company.street2"> | <t t-esc="props.data.company.street2"/></t>
+                </div>
+                <div t-if="props.data.header" class="ej-pos-config-header" t-esc="props.data.header"/>
+                <div t-if="props.data.company.phone" class="ej-pos-company-phone">
+                    <span>رقم الجوال:</span>
+                    <span class="ej-pos-ltr" t-esc="props.data.company.phone"/>
+                </div>
+                <div t-if="props.data.company.vat" class="ej-pos-company-vat">
+                    <span>الرقم الضريبي:</span>
+                    <span class="ej-pos-ltr" t-esc="props.data.company.vat"/>
+                </div>
+                <div t-if="props.data.company.email" class="ej-pos-ltr" t-esc="props.data.company.email"/>
+                <div t-if="props.data.company.website" class="ej-pos-ltr" t-esc="props.data.company.website"/>
+                <div class="fw-bolder" t-if="props.data.trackingNumber and !props.data.bigTrackingNumber">
+                    <span class="fs-2" t-esc="props.data.trackingNumber"/>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+    <t
+        t-name="pos_order_type_required.OrderReceipt"
+        t-inherit="point_of_sale.OrderReceipt"
+        t-inherit-mode="extension"
+    >
+        <xpath
+            expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' pos-receipt ')]"
+            position="attributes"
+        >
+            <attribute name="class" add="ej-branded-pos-receipt" separator=" "/>
+        </xpath>
+
+        <xpath expr="//ReceiptHeader" position="after">
+            <div class="ej-pos-receipt-meta" dir="rtl">
+                <div class="ej-pos-meta-row">
+                    <span class="ej-pos-meta-label">رقم الإيصال:</span>
+                    <span class="ej-pos-meta-value ej-pos-ltr" t-esc="props.data.receipt_number"/>
+                </div>
+                <div class="ej-pos-meta-row">
+                    <span class="ej-pos-meta-label">التاريخ:</span>
+                    <span class="ej-pos-meta-value ej-pos-ltr" t-esc="props.data.date"/>
+                </div>
+                <div t-if="props.data.order_number" class="ej-pos-meta-row">
+                    <span class="ej-pos-meta-label">الطلب:</span>
+                    <span class="ej-pos-meta-value ej-pos-ltr" t-esc="props.data.order_number"/>
+                </div>
+                <div t-if="props.data.cashier" class="ej-pos-meta-row">
+                    <span class="ej-pos-meta-label">الموظف:</span>
+                    <span class="ej-pos-meta-value" t-esc="props.data.cashier"/>
+                </div>
+                <div t-if="props.data.pos_config_name" class="ej-pos-meta-row">
+                    <span class="ej-pos-meta-label">نقطة البيع:</span>
+                    <span class="ej-pos-meta-value" t-esc="props.data.pos_config_name"/>
+                </div>
+            </div>
+            <div class="ej-pos-separator"/>
+            <div
+                t-if="props.data.order_type"
+                class="pos-receipt-order-type ej-pos-order-type"
+                dir="rtl"
+            >
+                <span t-esc="props.data.order_type_label"/>
+                <span t-if="props.data.order_type_english_label"> | </span>
+                <span class="ej-pos-ltr" t-esc="props.data.order_type_english_label"/>
+            </div>
+            <div class="ej-pos-separator"/>
+        </xpath>
+
+        <xpath
+            expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' pos-receipt-amount ')][span[@t-esc='props.formatCurrency(props.data.amount_total)']]"
+            position="replace"
+        >
+            <div class="pos-receipt-amount ej-pos-total-row" dir="rtl">
+                <span class="ej-pos-total-label">الإجمالي</span>
+                <span
+                    t-esc="props.formatCurrency(props.data.amount_total)"
+                    class="ej-pos-total-value ej-pos-ltr"
+                />
+            </div>
+        </xpath>
+
+        <xpath
+            expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' receipt-change ')]"
+            position="replace"
+        >
+            <div
+                t-if="props.data.change"
+                class="pos-receipt-amount receipt-change ej-pos-summary-row"
+                dir="rtl"
+            >
+                <span>الباقي</span>
+                <span t-esc="props.formatCurrency(props.data.change)" class="ej-pos-ltr"/>
+            </div>
+        </xpath>
+
+        <xpath
+            expr="//div[@class='pos-receipt-right-align' and normalize-space()='--------']"
+            position="attributes"
+        >
+            <attribute name="class" add="ej-pos-legacy-total-separator" separator=" "/>
+        </xpath>
+
+        <xpath
+            expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' pos-receipt-order-data ')][p[normalize-space()='Powered by Odoo']]"
+            position="replace"
+        />
+    </t>
+
+    <t
+        t-name="pos_order_type_required.BilingualReceiptOrderline"
+        t-inherit="point_of_sale.Orderline"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//span[@t-esc='line.productName']" position="replace">
+            <t t-if="line.receiptNameAr or line.receiptNameEn">
+                <span
+                    t-if="line.receiptNameAr"
+                    class="text-wrap ej-pos-product-name-ar"
+                    dir="rtl"
+                    t-esc="line.receiptNameAr"
+                />
+                <span
+                    t-if="line.receiptNameEn"
+                    class="text-wrap ej-pos-product-name-en"
+                    dir="ltr"
+                    t-esc="line.receiptNameEn"
+                />
+            </t>
+            <span t-else="" class="text-wrap" t-esc="line.productName"/>
+        </xpath>
+    </t>
+
+    <t
+        t-name="pos_order_type_required.ActiveOrderReceiptPrinting"
+        t-inherit="point_of_sale.TicketScreen"
+        t-inherit-mode="extension"
+    >
+        <xpath
+            expr="//div[contains(@class, 'leftpane')]//div[@t-else and contains(@class, 'pads')]/button[contains(@class, 'load-order-button')]"
+            position="before"
+        >
+            <div class="ej-active-order-print-button w-100">
+                <ReprintReceiptButton order="_selectedSyncedOrder"/>
+            </div>
+        </xpath>
+    </t>
+</templates>

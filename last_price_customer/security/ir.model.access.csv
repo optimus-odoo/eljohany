@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_last_price_customer_last_price_customer,last_price_customer.last_price_customer,model_last_price_customer_last_price_customer,base.group_user,1,1,1,1

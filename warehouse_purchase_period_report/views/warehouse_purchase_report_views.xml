@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_warehouse_purchase_report_wizard_form" model="ir.ui.view">
+        <field name="name">warehouse.purchase.report.wizard.form</field>
+        <field name="model">warehouse.purchase.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Warehouse Movement by Period">
+                <group>
+                    <group>
+                        <field name="company_id" options="{'no_create': True}"/>
+                        <field name="warehouse_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="product_ids" widget="many2many_tags" options="{'no_create': True}" placeholder="All storable products"/>
+                </group>
+                <footer>
+                    <button name="action_generate" type="object" string="Generate Report" class="btn-primary"/>
+                    <button name="action_print_pdf" type="object" string="Print PDF" class="btn-secondary"/>
+                    <button name="action_export_xlsx" type="object" string="Export Excel" class="btn-secondary"/>
+                    <button string="Close" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_warehouse_purchase_report_line_tree" model="ir.ui.view">
+        <field name="name">warehouse.purchase.report.line.tree</field>
+        <field name="model">warehouse.purchase.report.line</field>
+        <field name="arch" type="xml">
+            <tree string="Warehouse Movement" create="false" edit="false" delete="false">
+                <field name="warehouse_id"/>
+                <field name="uom_id"/>
+                <field name="period_quantity"/>
+                <field name="average_cost"/>
+                <field name="total_value" sum="Grand Total"/>
+                <field name="cost_source" column_invisible="True"/>
+                <field name="estimated_cost" column_invisible="True"/>
+                <field name="currency_id" column_invisible="True"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_warehouse_purchase_report_wizard" model="ir.actions.act_window">
+        <field name="name">Warehouse Movement by Period</field>
+        <field name="res_model">warehouse.purchase.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="groups_id" eval="[(4, ref('stock.group_stock_manager'))]"/>
+    </record>
+
+    <record id="action_warehouse_purchase_report_lines" model="ir.actions.act_window">
+        <field name="name">Warehouse Movement</field>
+        <field name="res_model">warehouse.purchase.report.line</field>
+        <field name="view_mode">tree</field>
+        <field name="target">current</field>
+        <field name="groups_id" eval="[(4, ref('stock.group_stock_manager'))]"/>
+    </record>
+
+    <menuitem id="menu_warehouse_purchase_report"
+              name="Warehouse Period Movement Report"
+              parent="stock.menu_warehouse_report"
+              action="action_warehouse_purchase_report_wizard"
+              groups="stock.group_stock_manager"
+              sequence="81"/>
+</odoo>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fleet_vehicle_accident_view_tree" model="ir.ui.view">
+        <field name="name">fleet.vehicle.accident.tree</field>
+        <field name="model">fleet.vehicle.accident</field>
+        <field name="arch" type="xml">
+            <tree string="Vehicle Accidents">
+                <field name="name"/>
+                <field name="vehicle_id"/>
+                <field name="accident_date"/>
+                <field name="fault_percentage"/>
+                <field name="driver_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_accident_view_form" model="ir.ui.view">
+        <field name="name">fleet.vehicle.accident.form</field>
+        <field name="model">fleet.vehicle.accident</field>
+        <field name="arch" type="xml">
+            <form string="Vehicle Accident">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="vehicle_id"/>
+                            <field name="accident_date"/>
+                            <field name="fault_percentage"/>
+                        </group>
+                        <group>
+                            <field name="driver_id"/>
+                            <field name="driver_details"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <group string="Accident Files">
+                        <field name="attachment_ids" widget="many2many_binary" nolabel="1"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_accident_view_search" model="ir.ui.view">
+        <field name="name">fleet.vehicle.accident.search</field>
+        <field name="model">fleet.vehicle.accident</field>
+        <field name="arch" type="xml">
+            <search string="Vehicle Accidents">
+                <field name="name"/>
+                <field name="vehicle_id"/>
+                <field name="driver_id"/>
+                <filter string="Vehicle" name="group_by_vehicle" context="{'group_by': 'vehicle_id'}"/>
+                <filter string="Driver" name="group_by_driver" context="{'group_by': 'driver_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_fleet_vehicle_accident" model="ir.actions.act_window">
+        <field name="name">Vehicle Accidents</field>
+        <field name="res_model">fleet.vehicle.accident</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_fleet_vehicle_accident"
+        name="Vehicle Accidents"
+        parent="fleet.fleet_vehicles"
+        action="action_fleet_vehicle_accident"
+        sequence="35"/>
+</odoo>

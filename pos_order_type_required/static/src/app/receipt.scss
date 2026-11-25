@@ -1,0 +1,207 @@
+.ej-branded-pos-receipt {
+    color: #000;
+    direction: rtl;
+    font-family: Arial, "Noto Sans Arabic", sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: right;
+
+    .ej-pos-ltr {
+        direction: ltr;
+        display: inline-block;
+        unicode-bidi: isolate;
+    }
+
+    .ej-pos-receipt-logo {
+        max-height: 115px;
+        max-width: 72%;
+        object-fit: contain;
+        width: auto;
+    }
+
+    .ej-pos-receipt-contact {
+        font-size: 13px;
+        line-height: 1.5;
+        text-align: center;
+
+        .ej-pos-company-name {
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 7px;
+        }
+
+        .ej-pos-config-header {
+            font-weight: 600;
+            margin: 4px 0;
+            white-space: pre-line;
+        }
+
+        .ej-pos-company-phone,
+        .ej-pos-company-vat {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+        }
+    }
+
+    .ej-pos-receipt-meta {
+        margin: 0 0 7px;
+    }
+
+    .ej-pos-meta-row {
+        align-items: baseline;
+        display: flex;
+        gap: 5px;
+        justify-content: flex-start;
+        min-width: 0;
+    }
+
+    .ej-pos-meta-label {
+        flex: 0 0 auto;
+        font-weight: 700;
+    }
+
+    .ej-pos-meta-value {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .ej-pos-separator {
+        border-top: 1px dashed #000;
+        height: 0;
+        margin: 7px 0;
+        width: 100%;
+    }
+
+    .ej-pos-order-type {
+        font-size: 16px;
+        font-weight: 700;
+        padding: 2px 0;
+        text-align: center;
+    }
+
+    .order-container {
+        background: transparent !important;
+        overflow: visible !important;
+    }
+
+    .orderlines {
+        direction: rtl !important;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .orderline {
+        border-bottom: 1px dashed #000;
+        cursor: default !important;
+        padding: 7px 0 !important;
+
+        .product-name {
+            font-weight: 700 !important;
+            overflow: visible;
+            padding-left: 7px;
+            padding-right: 0 !important;
+            text-align: right;
+            text-overflow: clip;
+            white-space: normal;
+        }
+
+        .ej-pos-product-name-ar,
+        .ej-pos-product-name-en {
+            display: block;
+            overflow-wrap: anywhere;
+            white-space: normal;
+        }
+
+        .ej-pos-product-name-ar {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .ej-pos-product-name-en {
+            direction: ltr;
+            font-size: 0.92em;
+            font-weight: 600;
+            margin-top: 1px;
+            text-align: right;
+            unicode-bidi: isolate;
+        }
+
+        .product-price {
+            direction: ltr;
+            flex: 0 0 auto;
+            font-weight: 700 !important;
+            text-align: left !important;
+            unicode-bidi: isolate;
+            white-space: nowrap;
+        }
+
+        .info-list {
+            list-style: none;
+            margin: 3px 0 0 !important;
+            padding: 0 !important;
+            text-align: right;
+        }
+
+        .price-per-unit {
+            direction: ltr;
+            text-align: right;
+            unicode-bidi: isolate;
+        }
+    }
+
+    .ej-pos-legacy-total-separator {
+        display: none;
+    }
+
+    .ej-pos-total-row {
+        align-items: baseline;
+        border-bottom: 1px dashed #000;
+        display: flex;
+        font-size: 20px;
+        font-weight: 800;
+        justify-content: space-between;
+        padding: 8px 0 !important;
+    }
+
+    .ej-pos-total-value {
+        font-size: 21px;
+    }
+
+    .paymentlines,
+    .ej-pos-summary-row {
+        align-items: baseline;
+        display: flex;
+        justify-content: space-between;
+        padding: 3px 0 !important;
+    }
+
+    .paymentlines .pos-receipt-right-align {
+        float: none;
+        margin-inline-start: auto;
+    }
+
+    .pos-receipt-taxes {
+        border-top: 1px dashed #000;
+        direction: rtl;
+        margin-top: 6px;
+        padding-top: 6px;
+    }
+
+    .pos-receipt-qrcode {
+        max-height: 180px;
+        max-width: 180px;
+    }
+}
+
+.ej-active-order-print-button {
+    .control-button {
+        align-items: center;
+        display: flex;
+        font-size: 1.35rem;
+        justify-content: center;
+        min-height: 64px;
+        width: 100%;
+    }
+}

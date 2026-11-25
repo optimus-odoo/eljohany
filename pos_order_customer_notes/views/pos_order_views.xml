@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_pos_order_form_customer_notes" model="ir.ui.view">
+        <field name="name">pos.order.form.customer.notes</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lines']/tree/field[@name='full_product_name']" position="after">
+                <field name="customer_note" string="Customer Note" optional="show" readonly="1"/>
+            </xpath>
+            <xpath expr="//notebook" position="before">
+                <group string="Customer Notes" invisible="not customer_notes_summary">
+                    <field name="customer_notes_summary" nolabel="1" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_pos_order_tree_customer_notes" model="ir.ui.view">
+        <field name="name">pos.order.tree.customer.notes</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pos_reference']" position="after">
+                <field name="customer_notes_list" string="Customer Notes" optional="show" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

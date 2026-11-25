@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_form_attendance_api" model="ir.ui.view">
+        <field name="name">hr.employee.form.attendance.api</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Attendance API" name="attendance_api" groups="hr_management_attend_api.group_attendance_api_admin">
+                    <group>
+                        <group>
+                            <field name="api_access_enabled"/>
+                            <field name="api_branch_id"/>
+                            <field name="api_employee_number"/>
+                            <field name="api_external_id" groups="base.group_system"/>
+                            <field name="api_hire_date"/>
+                        </group>
+                        <group>
+                            <field name="api_credential_ids" readonly="1">
+                                <tree create="0" delete="0" edit="0">
+                                    <field name="login"/>
+                                    <field name="active"/>
+                                    <field name="last_login_at"/>
+                                    <field name="locked_until"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

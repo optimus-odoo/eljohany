@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_partner_account_audit_wizard_manager,partner.account.audit.wizard manager,model_partner_account_audit_wizard,account.group_account_manager,1,1,1,1
+access_partner_account_audit_line_manager,partner.account.audit.line manager,model_partner_account_audit_line,account.group_account_manager,1,1,1,1

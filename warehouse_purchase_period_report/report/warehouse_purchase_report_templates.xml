@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_warehouse_purchase_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="wizard">
+                <t t-call="web.external_layout">
+                    <div class="page" dir="rtl">
+                        <h2 class="text-center">حركة المستودعات خلال الفترة</h2>
+                        <div class="row mb-3">
+                            <div class="col-4"><strong>الشركة:</strong> <span t-field="wizard.company_id"/></div>
+                            <div class="col-4"><strong>من تاريخ:</strong> <span t-field="wizard.date_from"/></div>
+                            <div class="col-4"><strong>إلى تاريخ:</strong> <span t-field="wizard.date_to"/></div>
+                        </div>
+                        <div class="mb-3">
+                            <strong>المستودعات:</strong>
+                            <span t-esc="', '.join(wizard.warehouse_ids.mapped('display_name'))"/>
+                        </div>
+                        <table class="table table-sm table-bordered" style="font-size: 11px;">
+                            <thead>
+                                <tr>
+                                    <th>المستودع</th>
+                                    <th>وحدة القياس</th>
+                                    <th class="text-end">الكمية</th>
+                                    <th class="text-end">متوسط التكلفة</th>
+                                    <th class="text-end">الإجمالي</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="wizard.line_ids" t-as="line">
+                                    <tr>
+                                        <td><span t-field="line.warehouse_id"/></td>
+                                        <td><span t-field="line.uom_id"/></td>
+                                        <td class="text-end"><span t-field="line.period_quantity"/></td>
+                                        <td class="text-end"><span t-field="line.average_cost" t-options="{'widget': 'monetary', 'display_currency': wizard.currency_id}"/></td>
+                                        <td class="text-end"><span t-field="line.total_value" t-options="{'widget': 'monetary', 'display_currency': wizard.currency_id}"/></td>
+                                    </tr>
+                                </t>
+                                <tr t-if="not wizard.line_ids">
+                                    <td colspan="5" class="text-center">لا توجد حركات مشتريات أو مبيعات مكتملة ضمن الفترة المحددة.</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4">المحصلة النهائية</th>
+                                    <th class="text-end"><span t-field="wizard.total_value" t-options="{'widget': 'monetary', 'display_currency': wizard.currency_id}"/></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <p class="text-muted" style="font-size: 10px;">
+                            الكمية = رصيد أول المدة + المشتريات − المبيعات + مرتجعات المبيعات − مردودات المشتريات حتى نهاية الفترة. متوسط التكلفة = (قيمة مخزون أول المدة + صافي قيمة المشتريات خلال الفترة) ÷ (كمية مخزون أول المدة + صافي الكمية المستلمة خلال الفترة).
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

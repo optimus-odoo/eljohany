@@ -1,0 +1,7 @@
+<odoo>
+    <record id="mail_activity_type_record_expiry" model="mail.activity.type">
+        <field name="name">انتهاء صلاحية سجل</field>
+        <field name="summary">مراجعة سجل شركة أوشك على الانتهاء</field>
+        <field name="category">default</field>
+    </record>
+</odoo>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_slow_moving_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="wizard">
+                <t t-call="web.external_layout">
+                    <div class="page" dir="rtl">
+                        <h2 class="text-center">تقرير المنتجات الراكدة</h2>
+                        <div class="row mb-3">
+                            <div class="col-3"><strong>الشركة:</strong> <span t-field="wizard.company_id"/></div>
+                            <div class="col-3"><strong>تاريخ التقرير:</strong> <span t-field="wizard.report_date"/></div>
+                            <div class="col-3"><strong>مدة الركود:</strong> <span t-field="wizard.inactivity_days"/> يومًا</div>
+                            <div class="col-3"><strong>عدد المنتجات:</strong> <span t-esc="len(lines)"/></div>
+                        </div>
+                        <div class="mb-2">
+                            <strong>إجمالي قيمة المخزون الراكد:</strong>
+                            <span t-esc="formatLang(total_value, currency_obj=wizard.company_id.currency_id)"/>
+                        </div>
+                        <div class="mb-2" style="font-size: 10px;">
+                            <strong>الفروع:</strong>
+                            <span t-esc="', '.join(wizard.branch_ids.mapped('display_name')) or 'جميع الفروع'"/>
+                            |
+                            <strong>المواقع:</strong>
+                            <span t-esc="', '.join(wizard.location_ids.mapped('display_name'))"/>
+                            |
+                            <strong>فترة المبيعات:</strong>
+                            <span t-field="wizard.sales_date_from"/> إلى <span t-field="wizard.sales_date_to"/>
+                        </div>
+                        <table class="table table-sm table-bordered" style="font-size: 9px;">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>الكود</th>
+                                    <th>المنتج</th>
+                                    <th>الفئة</th>
+                                    <th>المورد</th>
+                                    <th>الكمية</th>
+                                    <th>المباع</th>
+                                    <th>المرتجع</th>
+                                    <th>صافي كمية المبيعات</th>
+                                    <th>التكلفة</th>
+                                    <th>القيمة</th>
+                                    <th>آخر دخول</th>
+                                    <th>آخر تسليم</th>
+                                    <th>أيام الركود</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="lines" t-as="line">
+                                    <td><span t-field="line.default_code"/></td>
+                                    <td><span t-field="line.product_name"/></td>
+                                    <td><span t-field="line.category_name"/></td>
+                                    <td><span t-field="line.vendor_name"/></td>
+                                    <td class="text-end"><span t-field="line.qty_on_hand"/></td>
+                                    <td class="text-end"><span t-field="line.qty_delivered_period"/></td>
+                                    <td class="text-end"><span t-field="line.qty_returned_period"/></td>
+                                    <td class="text-end"><span t-field="line.net_qty_sold_period"/></td>
+                                    <td class="text-end"><span t-field="line.unit_cost"/></td>
+                                    <td class="text-end"><span t-field="line.stock_value"/></td>
+                                    <td class="text-center"><span t-field="line.last_receipt_date"/></td>
+                                    <td class="text-center">
+                                        <span t-if="line.last_delivery_date" t-field="line.last_delivery_date"/>
+                                        <span t-else="">لم يحدث</span>
+                                    </td>
+                                    <td class="text-center"><span t-field="line.days_inactive"/></td>
+                                    <td class="text-center"><span t-field="line.status"/></td>
+                                </tr>
+                                <tr t-if="not lines">
+                                    <td colspan="14" class="text-center">لا توجد منتجات راكدة وفق المحددات المختارة.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,118 @@
+<templates xml:space="preserve">
+<t t-name="company_records_management.RecordsDashboard">
+    <div class="o_crm_workspace" dir="rtl">
+        <header class="o_crm_workspace_header">
+            <div><h1>ملف الشركة</h1><p class="text-muted mb-0">الشركات والفروع وجميع المستندات في مكان واحد</p></div>
+            <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-outline-secondary" t-on-click="addCompany"><i class="fa fa-plus me-1"/> إضافة شركة</button>
+                <button t-if="state.canAudit" class="btn btn-outline-secondary" t-on-click="openAudit">سجل التدقيق</button>
+            </div>
+        </header>
+        <section class="o_crm_selectors" aria-label="اختيار الشركة والفرع">
+            <div class="o_crm_selector">
+                <label for="crm_workspace_company">الشركة</label>
+                <select id="crm_workspace_company" class="form-select" t-on-change="changeCompany" t-att-disabled="state.loading">
+                    <option t-if="!state.companies.length" value="">أضف شركتك للبدء</option>
+                    <option t-foreach="state.companies" t-as="company" t-key="company.id" t-att-value="company.id" t-att-selected="company.id === state.companyId"><t t-esc="company.name"/></option>
+                </select>
+                <button t-if="state.companyId" class="btn btn-link px-0" t-on-click="editCompany">تعديل بيانات الشركة</button>
+            </div>
+            <div class="o_crm_selector">
+                <label for="crm_workspace_branch">الفرع</label>
+                <select id="crm_workspace_branch" class="form-select" t-on-change="changeBranch" t-att-disabled="!state.companyId || state.loading">
+                    <option value="" t-att-selected="!state.branchId">جميع الفروع</option>
+                    <option t-foreach="state.branches" t-as="branch" t-key="branch.id" t-att-value="branch.id" t-att-selected="branch.id === state.branchId"><t t-esc="branch.name"/></option>
+                </select>
+                <div t-if="state.companyId" class="d-flex gap-3">
+                    <button class="btn btn-link px-0" t-on-click="addBranch">إضافة فرع</button>
+                    <button t-if="state.branchId" class="btn btn-link px-0" t-on-click="editBranch">تعديل الفرع</button>
+                </div>
+            </div>
+            <div t-if="state.companyId" class="o_crm_reports d-flex flex-wrap gap-2 align-self-center">
+                <button class="btn btn-outline-primary" t-on-click="exportExcel"><i class="fa fa-file-excel-o me-1"/> تصدير Excel</button>
+                <button class="btn btn-outline-primary" t-on-click="printCompany"><i class="fa fa-print me-1"/> تقرير الشركة PDF</button>
+                <button class="btn btn-primary" t-on-click="testNotification" t-att-disabled="state.testingNotification">
+                    <i class="fa fa-bell-o me-1"/>
+                    <t t-if="state.testingNotification">جارٍ إرسال الاختبار...</t>
+                    <t t-else="">اختبار الإشعار</t>
+                </button>
+                <button t-if="state.canManage" class="btn btn-outline-danger" t-on-click="sendCurrentNotifications" t-att-disabled="state.sendingCurrentNotifications">
+                    <i class="fa fa-bell me-1"/>
+                    <t t-if="state.sendingCurrentNotifications">جارٍ إرسال التنبيهات...</t>
+                    <t t-else="">إرسال تنبيهات المنتهية والقريبة</t>
+                </button>
+            </div>
+        </section>
+        <div t-if="state.error" class="alert alert-danger" role="alert">تعذر تحميل البيانات. <button class="btn btn-link" t-on-click="() => this.refreshCompanies()">إعادة المحاولة</button></div>
+        <div t-if="!state.companyId and !state.loading" class="o_crm_empty">
+            <i class="fa fa-building-o fa-3x text-muted mb-3"/>
+            <h2>ابدأ بإضافة الشركة</h2><p>ثم أضف الفروع والمستندات من هذه الشاشة.</p>
+            <button class="btn btn-primary" t-on-click="addCompany">إضافة أول شركة</button>
+        </div>
+        <t t-if="state.companyId">
+            <nav class="o_crm_tabs" role="tablist" aria-label="أقسام ملف الشركة">
+                <button id="crm_tab_overview" role="tab" t-att-aria-selected="state.tab === 'overview' ? 'true' : 'false'" aria-controls="crm_workspace_panel" t-att-class="'o_crm_tab ' + (state.tab === 'overview' ? 'active' : '')" t-on-click="() => this.selectTab('overview')">نظرة عامة</button>
+                <button t-foreach="sections" t-as="tab" t-key="tab.id" t-att-id="'crm_tab_' + tab.id" role="tab" t-att-aria-selected="state.tab === tab.id ? 'true' : 'false'" aria-controls="crm_workspace_panel" t-att-class="'o_crm_tab ' + (state.tab === tab.id ? 'active' : '')" t-on-click="() => this.selectTab(tab.id)"><t t-esc="tab.label"/></button>
+            </nav>
+            <section id="crm_workspace_panel" class="o_crm_panel" role="tabpanel" t-att-aria-labelledby="'crm_tab_' + state.tab" t-att-aria-busy="state.loading ? 'true' : 'false'">
+                <div t-if="state.loading" class="o_crm_empty" role="status">جاري التحميل...</div>
+                <t t-elif="state.tab === 'overview'">
+                    <h2 class="h4 mb-2">متابعة المستندات</h2>
+                    <p class="text-muted">الأعداد تخص الشركة والفرع المحددين. اختر بطاقة لعرض المستندات.</p>
+                    <div class="o_crm_summary">
+                        <button t-foreach="state.summary" t-as="card" t-key="card.label" class="o_crm_summary_card" t-on-click="() => this.selectTab(['registrations', 'municipality', 'civil', 'leases'][card_index])">
+                            <span class="fw-bold"><t t-esc="card.label"/></span>
+                            <strong class="o_crm_total"><t t-esc="card.total"/></strong>
+                            <span class="text-muted">إجمالي المستندات</span>
+                            <span class="o_crm_counts"><span>خلال 90 يوم: <b><t t-esc="card.soon"/></b></span><span class="text-danger">منتهية: <b><t t-esc="card.expired"/></b></span></span>
+                        </button>
+                    </div>
+                    <h3 class="h5 mt-4 mb-2">التنبيهات والتواريخ القريبة</h3>
+                    <p class="text-muted">مرتبة حسب تاريخ الانتهاء، وتشمل المستندات المنتهية وما سينتهي خلال 90 يومًا.</p>
+                    <div t-if="!state.alerts.length" class="alert alert-success py-2">لا توجد مستندات منتهية أو قريبة الانتهاء ضمن الاختيار الحالي.</div>
+                    <div t-else="" class="table-responsive">
+                        <table class="table table-hover align-middle o_crm_records_table">
+                            <thead><tr><th>نوع السجل</th><th>السجل</th><th>الشركة / الفرع</th><th>تاريخ الانتهاء</th><th>الحالة</th><th>الإجراء</th></tr></thead>
+                            <tbody><tr t-foreach="state.alerts" t-as="alert" t-key="alert.model + '-' + alert.record_id">
+                                <td><t t-esc="alert.record_type"/></td>
+                                <td><t t-esc="alert.record_name"/></td>
+                                <td><t t-esc="alert.company_name"/><t t-if="alert.branch_name"> — <t t-esc="alert.branch_name"/></t></td>
+                                <td class="fw-bold"><t t-esc="alert.expiry_date"/></td>
+                                <td t-att-class="alert.days_remaining &lt; 0 ? 'text-danger fw-bold' : (alert.days_remaining &lt;= 30 ? 'text-warning fw-bold' : '')"><t t-esc="alertStatus(alert)"/></td>
+                                <td><button class="btn btn-sm btn-outline-primary" t-on-click="() => this.openAlert(alert)">فتح السجل</button></td>
+                            </tr></tbody>
+                        </table>
+                    </div>
+                    <p class="text-muted mt-4 mb-0">لإضافة مستند: اختر الفرع، ثم نوع المستند من التبويبات أعلاه، واضغط «إضافة».</p>
+                </t>
+                <t t-else="">
+                    <div class="o_crm_table_toolbar">
+                        <div><h2 class="h4 mb-1"><t t-esc="section.label"/></h2><span class="text-muted"><t t-esc="companyName"/><t t-if="state.tab === 'partners'"> — جميع شركاء الشركة</t></span></div>
+                        <form class="d-flex gap-2" t-on-submit="search">
+                            <input type="search" class="form-control" placeholder="بحث بالاسم أو الرقم" aria-label="بحث بالاسم أو الرقم" t-model="state.search"/>
+                            <button type="submit" class="btn btn-outline-secondary">بحث</button>
+                        </form>
+                        <button class="btn btn-primary o_crm_add_record" t-att-disabled="needsBranch" t-on-click="addRecord"><i class="fa fa-plus me-1"/> إضافة</button>
+                    </div>
+                    <p t-if="needsBranch" class="alert alert-info py-2">اختر الفرع من أعلى الشاشة لإضافة مستند جديد.<t t-if="!state.branches.length"> ابدأ بضغط «إضافة فرع».</t></p>
+                    <div t-if="!state.rows.length" class="o_crm_empty"><h3 class="h5">لا توجد سجلات لعرضها</h3><p class="text-muted mb-0">أضف سجلاً جديداً أو غيّر اختيار الفرع أو كلمات البحث.</p></div>
+                    <div t-else="" class="table-responsive">
+                        <table class="table table-hover align-middle o_crm_records_table">
+                            <thead><tr><th t-foreach="section.columns" t-as="column" t-key="column[0]" scope="col"><t t-esc="column[1]"/></th><th scope="col">الإجراء</th></tr></thead>
+                            <tbody><tr t-foreach="state.rows" t-as="row" t-key="row.id">
+                                <td t-foreach="section.columns" t-as="column" t-key="column[0]"><t t-esc="cell(row, column[0])"/></td>
+                                <td><button class="btn btn-sm btn-outline-primary o_crm_open_record" t-on-click="() => this.openRecord(row)">عرض / تعديل</button></td>
+                            </tr></tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-end align-items-center gap-3 mt-3" t-if="state.offset || state.hasMore">
+                        <button class="btn btn-outline-secondary" t-att-disabled="!state.offset" t-on-click="() => this.page(-1)">السابق</button>
+                        <span><t t-esc="state.offset + 1"/> – <t t-esc="state.offset + state.rows.length"/></span>
+                        <button class="btn btn-outline-secondary" t-att-disabled="!state.hasMore" t-on-click="() => this.page(1)">التالي</button>
+                    </div>
+                </t>
+            </section>
+        </t>
+    </div>
+</t>
+</templates>
